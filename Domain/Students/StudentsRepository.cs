@@ -40,7 +40,7 @@ namespace Domain.Students
         {
             using (var db = new TeachContext())
             {
-                return db.Students;
+                return db.Students.ToList();
             }
         }
     }

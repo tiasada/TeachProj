@@ -28,7 +28,7 @@ namespace Domain.Users
         {
             using (var db = new TeachContext())
             {
-                return db.Users;
+                return db.Users.ToList();
             }
         }
     }
