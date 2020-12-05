@@ -7,11 +7,11 @@ namespace Domain.Students
 {
     class StudentsRepository
     {
-        public void Add(Student player)
+        public void Add(Student student)
         {
             using (var db = new TeachContext())
             {
-                db.Students.Add(player);
+                db.Students.Add(student);
                 db.SaveChanges();
             }
         }
@@ -20,9 +20,24 @@ namespace Domain.Students
         {
             using (var db = new TeachContext())
             {
-                var player = db.Students.FirstOrDefault(x => x.Id == id);
-                if (player == null) {return null;}
-                db.Students.Remove(player);
+                var student = db.Students.FirstOrDefault(x => x.Id == id);
+                if (student == null) {return null;}
+                db.Students.Remove(student);
+                db.SaveChanges();
+                return id;
+            }
+        }
+
+        public Guid? AddClass(Guid id, Guid classId)
+        {
+            using (var db = new TeachContext())
+            {
+                var student = db.Students.FirstOrDefault(x => x.Id == id);
+                if (student == null) {return null;}
+                
+                db.Students.Remove(student);
+                student.ClassIds.Add(classId);
+                db.Students.Add(student);
                 db.SaveChanges();
                 return id;
             }

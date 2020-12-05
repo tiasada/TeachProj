@@ -4,35 +4,22 @@ using Domain.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Domain.Migrations
 {
     [DbContext(typeof(TeachContext))]
-    partial class TeachContextModelSnapshot : ModelSnapshot
+    [Migration("20201204230224_Classroom")]
+    partial class Classroom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
-
-            modelBuilder.Entity("ClassroomStudent", b =>
-                {
-                    b.Property<Guid>("ClassroomsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("StudentsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ClassroomsId", "StudentsId");
-
-                    b.HasIndex("StudentsId");
-
-                    b.ToTable("ClassroomStudent");
-                });
 
             modelBuilder.Entity("Domain.Classrooms.Classroom", b =>
                 {
@@ -61,12 +48,17 @@ namespace Domain.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
+                    b.Property<Guid>("ClassroomID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClassroomID");
 
                     b.ToTable("Students");
                 });
@@ -95,19 +87,20 @@ namespace Domain.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ClassroomStudent", b =>
+            modelBuilder.Entity("Domain.Students.Student", b =>
                 {
-                    b.HasOne("Domain.Classrooms.Classroom", null)
-                        .WithMany()
-                        .HasForeignKey("ClassroomsId")
+                    b.HasOne("Domain.Classrooms.Classroom", "Classroom")
+                        .WithMany("Students")
+                        .HasForeignKey("ClassroomID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Students.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Classroom");
+                });
+
+            modelBuilder.Entity("Domain.Classrooms.Classroom", b =>
+                {
+                    b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
         }

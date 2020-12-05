@@ -1,12 +1,12 @@
-using Domain.Students;
+using Domain.Classrooms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Domain.Infra
 {
-    public class StudentMapping : IEntityTypeConfiguration<Student>
+    public class ClassroomMapping : IEntityTypeConfiguration<Classroom>
     {
-        public void Configure(EntityTypeBuilder<Student> builder)
+        public void Configure(EntityTypeBuilder<Classroom> builder)
         {
             builder.Property(s => s.Id)
                 .IsRequired();
@@ -14,12 +14,6 @@ namespace Domain.Infra
             builder.Property(s => s.Name)
                 .IsRequired()
                 .HasMaxLength(100);
-
-            builder.Property(s => s.CPF)
-                .IsRequired()
-                .HasMaxLength(11);
-
-            builder.Ignore(s => s.ClassIds);
         }
     }
 }
