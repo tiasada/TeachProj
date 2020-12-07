@@ -19,21 +19,6 @@ namespace Domain.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("ClassroomStudent", b =>
-                {
-                    b.Property<Guid>("ClassroomsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("StudentsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ClassroomsId", "StudentsId");
-
-                    b.HasIndex("StudentsId");
-
-                    b.ToTable("ClassroomStudent");
-                });
-
             modelBuilder.Entity("Domain.Classrooms.Classroom", b =>
                 {
                     b.Property<Guid>("Id")
@@ -48,6 +33,21 @@ namespace Domain.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Classrooms");
+                });
+
+            modelBuilder.Entity("Domain.StudentClassrooms.StudentClassroom", b =>
+                {
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ClassroomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("StudentId", "ClassroomId");
+
+                    b.HasIndex("ClassroomId");
+
+                    b.ToTable("StudentClassrooms");
                 });
 
             modelBuilder.Entity("Domain.Students.Student", b =>
@@ -95,19 +95,33 @@ namespace Domain.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ClassroomStudent", b =>
+            modelBuilder.Entity("Domain.StudentClassrooms.StudentClassroom", b =>
                 {
-                    b.HasOne("Domain.Classrooms.Classroom", null)
-                        .WithMany()
-                        .HasForeignKey("ClassroomsId")
+                    b.HasOne("Domain.Classrooms.Classroom", "Classroom")
+                        .WithMany("StudentClassrooms")
+                        .HasForeignKey("ClassroomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Students.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsId")
+                    b.HasOne("Domain.Students.Student", "Student")
+                        .WithMany("StudentClassrooms")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Classroom");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("Domain.Classrooms.Classroom", b =>
+                {
+                    b.Navigation("StudentClassrooms");
+                });
+
+            modelBuilder.Entity("Domain.Students.Student", b =>
+                {
+                    b.Navigation("StudentClassrooms");
                 });
 #pragma warning restore 612, 618
         }

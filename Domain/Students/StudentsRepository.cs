@@ -35,9 +35,7 @@ namespace Domain.Students
                 var student = db.Students.FirstOrDefault(x => x.Id == id);
                 if (student == null) {return null;}
                 
-                db.Students.Remove(student);
-                student.ClassIds.Add(classId);
-                db.Students.Add(student);
+                db.StudentClassrooms.Add(new StudentClassrooms.StudentClassroom {StudentId = id, ClassroomId = classId});
                 db.SaveChanges();
                 return id;
             }
