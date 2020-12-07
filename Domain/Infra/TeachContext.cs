@@ -1,6 +1,7 @@
 using System.Reflection;
 using Domain.Classrooms;
 using Domain.Students;
+using Domain.Teachers;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ namespace Domain.Infra
         public DbSet<User> Users { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Classroom> Classrooms { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

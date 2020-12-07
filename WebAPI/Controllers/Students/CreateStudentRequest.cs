@@ -1,9 +1,6 @@
-using System;
-using Domain.Users;
-
-namespace WebAPI.Controllers.Students
+namespace WebAPI.Controllers.Teachers
 {
-    public class CreateStudentRequest
+    public class CreateTeacherRequest
     {
         public string Name { get; set; }
         public string CPF { get; set; }
