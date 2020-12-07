@@ -47,39 +47,39 @@ namespace Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentClassrooms",
+                name: "ClassroomStudent",
                 columns: table => new
                 {
-                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ClassroomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ClassroomsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentClassrooms", x => new { x.StudentId, x.ClassroomId });
+                    table.PrimaryKey("PK_ClassroomStudent", x => new { x.ClassroomsId, x.StudentsId });
                     table.ForeignKey(
-                        name: "FK_StudentClassrooms_Classrooms_ClassroomId",
-                        column: x => x.ClassroomId,
+                        name: "FK_ClassroomStudent_Classrooms_ClassroomsId",
+                        column: x => x.ClassroomsId,
                         principalTable: "Classrooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StudentClassrooms_Students_StudentId",
-                        column: x => x.StudentId,
+                        name: "FK_ClassroomStudent_Students_StudentsId",
+                        column: x => x.StudentsId,
                         principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentClassrooms_ClassroomId",
-                table: "StudentClassrooms",
-                column: "ClassroomId");
+                name: "IX_ClassroomStudent_StudentsId",
+                table: "ClassroomStudent",
+                column: "StudentsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "StudentClassrooms");
+                name: "ClassroomStudent");
 
             migrationBuilder.DropTable(
                 name: "Users");

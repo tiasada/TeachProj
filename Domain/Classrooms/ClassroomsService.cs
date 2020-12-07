@@ -7,12 +7,18 @@ namespace Domain.Classrooms
     {
         private readonly ClassroomsRepository _classroomsRepository = new ClassroomsRepository();
         
-        public Guid Create(string name)
+        public CreatedClassroomDTO Create(string name)
         {
             var classroom = new Classroom(name);
+            // var classroomVal = classroom.Validate();
 
+            // if (!classroomVal.isValid)
+            // {
+            //     return new CreatedClassroomDTO(classroomVal.errors);
+            // }
+            
             _classroomsRepository.Add(classroom);
-            return classroom.Id;
+            return new CreatedClassroomDTO(classroom.Id);
         }
 
         public Guid? Remove(Guid id)

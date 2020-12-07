@@ -1,12 +1,12 @@
 using System.Collections.Generic;
+using Domain.Classrooms;
 using Domain.People;
-using Domain.StudentClassrooms;
 
 namespace Domain.Students
 {
     public class Student : Person
     {
-        public IList<StudentClassroom> StudentClassrooms { get; set; }
+        public virtual IList<Classroom> Classrooms { get; set; } = new List<Classroom>();
         
         public Student(string name, string cpf) : base(name, cpf)
         {}

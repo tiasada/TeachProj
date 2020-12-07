@@ -28,7 +28,7 @@ namespace Domain.Students
             return _studentsRepository.Remove(id);
         }
 
-        public Guid? AddClass(Guid id, Guid classId)
+        public string AddClass(Guid id, Guid classId)
         {
             if (_classroomsService.GetByID(classId) == null)
             {

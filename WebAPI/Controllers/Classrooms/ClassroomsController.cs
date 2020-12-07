@@ -2,26 +2,26 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Domain.Students;
+using Domain.Classrooms;
 using Domain.Users;
 using Microsoft.Extensions.Primitives;
 
-namespace WebAPI.Controllers.Students
+namespace WebAPI.Controllers.Classrooms
 {
     [ApiController]
     [Route("[controller]")]
-    public class StudentsController : ControllerBase
+    public class ClassroomsController : ControllerBase
     {
-        public readonly StudentsService _studentsService;
+        public readonly ClassroomsService _classroomsService;
         public readonly UsersService _usersService;
-        public StudentsController()
+        public ClassroomsController()
         {
-            _studentsService = new StudentsService();
+            _classroomsService = new ClassroomsService();
             _usersService = new UsersService();
         }
         
         [HttpPost]
-        public IActionResult Post(CreateStudentRequest request)
+        public IActionResult Post(CreateClassroomRequest request)
         {
             StringValues headerId;
             var foundId = Request.Headers.TryGetValue("UserId", out headerId);
@@ -42,7 +42,7 @@ namespace WebAPI.Controllers.Students
                 return StatusCode(403, "User is not Admin");
             }
 
-            var response = _studentsService.Create(request.Name, request.CPF);
+            var response = _classroomsService.Create(request.Name);
 
             if (!response.IsValid)
             {
@@ -74,43 +74,11 @@ namespace WebAPI.Controllers.Students
                 return StatusCode(403, "User is not Admin");
             }
 
-            var studentRemoved = _studentsService.Remove(id);
+            var classroomRemoved = _classroomsService.Remove(id);
 
-            if (studentRemoved == null)
+            if (classroomRemoved == null)
             {
                 return NotFound();
-            }
-
-            return NoContent();
-        }
-
-        [HttpPatch("{id}/add/{classId}")]
-        public IActionResult AddClass(Guid id, Guid classId)
-        {
-            StringValues headerId;
-            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
-            if (!foundId) { return Unauthorized("User ID must be informed"); }
-
-            var validId = Guid.TryParse(headerId, out var userId);
-            if (!validId) { return Unauthorized("Invalid ID"); }
-
-            var user = _usersService.GetByID(userId);
-
-            if (user == null)
-            {
-                return Unauthorized();
-            }
-
-            if (user.Profile != Profile.Admin)
-            {
-                return StatusCode(403, "User is not Admin");
-            }
-
-            var studentAdded = _studentsService.AddClass(id, classId);
-
-            if (studentAdded != null)
-            {
-                return BadRequest(studentAdded);
             }
 
             return NoContent();
@@ -119,20 +87,20 @@ namespace WebAPI.Controllers.Students
         [HttpGet("{id}")]
         public IActionResult GetByID(Guid id)
         {
-            var student = _studentsService.GetByID(id);
+            var classroom = _classroomsService.GetByID(id);
 
-            if (student == null)
+            if (classroom == null)
             {
                 return NotFound();
             }
 
-            return Ok(student);
+            return Ok(classroom);
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_studentsService.GetAll());
+            return Ok(_classroomsService.GetAll());
         }
     }
 }
