@@ -7,10 +7,12 @@ namespace Domain.Users
     public class User : Person
     {
         public Profile Profile { get; protected set; }
+        public string Password { get; protected set; }
 
-        public User(string name, string cpf, Profile profile) : base(name, cpf)
+        public User(string name, string cpf, Profile profile, string password) : base(name, cpf)
         {
             Profile = profile;
+            Password = password;
         }
 
         // Cannot bind paramater fix

@@ -17,19 +17,14 @@ namespace WebAPI.Controllers.Users
         [HttpPost]
         public IActionResult Post(CreateUserRequest request)
         {
-            if (request.Password != "admin123" && request.Profile == Profile.Admin)
-            {
-                return Unauthorized();
-            }
-
-            var response = _usersService.Create(request.Name, request.CPF, request.Profile);
+            var response = _usersService.Create(request.Name, request.CPF, request.Profile, request.Password);
 
             if (!response.IsValid)
             {
                 return BadRequest(response.Errors);
             }
 
-            return Ok(response.Id);
+            return NoContent();
         }
 
         [HttpGet("{id}")]

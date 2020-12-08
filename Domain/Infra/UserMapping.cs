@@ -19,6 +19,10 @@ namespace Domain.Infra
                 .IsRequired()
                 .HasMaxLength(11);
 
+            builder.Property(u => u.Password)
+                .IsRequired()
+                .HasMaxLength(255);
+
             builder.Property(u => u.Profile)
                 .IsRequired();
         }

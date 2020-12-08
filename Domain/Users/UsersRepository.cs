@@ -24,6 +24,14 @@ namespace Domain.Users
             }
         }
 
+        public User GetByCPF(string cpf)
+        {
+            using (var db = new TeachContext())
+            {
+                return db.Users.FirstOrDefault(x => x.CPF == cpf);
+            }
+        }
+
         public IEnumerable<User> GetAll()
         {
             using (var db = new TeachContext())
