@@ -11,7 +11,7 @@ namespace Domain.Auth
         
         public AuthResponse Login(string cpf, string password)
         {
-            var user = _usersRepository.GetByCPF(cpf);
+            var user = _usersRepository.Get(x => x.CPF == cpf);
             if (user == null) { return new AuthResponse(); }
             
             return user.Password == password

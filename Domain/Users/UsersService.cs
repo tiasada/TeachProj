@@ -24,7 +24,7 @@ namespace Domain.Users
 
         public User GetByID(Guid id)
         {
-            return _usersRepository.GetByID(id);
+            return _usersRepository.Get(x => x.Id == id);
         }
 
         public IEnumerable<User> GetAll()

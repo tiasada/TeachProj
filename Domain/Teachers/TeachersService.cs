@@ -35,7 +35,7 @@ namespace Domain.Teachers
 
         public Teacher GetByID(Guid id)
         {
-            return _teachersRepository.GetByID(id);
+            return _teachersRepository.Get(x => x.Id == id);
         }
 
         public IEnumerable<Teacher> GetAll()

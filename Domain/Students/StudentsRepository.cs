@@ -5,29 +5,8 @@ using Domain.Infra;
 
 namespace Domain.Students
 {
-    class StudentsRepository
+    class StudentsRepository : Repository<Student>
     {
-        public void Add(Student student)
-        {
-            using (var db = new TeachContext())
-            {
-                db.Students.Add(student);
-                db.SaveChanges();
-            }
-        }
-
-        public Guid? Remove(Guid id)
-        {
-            using (var db = new TeachContext())
-            {
-                var student = db.Students.FirstOrDefault(x => x.Id == id);
-                if (student == null) {return null;}
-                db.Students.Remove(student);
-                db.SaveChanges();
-                return id;
-            }
-        }
-
         public string AddClass(Guid id, Guid classId)
         {
             using (var db = new TeachContext())
@@ -45,22 +24,6 @@ namespace Domain.Students
                 db.Entry(student).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 db.SaveChanges();
                 return null;
-            }
-        }
-
-        public Student GetByID(Guid id)
-        {
-            using (var db = new TeachContext())
-            {
-                return db.Students.FirstOrDefault(x => x.Id == id);
-            }
-        }
-
-        public IEnumerable<Student> GetAll()
-        {
-            using (var db = new TeachContext())
-            {
-                return db.Students.ToList();
             }
         }
     }

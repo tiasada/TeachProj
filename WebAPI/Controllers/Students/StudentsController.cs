@@ -42,7 +42,7 @@ namespace WebAPI.Controllers.Students
                 return StatusCode(403, "User is not Admin");
             }
 
-            var response = _studentsService.Create(request.Name, request.CPF);
+            var response = _studentsService.Create(request.Name, request.CPF, request.Registration);
 
             if (!response.IsValid)
             {

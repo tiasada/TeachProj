@@ -28,7 +28,7 @@ namespace Domain.Classrooms
 
         public Classroom GetByID(Guid id)
         {
-            return _classroomsRepository.GetByID(id);
+            return _classroomsRepository.Get(x => x.Id == id);
         }
 
         public IEnumerable<Classroom> GetAll()

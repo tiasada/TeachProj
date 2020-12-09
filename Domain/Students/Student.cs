@@ -6,10 +6,14 @@ namespace Domain.Students
 {
     public class Student : Person
     {
+        public string Registration { get; set; }
+        
         public virtual IList<Classroom> Classrooms { get; set; } = new List<Classroom>();
         
-        public Student(string name, string cpf) : base(name, cpf)
-        {}
+        public Student(string name, string cpf, string regist) : base(name, cpf)
+        {
+            Registration = regist;
+        }
 
         protected Student() : base("", "") {}
 

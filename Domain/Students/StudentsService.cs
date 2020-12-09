@@ -9,9 +9,9 @@ namespace Domain.Students
         private readonly StudentsRepository _studentsRepository = new StudentsRepository();
         private readonly ClassroomsService _classroomsService = new ClassroomsService();
         
-        public CreatedStudentDTO Create(string name, string cpf)
+        public CreatedStudentDTO Create(string name, string cpf, string registration)
         {
-            var student = new Student(name, cpf);
+            var student = new Student(name, cpf, registration);
             var studentVal = student.Validate();
 
             if (!studentVal.isValid)
@@ -40,7 +40,7 @@ namespace Domain.Students
 
         public Student GetByID(Guid id)
         {
-            return _studentsRepository.GetByID(id);
+            return _studentsRepository.Get(x => x.Id == id);
         }
 
         public IEnumerable<Student> GetAll()

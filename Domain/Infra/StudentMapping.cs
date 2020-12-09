@@ -18,6 +18,15 @@ namespace Domain.Infra
             builder.Property(s => s.CPF)
                 .IsRequired()
                 .HasMaxLength(11);
+
+            builder.Property(s => s.Registration)
+                .IsRequired();
+
+            builder.HasIndex(s => s.CPF)
+                .IsUnique();
+
+            builder.HasIndex(s => s.Registration)
+                .IsUnique();
         }
     }
 }
