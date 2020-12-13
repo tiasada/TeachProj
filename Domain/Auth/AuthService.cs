@@ -9,9 +9,9 @@ namespace Domain.Auth
     {
         private readonly UsersRepository _usersRepository = new UsersRepository();
         
-        public AuthResponse Login(string cpf, string password)
+        public AuthResponse Login(string username, string password)
         {
-            var user = _usersRepository.Get(x => x.CPF == cpf);
+            var user = _usersRepository.Get(x => x.Username == username);
             if (user == null) { return new AuthResponse(); }
             
             return user.Password == password

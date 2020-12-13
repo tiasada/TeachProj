@@ -17,7 +17,7 @@ namespace WebAPI.Controllers.Users
         [HttpPost]
         public IActionResult Post(CreateUserRequest request)
         {
-            var response = _usersService.Create(request.Name, request.CPF, request.Profile, request.Password);
+            var response = _usersService.Create(request.Profile, request.Username, request.Password);
 
             if (!response.IsValid)
             {

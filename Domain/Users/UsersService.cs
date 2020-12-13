@@ -8,9 +8,9 @@ namespace Domain.Users
     {
         private readonly UsersRepository _usersRepository = new UsersRepository();
         
-        public CreatedUserDTO Create(string name, string cpf, Profile profile, string password)
+        public CreatedUserDTO Create(Profile profile, string username, string password)
         {
-            var user = new User(name, cpf, profile, password);
+            var user = new User(profile, username, password);
             var userVal = user.Validate();
 
             if (!userVal.isValid)

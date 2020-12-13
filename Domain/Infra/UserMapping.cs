@@ -11,20 +11,16 @@ namespace Domain.Infra
             builder.Property(u => u.Id)
                 .IsRequired();
 
-            builder.Property(u => u.Name)
+            builder.Property(u => u.Username)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(20);
 
-            builder.Property(u => u.CPF)
-                .IsRequired()
-                .HasMaxLength(11);
-
-            builder.HasIndex(u => u.CPF)
+            builder.HasIndex(u => u.Username)
                 .IsUnique();
 
             builder.Property(u => u.Password)
                 .IsRequired()
-                .HasMaxLength(255);
+                .HasMaxLength(50);
 
             builder.Property(u => u.Profile)
                 .IsRequired();

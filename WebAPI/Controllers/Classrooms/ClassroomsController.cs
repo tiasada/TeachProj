@@ -37,9 +37,9 @@ namespace WebAPI.Controllers.Classrooms
                 return Unauthorized("User does not exist");
             }
             
-            if (user.Profile != Profile.Admin)
+            if (user.Profile != Profile.School)
             {
-                return StatusCode(403, "User is not Admin");
+                return StatusCode(403, "User is not School");
             }
 
             var response = _classroomsService.Create(request.Name);
@@ -69,9 +69,9 @@ namespace WebAPI.Controllers.Classrooms
                 return Unauthorized();
             }
 
-            if (user.Profile != Profile.Admin)
+            if (user.Profile != Profile.School)
             {
-                return StatusCode(403, "User is not Admin");
+                return StatusCode(403, "User is not School");
             }
 
             var classroomRemoved = _classroomsService.Remove(id);
@@ -79,6 +79,70 @@ namespace WebAPI.Controllers.Classrooms
             if (classroomRemoved == null)
             {
                 return NotFound();
+            }
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}/addstudent/{studentId}")]
+        public IActionResult AddStudent(Guid id, Guid studentId)
+        {
+            StringValues headerId;
+            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
+            if (!foundId) { return Unauthorized("User ID must be informed"); }
+
+            var validId = Guid.TryParse(headerId, out var userId);
+            if (!validId) { return Unauthorized("Invalid ID"); }
+
+            var user = _usersService.GetByID(userId);
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            if (user.Profile != Profile.School)
+            {
+                return StatusCode(403, "User is not School");
+            }
+
+            var studentAdded = _classroomsService.AddStudent(studentId, id);
+
+            if (studentAdded != null)
+            {
+                return BadRequest(studentAdded);
+            }
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}/addteacher/{teacherId}")]
+        public IActionResult AddTeacher(Guid id, Guid teacherId)
+        {
+            StringValues headerId;
+            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
+            if (!foundId) { return Unauthorized("User ID must be informed"); }
+
+            var validId = Guid.TryParse(headerId, out var userId);
+            if (!validId) { return Unauthorized("Invalid ID"); }
+
+            var user = _usersService.GetByID(userId);
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            if (user.Profile != Profile.School)
+            {
+                return StatusCode(403, "User is not School");
+            }
+
+            var studentAdded = _classroomsService.AddTeacher(teacherId, id);
+
+            if (studentAdded != null)
+            {
+                return BadRequest(studentAdded);
             }
 
             return NoContent();

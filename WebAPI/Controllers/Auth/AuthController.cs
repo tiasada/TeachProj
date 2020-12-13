@@ -18,11 +18,11 @@ namespace WebAPI.Controllers.Auth
         [HttpPost("login")]
         public IActionResult Login(LoginRequest request)
         {
-            var response = _authService.Login(request.CPF, request.Password);
+            var response = _authService.Login(request.Username, request.Password);
 
             if (!response.IsValid)
             {
-                return BadRequest("CPF ou senha inválido");
+                return BadRequest("Username ou senha inválido");
             }
 
             return Ok(response.UserId);

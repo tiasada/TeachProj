@@ -37,9 +37,9 @@ namespace WebAPI.Controllers.Students
                 return Unauthorized("User does not exist");
             }
             
-            if (user.Profile != Profile.Admin)
+            if (user.Profile != Profile.School)
             {
-                return StatusCode(403, "User is not Admin");
+                return StatusCode(403, "User is not School");
             }
 
             var response = _studentsService.Create(request.Name, request.CPF, request.Registration);
@@ -69,9 +69,9 @@ namespace WebAPI.Controllers.Students
                 return Unauthorized();
             }
 
-            if (user.Profile != Profile.Admin)
+            if (user.Profile != Profile.School)
             {
-                return StatusCode(403, "User is not Admin");
+                return StatusCode(403, "User is not School");
             }
 
             var studentRemoved = _studentsService.Remove(id);
@@ -101,9 +101,9 @@ namespace WebAPI.Controllers.Students
                 return Unauthorized();
             }
 
-            if (user.Profile != Profile.Admin)
+            if (user.Profile != Profile.School)
             {
-                return StatusCode(403, "User is not Admin");
+                return StatusCode(403, "User is not School");
             }
 
             var studentAdded = _studentsService.AddClass(id, classId);

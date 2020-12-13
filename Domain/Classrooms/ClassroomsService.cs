@@ -26,6 +26,16 @@ namespace Domain.Classrooms
             return _classroomsRepository.Remove(id);
         }
 
+        public string AddStudent(Guid id, Guid classId)
+        {
+            return _classroomsRepository.AddStudent(id, classId);
+        }
+
+        public string AddTeacher(Guid id, Guid classId)
+        {
+            return _classroomsRepository.AddTeacher(id, classId);
+        }
+
         public Classroom GetByID(Guid id)
         {
             return _classroomsRepository.Get(x => x.Id == id);
