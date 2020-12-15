@@ -5,10 +5,15 @@ using Domain.Users;
 
 namespace Domain.Auth
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
-        private readonly UsersRepository _usersRepository = new UsersRepository();
-        
+        private readonly IUsersRepository _usersRepository;
+
+        public AuthService(IUsersRepository usersRepository)
+        {
+            _usersRepository = usersRepository;
+        }
+
         public AuthResponse Login(string username, string password)
         {
             var user = _usersRepository.Get(x => x.Username == username);

@@ -9,10 +9,10 @@ namespace WebAPI.Controllers.Auth
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
-        public readonly AuthService _authService;
-        public AuthController()
+        public readonly IAuthService _authService;
+        public AuthController(IAuthService authService)
         {
-            _authService = new AuthService();
+            _authService = authService;
         }
         
         [HttpPost("login")]
