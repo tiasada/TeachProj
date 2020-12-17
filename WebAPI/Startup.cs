@@ -34,6 +34,7 @@ namespace TeachProj
             services.AddControllers();
 
             services.AddScoped(typeof (IRepository<>), typeof (Repository<>));
+            services.AddScoped(typeof (IService<>), typeof (Service<>));
             services.AddScoped<ITeachersRepository, TeachersRepository>();
             services.AddScoped<ITeachersService, TeachersService>();
             services.AddScoped<IClassroomsRepository, ClassroomsRepository>();

@@ -9,7 +9,7 @@ namespace WebAPI.Controllers.Users
     public class UsersController : ControllerBase
     {
         public readonly IUsersService _usersService;
-        public UsersController(UsersService usersService)
+        public UsersController(IUsersService usersService)
         {
             _usersService = usersService;
         }

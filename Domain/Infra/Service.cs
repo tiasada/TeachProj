@@ -5,15 +5,15 @@ using Domain.Entities;
 
 namespace Domain.Infra
 {
-    public abstract class Service<T> : IService<T> where T : Entity
+    public class Service<T> : IService<T> where T : Entity
     {
         protected readonly IRepository<T> _repository;
 
-        public Service(Repository<T> repository)
+        public Service(IRepository<T> repository)
         {
             _repository = repository;
         }
-        
+
         public Guid? Remove(Guid id)
         {
             return _repository.Remove(id);

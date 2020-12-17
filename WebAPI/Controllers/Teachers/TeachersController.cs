@@ -14,7 +14,7 @@ namespace WebAPI.Controllers.Teachers
     {
         public readonly ITeachersService _teachersService;
         public readonly IUsersService _usersService;
-        public TeachersController(UsersService usersService, TeachersService teachersService)
+        public TeachersController(IUsersService usersService, ITeachersService teachersService)
         {
             _teachersService = teachersService;
             _usersService = usersService;
