@@ -7,7 +7,7 @@ namespace Domain.Users
     {
         CreatedUserDTO Create(Profile profile, string username, string password);
         
-        User GetByID(Guid id);
+        User Get(Func<User, bool> predicate);
 
         IEnumerable<User> GetAll();
     }

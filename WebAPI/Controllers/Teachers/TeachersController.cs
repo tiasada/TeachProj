@@ -12,12 +12,12 @@ namespace WebAPI.Controllers.Teachers
     [Route("[controller]")]
     public class TeachersController : ControllerBase
     {
-        public readonly TeachersService _teachersService;
-        public readonly UsersService _usersService;
-        public TeachersController()
+        public readonly ITeachersService _teachersService;
+        public readonly IUsersService _usersService;
+        public TeachersController(UsersService usersService, TeachersService teachersService)
         {
-            _teachersService = new TeachersService();
-            _usersService = new UsersService();
+            _teachersService = teachersService;
+            _usersService = usersService;
         }
         
         [HttpPost]
@@ -30,7 +30,7 @@ namespace WebAPI.Controllers.Teachers
             var validId = Guid.TryParse(headerId, out var userId);
             if (!validId) { return Unauthorized("Invalid ID"); }
             
-            var user = _usersService.GetByID(userId);
+            var user = _usersService.Get(x => x.Id == userId);
 
             if (user == null)
             {
@@ -62,7 +62,7 @@ namespace WebAPI.Controllers.Teachers
             var validId = Guid.TryParse(headerId, out var userId);
             if (!validId) { return Unauthorized("Invalid ID"); }
 
-            var user = _usersService.GetByID(userId);
+            var user = _usersService.Get(x => x.Id == userId);
 
             if (user == null)
             {
@@ -94,7 +94,7 @@ namespace WebAPI.Controllers.Teachers
             var validId = Guid.TryParse(headerId, out var userId);
             if (!validId) { return Unauthorized("Invalid ID"); }
 
-            var user = _usersService.GetByID(userId);
+            var user = _usersService.Get(x => x.Id == userId);
 
             if (user == null)
             {
@@ -119,7 +119,7 @@ namespace WebAPI.Controllers.Teachers
         [HttpGet("{id}")]
         public IActionResult GetByID(Guid id)
         {
-            var teacher = _teachersService.GetByID(id);
+            var teacher = _teachersService.Get(x => x.Id == id);
 
             if (teacher == null)
             {

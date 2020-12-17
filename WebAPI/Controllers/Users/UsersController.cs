@@ -30,7 +30,7 @@ namespace WebAPI.Controllers.Users
         [HttpGet("{id}")]
         public IActionResult GetByID(Guid id)
         {
-            var user = _usersService.GetByID(id);
+            var user = _usersService.Get(x => x.Id == id);
 
             if (user == null)
             {

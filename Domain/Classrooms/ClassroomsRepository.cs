@@ -5,7 +5,7 @@ using Domain.Infra;
 
 namespace Domain.Classrooms
 {
-    class ClassroomsRepository : Repository<Classroom>
+    public class ClassroomsRepository : Repository<Classroom>, IClassroomsRepository
     {
         public string AddStudent(Guid id, Guid classId)
         {

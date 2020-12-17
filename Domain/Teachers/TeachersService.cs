@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
 using Domain.Classrooms;
+using Domain.Infra;
 
 namespace Domain.Teachers
 {
-    public class TeachersService
+    public class TeachersService : Service<Teacher>, ITeachersService
     {
-        private readonly TeachersRepository _teachersRepository = new TeachersRepository();
-        private readonly ClassroomsService _classroomsService = new ClassroomsService();
+        private readonly new ITeachersRepository _repository;
+        
+        public TeachersService(TeachersRepository teachersRepository) : base(teachersRepository)
+        {}
         
         public CreatedTeacherDTO Create(string name, string cpf)
         {
@@ -19,28 +22,13 @@ namespace Domain.Teachers
                 return new CreatedTeacherDTO(teacherVal.errors);
             }
             
-            _teachersRepository.Add(teacher);
+            _repository.Add(teacher);
             return new CreatedTeacherDTO(teacher.Id);
-        }
-
-        public Guid? Remove(Guid id)
-        {
-            return _teachersRepository.Remove(id);
         }
 
         public string AddClass(Guid id, Guid classId)
         {
-            return _teachersRepository.AddClass(id, classId);
-        }
-
-        public Teacher GetByID(Guid id)
-        {
-            return _teachersRepository.Get(x => x.Id == id);
-        }
-
-        public IEnumerable<Teacher> GetAll()
-        {
-            return _teachersRepository.GetAll();
+            return _repository.AddClass(id, classId);
         }
     }
 }

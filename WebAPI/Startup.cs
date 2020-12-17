@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Classrooms;
 using Domain.Infra;
 using Domain.Users;
+using Domain.Teachers;
+using Domain.Students;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +34,12 @@ namespace TeachProj
             services.AddControllers();
 
             services.AddScoped(typeof (IRepository<>), typeof (Repository<>));
+            services.AddScoped<ITeachersRepository, TeachersRepository>();
+            services.AddScoped<ITeachersService, TeachersService>();
+            services.AddScoped<IClassroomsRepository, ClassroomsRepository>();
+            services.AddScoped<IClassroomsService, ClassroomsService>();
+            services.AddScoped<IStudentsRepository, StudentsRepository>();
+            services.AddScoped<IStudentsService, StudentsService>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IUsersService, UsersService>();
         }

@@ -12,12 +12,12 @@ namespace WebAPI.Controllers.Students
     [Route("[controller]")]
     public class StudentsController : ControllerBase
     {
-        public readonly StudentsService _studentsService;
-        public readonly UsersService _usersService;
-        public StudentsController()
+        public readonly IStudentsService _studentsService;
+        public readonly IUsersService _usersService;
+        public StudentsController(UsersService usersService, StudentsService studentsService)
         {
-            _studentsService = new StudentsService();
-            _usersService = new UsersService();
+            _studentsService = studentsService;
+            _usersService = usersService;
         }
         
         [HttpPost]
@@ -30,7 +30,7 @@ namespace WebAPI.Controllers.Students
             var validId = Guid.TryParse(headerId, out var userId);
             if (!validId) { return Unauthorized("Invalid ID"); }
             
-            var user = _usersService.GetByID(userId);
+            var user = _usersService.Get(x => x.Id == userId);
 
             if (user == null)
             {
@@ -62,7 +62,7 @@ namespace WebAPI.Controllers.Students
             var validId = Guid.TryParse(headerId, out var userId);
             if (!validId) { return Unauthorized("Invalid ID"); }
 
-            var user = _usersService.GetByID(userId);
+            var user = _usersService.Get(x => x.Id == userId);
 
             if (user == null)
             {
@@ -94,7 +94,7 @@ namespace WebAPI.Controllers.Students
             var validId = Guid.TryParse(headerId, out var userId);
             if (!validId) { return Unauthorized("Invalid ID"); }
 
-            var user = _usersService.GetByID(userId);
+            var user = _usersService.Get(x => x.Id == userId);
 
             if (user == null)
             {
@@ -119,7 +119,7 @@ namespace WebAPI.Controllers.Students
         [HttpGet("{id}")]
         public IActionResult GetByID(Guid id)
         {
-            var student = _studentsService.GetByID(id);
+            var student = _studentsService.Get(x => x.Id == id);
 
             if (student == null)
             {

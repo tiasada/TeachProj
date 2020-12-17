@@ -12,12 +12,12 @@ namespace WebAPI.Controllers.Classrooms
     [Route("[controller]")]
     public class ClassroomsController : ControllerBase
     {
-        public readonly ClassroomsService _classroomsService;
-        public readonly UsersService _usersService;
-        public ClassroomsController()
+        public readonly IClassroomsService _classroomsService;
+        public readonly IUsersService _usersService;
+        public ClassroomsController(UsersService usersService, ClassroomsService classroomsService)
         {
-            _classroomsService = new ClassroomsService();
-            _usersService = new UsersService();
+            _classroomsService = classroomsService;
+            _usersService = usersService;
         }
         
         [HttpPost]
@@ -30,7 +30,7 @@ namespace WebAPI.Controllers.Classrooms
             var validId = Guid.TryParse(headerId, out var userId);
             if (!validId) { return Unauthorized("Invalid ID"); }
             
-            var user = _usersService.GetByID(userId);
+            var user = _usersService.Get(x => x.Id == userId);
 
             if (user == null)
             {
@@ -62,7 +62,7 @@ namespace WebAPI.Controllers.Classrooms
             var validId = Guid.TryParse(headerId, out var userId);
             if (!validId) { return Unauthorized("Invalid ID"); }
 
-            var user = _usersService.GetByID(userId);
+            var user = _usersService.Get(x => x.Id == userId);
 
             if (user == null)
             {
@@ -94,7 +94,7 @@ namespace WebAPI.Controllers.Classrooms
             var validId = Guid.TryParse(headerId, out var userId);
             if (!validId) { return Unauthorized("Invalid ID"); }
 
-            var user = _usersService.GetByID(userId);
+            var user = _usersService.Get(x => x.Id == userId);
 
             if (user == null)
             {
@@ -126,7 +126,7 @@ namespace WebAPI.Controllers.Classrooms
             var validId = Guid.TryParse(headerId, out var userId);
             if (!validId) { return Unauthorized("Invalid ID"); }
 
-            var user = _usersService.GetByID(userId);
+            var user = _usersService.Get(x => x.Id == userId);
 
             if (user == null)
             {
@@ -151,7 +151,7 @@ namespace WebAPI.Controllers.Classrooms
         [HttpGet("{id}")]
         public IActionResult GetByID(Guid id)
         {
-            var classroom = _classroomsService.GetByID(id);
+            var classroom = _classroomsService.Get(x => x.Id == id);
 
             if (classroom == null)
             {

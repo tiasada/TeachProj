@@ -1,12 +1,17 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Domain.Infra;
 
 namespace Domain.Teachers
 {
-    class TeachersRepository : Repository<Teacher>
+    public class TeachersRepository : Repository<Teacher>, ITeachersRepository
     {
+        private readonly IRepository<Teacher> _repository;
+        public TeachersRepository(IRepository<Teacher> repository)
+        {
+            _repository = repository;
+        }
+        
         public string AddClass(Guid id, Guid classId)
         {
             using (var db = new TeachContext())
