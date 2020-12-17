@@ -7,7 +7,7 @@ namespace Domain.Infra
 {
     public class Service<T> : IService<T> where T : Entity
     {
-        protected readonly IRepository<T> _repository;
+        private readonly IRepository<T> _repository;
 
         public Service(IRepository<T> repository)
         {
