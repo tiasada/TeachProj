@@ -31,10 +31,5 @@ namespace Domain.Students
             _studentsRepository.Add(student);
             return new CreatedStudentDTO(student.Id);
         }
-        
-        public string AddClass(Guid id, Guid classId)
-        {
-            return _studentsRepository.AddClass(id, classId);
-        }
     }
 }

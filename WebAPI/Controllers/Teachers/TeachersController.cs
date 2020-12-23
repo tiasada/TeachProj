@@ -84,38 +84,6 @@ namespace WebAPI.Controllers.Teachers
             return NoContent();
         }
 
-        [HttpPatch("{id}/add/{classId}")]
-        public IActionResult AddClass(Guid id, Guid classId)
-        {
-            StringValues headerId;
-            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
-            if (!foundId) { return Unauthorized("User ID must be informed"); }
-
-            var validId = Guid.TryParse(headerId, out var userId);
-            if (!validId) { return Unauthorized("Invalid ID"); }
-
-            var user = _usersService.Get(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return Unauthorized();
-            }
-
-            if (user.Profile != Profile.School)
-            {
-                return StatusCode(403, "User is not School");
-            }
-
-            var teacherAdded = _teachersService.AddClass(id, classId);
-
-            if (teacherAdded != null)
-            {
-                return BadRequest(teacherAdded);
-            }
-
-            return NoContent();
-        }
-
         [HttpGet("{id}")]
         public IActionResult GetByID(Guid id)
         {

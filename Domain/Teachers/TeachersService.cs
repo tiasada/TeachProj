@@ -31,10 +31,5 @@ namespace Domain.Teachers
             _teachersRepository.Add(teacher);
             return new CreatedTeacherDTO(teacher.Id);
         }
-
-        public string AddClass(Guid id, Guid classId)
-        {
-            return _teachersRepository.AddClass(id, classId);
-        }
     }
 }
