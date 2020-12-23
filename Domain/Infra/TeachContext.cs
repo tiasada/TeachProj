@@ -1,5 +1,6 @@
 using System.Reflection;
 using Domain.Classrooms;
+using Domain.Grades;
 using Domain.Students;
 using Domain.Teachers;
 using Domain.Users;
@@ -13,6 +14,7 @@ namespace Domain.Infra
         public DbSet<Student> Students { get; set; }
         public DbSet<Classroom> Classrooms { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Grade> Grades { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

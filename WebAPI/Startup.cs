@@ -17,6 +17,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Domain.Grades;
+using Domain.Auth;
 
 namespace TeachProj
 {
@@ -38,12 +40,15 @@ namespace TeachProj
             services.AddScoped(typeof (IService<>), typeof (Service<>));
             services.AddScoped<ITeachersRepository, TeachersRepository>();
             services.AddScoped<ITeachersService, TeachersService>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IClassroomsRepository, ClassroomsRepository>();
             services.AddScoped<IClassroomsService, ClassroomsService>();
             services.AddScoped<IStudentsRepository, StudentsRepository>();
             services.AddScoped<IStudentsService, StudentsService>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IGradesRepository, GradesRepository>();
+            services.AddScoped<IGradesService, GradesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
