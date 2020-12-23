@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Domain.Classrooms;
-using Domain.Infra;
+using Domain.Infra.Generics;
 
 namespace Domain.Teachers
 {

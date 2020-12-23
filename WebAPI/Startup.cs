@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.Classrooms;
 using Domain.Infra;
+using Domain.Infra.Generics;
 using Domain.Users;
 using Domain.Teachers;
 using Domain.Students;

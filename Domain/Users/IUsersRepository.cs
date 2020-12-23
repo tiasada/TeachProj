@@ -1,4 +1,4 @@
-using Domain.Infra;
+using Domain.Infra.Generics;
 
 namespace Domain.Users
 {

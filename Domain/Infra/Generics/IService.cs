@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Domain.Entities;
 
-namespace Domain.Infra
+namespace Domain.Infra.Generics
 {
     public interface IService<T> where T : Entity
     {

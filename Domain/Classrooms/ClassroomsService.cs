@@ -1,6 +1,5 @@
 using System;
-using System.Collections.Generic;
-using Domain.Infra;
+using Domain.Infra.Generics;
 
 namespace Domain.Classrooms
 {

@@ -1,5 +1,5 @@
 using System;
-using Domain.Infra;
+using Domain.Infra.Generics;
 
 namespace Domain.Students
 {
