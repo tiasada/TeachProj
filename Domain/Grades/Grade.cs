@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Classrooms;
 using Domain.Entities;
-using Domain.StudentGrades;
 
 namespace Domain.Grades
 {
@@ -15,7 +14,6 @@ namespace Domain.Grades
         public bool IsClosed { get; set; }
         public virtual Classroom Classroom { get; set; }
         public Guid ClassroomId { get; set; }
-        public virtual IList<StudentGrade> Grades { get; set; } = new List<StudentGrade>();
 
         public Grade(string name, string description, DateTime date, Classroom classroom)
         {
@@ -23,11 +21,6 @@ namespace Domain.Grades
             Description = description;
             Classroom = classroom;
             Date = date.Date;
-            
-            foreach (var student in Classroom.Students)
-            {
-                Grades.Add(new StudentGrade(this.Id, student.Id, null));
-            }
         }
 
         protected Grade(){}

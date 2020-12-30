@@ -131,29 +131,29 @@ namespace Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentGrade",
+                name: "GradeStudentRelations",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BaseGradeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BaseGradeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Grade = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentGrade", x => x.Id);
+                    table.PrimaryKey("PK_GradeStudentRelations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StudentGrade_Grades_BaseGradeId",
+                        name: "FK_GradeStudentRelations_Grades_BaseGradeId",
                         column: x => x.BaseGradeId,
                         principalTable: "Grades",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_StudentGrade_Students_StudentId",
+                        name: "FK_GradeStudentRelations_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -172,13 +172,13 @@ namespace Domain.Migrations
                 column: "ClassroomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentGrade_BaseGradeId",
-                table: "StudentGrade",
+                name: "IX_GradeStudentRelations_BaseGradeId",
+                table: "GradeStudentRelations",
                 column: "BaseGradeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentGrade_StudentId",
-                table: "StudentGrade",
+                name: "IX_GradeStudentRelations_StudentId",
+                table: "GradeStudentRelations",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
@@ -215,7 +215,7 @@ namespace Domain.Migrations
                 name: "ClassroomTeacher");
 
             migrationBuilder.DropTable(
-                name: "StudentGrade");
+                name: "GradeStudentRelations");
 
             migrationBuilder.DropTable(
                 name: "Users");

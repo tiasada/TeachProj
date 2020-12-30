@@ -96,28 +96,22 @@ namespace Domain.Migrations
                     b.ToTable("Grades");
                 });
 
-            modelBuilder.Entity("Domain.StudentGrades.StudentGrade", b =>
+            modelBuilder.Entity("Domain.Grades.StudentGrade", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BaseGradeId")
+                    b.Property<Guid?>("BaseGradeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<double?>("Grade")
                         .HasColumnType("float");
 
-                    b.Property<Guid>("StudentId")
+                    b.Property<Guid?>("StudentId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
 
                     b.HasIndex("BaseGradeId");
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentGrade");
+                    b.ToTable("StudentGrades");
                 });
 
             modelBuilder.Entity("Domain.Students.Student", b =>
@@ -243,19 +237,15 @@ namespace Domain.Migrations
                     b.Navigation("Classroom");
                 });
 
-            modelBuilder.Entity("Domain.StudentGrades.StudentGrade", b =>
+            modelBuilder.Entity("Domain.Grades.StudentGrade", b =>
                 {
                     b.HasOne("Domain.Grades.Grade", "BaseGrade")
-                        .WithMany("Grades")
-                        .HasForeignKey("BaseGradeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("BaseGradeId");
 
                     b.HasOne("Domain.Students.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("BaseGrade");
 
@@ -263,11 +253,6 @@ namespace Domain.Migrations
                 });
 
             modelBuilder.Entity("Domain.Classrooms.Classroom", b =>
-                {
-                    b.Navigation("Grades");
-                });
-
-            modelBuilder.Entity("Domain.Grades.Grade", b =>
                 {
                     b.Navigation("Grades");
                 });

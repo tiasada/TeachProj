@@ -15,6 +15,7 @@ namespace Domain.Infra
         public DbSet<Classroom> Classrooms { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Grade> Grades { get; set; }
+        public DbSet<StudentGrade> StudentGrades { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -11,7 +11,7 @@ namespace Domain.Classrooms
         public string Name { get; set; }
         public virtual IList<Student> Students { get; set; } = new List<Student>();
         public virtual IList<Teacher> Teachers { get; set; } = new List<Teacher>();
-        public IList<Grade> Grades { get; set; } = new List<Grade>();
+        public virtual IList<Grade> Grades { get; set; } = new List<Grade>();
 
         public Classroom(string name)
         {
