@@ -19,6 +19,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Domain.Grades;
 using Domain.Auth;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using WebAPI;
+using Microsoft.IdentityModel.Tokens;
 
 namespace TeachProj
 {
@@ -35,6 +39,25 @@ namespace TeachProj
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var key = Encoding.ASCII.GetBytes(Settings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             services.AddScoped(typeof (IRepository<>), typeof (Repository<>));
             services.AddScoped(typeof (IService<>), typeof (Service<>));
@@ -68,6 +91,7 @@ namespace TeachProj
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
