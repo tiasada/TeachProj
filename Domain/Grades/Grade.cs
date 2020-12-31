@@ -20,6 +20,7 @@ namespace Domain.Grades
             Name = name;
             Description = description;
             Classroom = classroom;
+            ClassroomId = classroom.Id;
             Date = date.Date;
         }
 

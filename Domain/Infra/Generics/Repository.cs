@@ -7,7 +7,7 @@ namespace Domain.Infra.Generics
 {
     public class Repository<T> : IRepository<T> where T : Entity
     {
-        public void Add(T entity)
+        public virtual void Add(T entity)
         {
             using (var db = new TeachContext())
             {
@@ -16,7 +16,7 @@ namespace Domain.Infra.Generics
             }
         }
 
-        public Guid? Remove(Guid id)
+        public virtual Guid? Remove(Guid id)
         {
             using (var db = new TeachContext())
             {
@@ -28,7 +28,7 @@ namespace Domain.Infra.Generics
             }
         }
 
-        public T Get(Func<T, bool> predicate)
+        public virtual T Get(Func<T, bool> predicate)
         {
             using (var db = new TeachContext())
             {
@@ -36,7 +36,7 @@ namespace Domain.Infra.Generics
             }
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             using (var db = new TeachContext())
             {

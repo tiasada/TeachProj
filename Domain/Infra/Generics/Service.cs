@@ -13,17 +13,17 @@ namespace Domain.Infra.Generics
             _repository = repository;
         }
 
-        public Guid? Remove(Guid id)
+        public virtual Guid? Remove(Guid id)
         {
             return _repository.Remove(id);
         }
 
-        public T Get(Func<T, bool> predicate)
+        public virtual T Get(Func<T, bool> predicate)
         {
             return _repository.Get(predicate);
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return _repository.GetAll();
         }
