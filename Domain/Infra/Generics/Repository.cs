@@ -20,9 +20,9 @@ namespace Domain.Infra.Generics
         {
             using (var db = new TeachContext())
             {
-                var classroom = db.Classrooms.FirstOrDefault(x => x.Id == id);
-                if (classroom == null) {return null;}
-                db.Classrooms.Remove(classroom);
+                var entity = db.Set<T>().FirstOrDefault(x => x.Id == id);
+                if (entity == null) {return null;}
+                db.Set<T>().Remove(entity);
                 db.SaveChanges();
                 return id;
             }
