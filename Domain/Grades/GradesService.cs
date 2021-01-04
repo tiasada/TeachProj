@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Domain.Classrooms;
 using Domain.Infra.Generics;
 
@@ -26,6 +27,7 @@ namespace Domain.Grades
             
             var grade = new Grade(name, description, date, classroom);
             _gradesRepository.Add(grade);
+
             return new CreatedGradeDTO(grade.Id);
         }
     }

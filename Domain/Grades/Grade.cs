@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Domain.Classrooms;
 using Domain.Entities;
 
@@ -14,6 +13,7 @@ namespace Domain.Grades
         public bool IsClosed { get; set; }
         public virtual Classroom Classroom { get; set; }
         public Guid ClassroomId { get; set; }
+        public virtual IList<StudentGrade> StudentGrades { get; set; } = new List<StudentGrade>();
 
         public Grade(string name, string description, DateTime date, Classroom classroom)
         {

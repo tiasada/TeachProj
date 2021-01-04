@@ -12,5 +12,23 @@ namespace Domain.Grades
         {
             _repository = repository;
         }
+
+        public override void Add(Grade grade)
+        {
+            using (var db = new TeachContext())
+            {
+                db.Grades.Add(grade);
+
+                var classroomStudents = db.Classrooms.Where(c => c.Id == grade.ClassroomId).SelectMany(c => c.Students);
+                foreach (var s in classroomStudents)
+                {
+                    db.StudentGrades.Add(new StudentGrade(grade.Id, s.Id));
+                    // db.Entry(db.Students.FirstOrDefault(x => x.Id == s.Id)).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                }
+
+                db.Entry(db.Classrooms.FirstOrDefault(x => x.Id == grade.ClassroomId)).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
     }
 }
