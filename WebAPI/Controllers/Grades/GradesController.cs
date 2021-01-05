@@ -52,6 +52,38 @@ namespace WebAPI.Controllers.Grades
             return Ok(response.Id);
         }
 
+        [HttpPatch("{id}/setgrade/{studentId}")]
+        public IActionResult SetGrade(Guid id, Guid studentId, [FromBody]double value)
+        {
+            StringValues headerId;
+            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
+            if (!foundId) { return Unauthorized("User ID must be informed"); }
+
+            var validId = Guid.TryParse(headerId, out var userId);
+            if (!validId) { return Unauthorized("Invalid ID"); }
+
+            var user = _usersService.Get(x => x.Id == userId);
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            if (user.Profile != Profile.Teacher)
+            {
+                return StatusCode(403, "User is not Teacher");
+            }
+
+            var gradeSet = _gradesService.SetGrade(id, studentId, value);
+
+            if (gradeSet != null)
+            {
+                return BadRequest(gradeSet);
+            }
+
+            return NoContent();
+        }
+
         [HttpDelete("{id}")]
         public IActionResult Remove(Guid id)
         {

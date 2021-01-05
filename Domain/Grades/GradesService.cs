@@ -30,5 +30,10 @@ namespace Domain.Grades
 
             return new CreatedGradeDTO(grade.Id);
         }
+
+        public string SetGrade(Guid id, Guid studentId, double value)
+        {
+            return _gradesRepository.SetGrade(id, studentId, value);
+        }
     }
 }

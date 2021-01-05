@@ -25,15 +25,5 @@ namespace Domain.Grades
         }
 
         protected Grade(){}
-
-        // public bool SetGrade(Guid studentId, double grade)
-        // {
-        //     if (Grades.Any(x => x.studentId == studentId))
-        //     {
-        //         Grades.Select(x => x.studentId == studentId ? (x.studentId, grade) : x).ToList();
-        //         return true;
-        //     }
-        //     return false;
-        // }
     }
 }
