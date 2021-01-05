@@ -42,7 +42,7 @@ namespace WebAPI.Controllers.Grades
                 return StatusCode(403, "User is not Teacher");
             }
 
-            var response = _gradesService.Create(request.Name, request.Description, DateTime.Now, request.ClassroomId);
+            var response = _gradesService.Create(request.Name, request.Description, request.ClassroomId);
 
             if (!response.IsValid)
             {
@@ -79,6 +79,38 @@ namespace WebAPI.Controllers.Grades
             if (gradeSet != null)
             {
                 return BadRequest(gradeSet);
+            }
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}/close")]
+        public IActionResult CloseGrade(Guid id)
+        {
+            StringValues headerId;
+            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
+            if (!foundId) { return Unauthorized("User ID must be informed"); }
+
+            var validId = Guid.TryParse(headerId, out var userId);
+            if (!validId) { return Unauthorized("Invalid ID"); }
+
+            var user = _usersService.Get(x => x.Id == userId);
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            if (user.Profile != Profile.Teacher)
+            {
+                return StatusCode(403, "User is not Teacher");
+            }
+
+            var gradeClosed = _gradesService.CloseGrade(id);
+
+            if (gradeClosed != null)
+            {
+                return BadRequest(gradeClosed);
             }
 
             return NoContent();

@@ -9,8 +9,9 @@ namespace Domain.Grades
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; private set; }
         public bool IsClosed { get; set; }
+        public DateTime? DateClosed { get; set; } = null;
         public virtual Classroom Classroom { get; set; }
         public Guid ClassroomId { get; set; }
         public virtual IList<StudentGrade> StudentGrades { get; set; } = new List<StudentGrade>();

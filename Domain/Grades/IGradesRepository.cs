@@ -6,5 +6,6 @@ namespace Domain.Grades
     public interface IGradesRepository : IRepository<Grade>
     {
         string SetGrade(Guid id, Guid studentId, double value);
+        string CloseGrade(Guid id);
     }
 }

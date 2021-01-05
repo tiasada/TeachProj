@@ -50,5 +50,22 @@ namespace Domain.Grades
                 return null;
             }
         }
+        
+        public string CloseGrade(Guid id)
+        {
+            using (var db = new TeachContext())
+            {
+                var grade = db.Grades.FirstOrDefault(g => g.Id == id);
+                if (grade == null) { return "Grade not found"; }
+                if (grade.IsClosed) { return "Grade already closed"; }
+
+                grade.IsClosed = true;
+                grade.DateClosed = DateTime.Now.Date;
+                db.Grades.Attach(grade);
+                db.Entry(grade).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                db.SaveChanges();
+                return null;
+            }
+        }
     }
 }
