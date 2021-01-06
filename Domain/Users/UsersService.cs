@@ -1,3 +1,4 @@
+using Domain.Common;
 using Domain.Infra.Generics;
 using System.Collections.Generic;
 
@@ -18,7 +19,10 @@ namespace Domain.Users
                 return new CreatedUserDTO(new List<string>{"Username already in use"});
             }
             
-            var user = new User(profile, username, password);
+            var crypt = new Crypt();
+            var cryptPassword = crypt.CreateMD5(password);
+
+            var user = new User(profile, username, cryptPassword);
             var userVal = user.Validate();
 
             if (!userVal.isValid)

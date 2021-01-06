@@ -1,15 +1,16 @@
 using System;
+using Domain.Users;
 
 namespace Domain.Auth
 {
     public class AuthResponse
     {
-        public Guid UserId { get; set; }
+        public User User { get; set; }
         public bool IsValid { get; set; } = true;
 
-        public AuthResponse(Guid id)
+        public AuthResponse(User user)
         {
-            UserId = id;
+            User = user;
         }
 
         public AuthResponse()

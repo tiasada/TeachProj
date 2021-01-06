@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Domain.Students;
 using Domain.Users;
 using Microsoft.Extensions.Primitives;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers.Students
 {
@@ -21,27 +22,9 @@ namespace WebAPI.Controllers.Students
         }
         
         [HttpPost]
-        public IActionResult Post(CreateStudentRequest request)
+        [Authorize(Roles = "School")]
+        public IActionResult Create(CreateStudentRequest request)
         {
-            StringValues headerId;
-            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
-            if (!foundId) { return Unauthorized("User ID must be informed"); }
-
-            var validId = Guid.TryParse(headerId, out var userId);
-            if (!validId) { return Unauthorized("Invalid ID"); }
-            
-            var user = _usersService.Get(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return Unauthorized("User does not exist");
-            }
-            
-            if (user.Profile != Profile.School)
-            {
-                return StatusCode(403, "User is not School");
-            }
-
             var response = _studentsService.Create(request.Name, request.CPF, request.Registration);
 
             if (!response.IsValid)
@@ -53,27 +36,9 @@ namespace WebAPI.Controllers.Students
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "School")]
         public IActionResult Remove(Guid id)
         {
-            StringValues headerId;
-            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
-            if (!foundId) { return Unauthorized("User ID must be informed"); }
-
-            var validId = Guid.TryParse(headerId, out var userId);
-            if (!validId) { return Unauthorized("Invalid ID"); }
-
-            var user = _usersService.Get(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return Unauthorized();
-            }
-
-            if (user.Profile != Profile.School)
-            {
-                return StatusCode(403, "User is not School");
-            }
-
             var studentRemoved = _studentsService.Remove(id);
 
             if (studentRemoved == null)
@@ -85,6 +50,7 @@ namespace WebAPI.Controllers.Students
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public IActionResult GetByID(Guid id)
         {
             var student = _studentsService.Get(x => x.Id == id);
@@ -98,6 +64,7 @@ namespace WebAPI.Controllers.Students
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetAll()
         {
             return Ok(_studentsService.GetAll());
