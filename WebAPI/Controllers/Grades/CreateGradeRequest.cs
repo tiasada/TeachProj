@@ -7,5 +7,6 @@ namespace WebAPI.Controllers.Grades
         public string Name { get; set; }
         public string Description { get; set; }
         public Guid ClassroomId { get; set; }
+        public DateTime Date { get; set; }
     }
 }

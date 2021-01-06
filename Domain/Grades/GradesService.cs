@@ -16,7 +16,7 @@ namespace Domain.Grades
             _classroomsService = classroomsService;
         }
         
-        public CreatedGradeDTO Create(string name, string description, Guid classroomId)
+        public CreatedGradeDTO Create(string name, string description, DateTime date, Guid classroomId)
         {
             var classroom = _classroomsService.Get(x => x.Id == classroomId);
 
@@ -25,7 +25,7 @@ namespace Domain.Grades
                 return new CreatedGradeDTO("Classroom not found!");
             }
             
-            var grade = new Grade(name, description, DateTime.Now, classroom);
+            var grade = new Grade(name, description, date.Date, classroom);
             _gradesRepository.Add(grade);
 
             return new CreatedGradeDTO(grade.Id);

@@ -42,7 +42,7 @@ namespace WebAPI.Controllers.Grades
                 return StatusCode(403, "User is not Teacher");
             }
 
-            var response = _gradesService.Create(request.Name, request.Description, request.ClassroomId);
+            var response = _gradesService.Create(request.Name, request.Description, request.Date, request.ClassroomId);
 
             if (!response.IsValid)
             {
