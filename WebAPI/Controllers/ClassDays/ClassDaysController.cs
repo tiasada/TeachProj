@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Domain.ClassDays;
 using Domain.Users;
 using Microsoft.Extensions.Primitives;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers.ClassDays
 {
@@ -21,27 +22,9 @@ namespace WebAPI.Controllers.ClassDays
         }
         
         [HttpPost]
+        [Authorize(Roles = "Teacher")]
         public IActionResult Post(CreateClassDayRequest request)
         {
-            StringValues headerId;
-            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
-            if (!foundId) { return Unauthorized("User ID must be informed"); }
-
-            var validId = Guid.TryParse(headerId, out var userId);
-            if (!validId) { return Unauthorized("Invalid ID"); }
-            
-            var user = _usersService.Get(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return Unauthorized("User does not exist");
-            }
-            
-            if (user.Profile != Profile.Teacher)
-            {
-                return StatusCode(403, "User is not Teacher");
-            }
-
             var response = _classDaysService.Create(request.Date, request.ClassroomId, request.Notes);
 
             if (!response.IsValid)
@@ -53,27 +36,9 @@ namespace WebAPI.Controllers.ClassDays
         }
 
         [HttpPatch("{id}/setpresence/{studentId}")]
+        [Authorize(Roles = "Teacher")]
         public IActionResult SetPresence(Guid id, Guid studentId, SetPresenceRequest request)
         {
-            StringValues headerId;
-            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
-            if (!foundId) { return Unauthorized("User ID must be informed"); }
-
-            var validId = Guid.TryParse(headerId, out var userId);
-            if (!validId) { return Unauthorized("Invalid ID"); }
-
-            var user = _usersService.Get(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return Unauthorized();
-            }
-
-            if (user.Profile != Profile.Teacher)
-            {
-                return StatusCode(403, "User is not Teacher");
-            }
-
             var presenceSet = _classDaysService.SetPresence(id, studentId, request.IsPresent, request.Reason);
 
             if (presenceSet != null)
@@ -85,27 +50,9 @@ namespace WebAPI.Controllers.ClassDays
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Teacher")]
         public IActionResult Remove(Guid id)
         {
-            StringValues headerId;
-            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
-            if (!foundId) { return Unauthorized("User ID must be informed"); }
-
-            var validId = Guid.TryParse(headerId, out var userId);
-            if (!validId) { return Unauthorized("Invalid ID"); }
-
-            var user = _usersService.Get(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return Unauthorized();
-            }
-
-            if (user.Profile != Profile.Teacher)
-            {
-                return StatusCode(403, "User is not Teacher");
-            }
-
             var classDayRemoved = _classDaysService.Remove(id);
 
             if (classDayRemoved == null)
@@ -117,6 +64,7 @@ namespace WebAPI.Controllers.ClassDays
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public IActionResult GetByID(Guid id)
         {
             var classDay = _classDaysService.Get(x => x.Id == id);
@@ -130,6 +78,7 @@ namespace WebAPI.Controllers.ClassDays
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetAll()
         {
             return Ok(_classDaysService.GetAll());
