@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Users;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers.Users
 {
@@ -15,6 +16,7 @@ namespace WebAPI.Controllers.Users
         }
         
         [HttpPost]
+        //[Authorize(Roles = "School")]
         public IActionResult Post(CreateUserRequest request)
         {
             var response = _usersService.Create(request.Profile, request.Username, request.Password);
@@ -28,6 +30,8 @@ namespace WebAPI.Controllers.Users
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
+        
         public IActionResult GetByID(Guid id)
         {
             var user = _usersService.Get(x => x.Id == id);
@@ -41,6 +45,8 @@ namespace WebAPI.Controllers.Users
         }
 
         [HttpGet]
+        [AllowAnonymous]
+
         public IActionResult GetAll()
         {
             return Ok(_usersService.GetAll());

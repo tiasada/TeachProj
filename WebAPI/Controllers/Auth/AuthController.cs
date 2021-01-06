@@ -2,6 +2,8 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Users;
 using Domain.Auth;
+using System.Threading.Tasks;
+using WebAPI.Token;
 
 namespace WebAPI.Controllers.Auth
 {
@@ -18,6 +20,7 @@ namespace WebAPI.Controllers.Auth
         [HttpPost("login")]
         public IActionResult Login(LoginRequest request)
         {
+            
             var response = _authService.Login(request.Username, request.Password);
 
             if (!response.IsValid)
@@ -25,7 +28,9 @@ namespace WebAPI.Controllers.Auth
                 return BadRequest("Username ou senha inválido");
             }
 
-            return Ok(response.UserId);
+            var token = TokenService.GenerateToken(response.User);
+
+            return Ok(token);
         }
     }
 }

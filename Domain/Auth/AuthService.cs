@@ -1,3 +1,4 @@
+using Domain.Common;
 using Domain.Users;
 
 namespace Domain.Auth
@@ -13,11 +14,14 @@ namespace Domain.Auth
 
         public AuthResponse Login(string username, string password)
         {
+            var crypt = new Crypt();
+            var cryptPassword = crypt.CreateMD5(password);
+
             var user = _usersRepository.Get(x => x.Username == username);
             if (user == null) { return new AuthResponse(); }
             
-            return user.Password == password
-                ? new AuthResponse(user.Id)
+            return user.Password == cryptPassword
+                ? new AuthResponse(user)
                 : new AuthResponse();
         }
     }

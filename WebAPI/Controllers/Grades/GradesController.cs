@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Domain.Grades;
 using Domain.Users;
 using Microsoft.Extensions.Primitives;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers.Grades
 {
@@ -21,26 +22,10 @@ namespace WebAPI.Controllers.Grades
         }
         
         [HttpPost]
+        [Authorize(Roles = "School,Teacher")]
+
         public IActionResult Post(CreateGradeRequest request)
         {
-            StringValues headerId;
-            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
-            if (!foundId) { return Unauthorized("User ID must be informed"); }
-
-            var validId = Guid.TryParse(headerId, out var userId);
-            if (!validId) { return Unauthorized("Invalid ID"); }
-            
-            var user = _usersService.Get(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return Unauthorized("User does not exist");
-            }
-            
-            if (user.Profile != Profile.Teacher)
-            {
-                return StatusCode(403, "User is not Teacher");
-            }
 
             var response = _gradesService.Create(request.Name, request.Description, request.Date, request.ClassroomId);
 
@@ -53,26 +38,9 @@ namespace WebAPI.Controllers.Grades
         }
 
         [HttpPatch("{id}/setgrade/{studentId}")]
+        [Authorize(Roles = "School,Teacher")]
         public IActionResult SetGrade(Guid id, Guid studentId, [FromBody]double value)
         {
-            StringValues headerId;
-            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
-            if (!foundId) { return Unauthorized("User ID must be informed"); }
-
-            var validId = Guid.TryParse(headerId, out var userId);
-            if (!validId) { return Unauthorized("Invalid ID"); }
-
-            var user = _usersService.Get(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return Unauthorized();
-            }
-
-            if (user.Profile != Profile.Teacher)
-            {
-                return StatusCode(403, "User is not Teacher");
-            }
 
             var gradeSet = _gradesService.SetGrade(id, studentId, value);
 
@@ -85,26 +53,9 @@ namespace WebAPI.Controllers.Grades
         }
 
         [HttpPatch("{id}/close")]
+        [Authorize(Roles = "School,Teacher")]
         public IActionResult CloseGrade(Guid id)
         {
-            StringValues headerId;
-            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
-            if (!foundId) { return Unauthorized("User ID must be informed"); }
-
-            var validId = Guid.TryParse(headerId, out var userId);
-            if (!validId) { return Unauthorized("Invalid ID"); }
-
-            var user = _usersService.Get(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return Unauthorized();
-            }
-
-            if (user.Profile != Profile.Teacher)
-            {
-                return StatusCode(403, "User is not Teacher");
-            }
 
             var gradeClosed = _gradesService.CloseGrade(id);
 
@@ -117,27 +68,10 @@ namespace WebAPI.Controllers.Grades
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "School,Teacher")]
+
         public IActionResult Remove(Guid id)
         {
-            StringValues headerId;
-            var foundId = Request.Headers.TryGetValue("UserId", out headerId);
-            if (!foundId) { return Unauthorized("User ID must be informed"); }
-
-            var validId = Guid.TryParse(headerId, out var userId);
-            if (!validId) { return Unauthorized("Invalid ID"); }
-
-            var user = _usersService.Get(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return Unauthorized();
-            }
-
-            if (user.Profile != Profile.Teacher)
-            {
-                return StatusCode(403, "User is not Teacher");
-            }
-
             var gradeRemoved = _gradesService.Remove(id);
 
             if (gradeRemoved == null)
@@ -149,6 +83,8 @@ namespace WebAPI.Controllers.Grades
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
+
         public IActionResult GetByID(Guid id)
         {
             var grade = _gradesService.Get(x => x.Id == id);
@@ -162,6 +98,8 @@ namespace WebAPI.Controllers.Grades
         }
 
         [HttpGet]
+        [AllowAnonymous]
+
         public IActionResult GetAll()
         {
             return Ok(_gradesService.GetAll());
