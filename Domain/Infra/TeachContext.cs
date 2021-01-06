@@ -1,4 +1,5 @@
 using System.Reflection;
+using Domain.ClassDays;
 using Domain.Classrooms;
 using Domain.Grades;
 using Domain.Students;
@@ -16,6 +17,9 @@ namespace Domain.Infra
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Grade> Grades { get; set; }
         public DbSet<StudentGrade> StudentGrades { get; set; }
+        public DbSet<ClassDay> ClassDays { get; set; }
+        public DbSet<StudentPresence> StudentPresences { get; set; }
+
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

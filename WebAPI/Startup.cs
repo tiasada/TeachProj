@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using WebAPI;
 using Microsoft.IdentityModel.Tokens;
+using Domain.ClassDays;
 
 namespace TeachProj
 {
@@ -72,6 +73,8 @@ namespace TeachProj
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IGradesRepository, GradesRepository>();
             services.AddScoped<IGradesService, GradesService>();
+            services.AddScoped<IClassDaysRepository, ClassDaysRepository>();
+            services.AddScoped<IClassDaysService, ClassDaysService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

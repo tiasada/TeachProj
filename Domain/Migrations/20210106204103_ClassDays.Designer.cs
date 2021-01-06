@@ -4,14 +4,16 @@ using Domain.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Domain.Migrations
 {
     [DbContext(typeof(TeachContext))]
-    partial class TeachContextModelSnapshot : ModelSnapshot
+    [Migration("20210106204103_ClassDays")]
+    partial class ClassDays
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,7 +83,7 @@ namespace Domain.Migrations
                     b.Property<Guid>("ClassDayId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Present")
+                    b.Property<bool>("Present")
                         .HasColumnType("bit");
 
                     b.Property<string>("Reason")
