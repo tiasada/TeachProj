@@ -10,5 +10,7 @@ namespace Domain.Classrooms
         string AddStudent(Guid id, Guid classId);
 
         string AddTeacher(Guid id, Guid classId);
+        
+        string AddSubjects(Guid id, string subjects);
     }
 }

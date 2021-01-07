@@ -16,6 +16,9 @@ namespace Domain.Infra
                 .HasMaxLength(100);
             builder.Property(s => s.Description)
                 .HasMaxLength(250);
+            builder.Property(s => s.Subject)
+                .IsRequired()
+                .HasMaxLength(100);
             builder.Property(s => s.Date)
                 .IsRequired();
             builder.Property(s => s.ClassroomId)

@@ -47,5 +47,21 @@ namespace Domain.Classrooms
                 return null;
             }
         }
+
+        public string AddSubjects(Guid id, string subjects)
+        {
+            using (var db = new TeachContext())
+            {
+                var classroom = db.Classrooms.FirstOrDefault(c => c.Id == id);
+                if (classroom == null) { return "Classroom not found"; }
+
+                classroom.Subjects += subjects;
+
+                db.Classrooms.Attach(classroom);
+                db.Entry(classroom).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                db.SaveChanges();
+                return null;
+            }
+        }
     }
 }

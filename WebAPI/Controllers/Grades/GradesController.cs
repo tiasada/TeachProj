@@ -27,7 +27,7 @@ namespace WebAPI.Controllers.Grades
         public IActionResult Post(CreateGradeRequest request)
         {
 
-            var response = _gradesService.Create(request.Name, request.Description, request.Date, request.ClassroomId);
+            var response = _gradesService.Create(request.Name, request.Description, request.Subject, request.Date, request.ClassroomId);
 
             if (!response.IsValid)
             {

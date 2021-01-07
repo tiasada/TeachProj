@@ -53,7 +53,6 @@ namespace WebAPI.Controllers.Classrooms
         [Authorize(Roles = "School")]
         public IActionResult AddStudent(Guid id, Guid studentId)
         {
-
             var studentAdded = _classroomsService.AddStudent(studentId, id);
 
             if (studentAdded != null)
@@ -69,12 +68,25 @@ namespace WebAPI.Controllers.Classrooms
 
         public IActionResult AddTeacher(Guid id, Guid teacherId)
         {
-
             var studentAdded = _classroomsService.AddTeacher(teacherId, id);
 
             if (studentAdded != null)
             {
                 return BadRequest(studentAdded);
+            }
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}/addsubject")]
+        [Authorize(Roles = "School")]
+        public IActionResult AddSubject(Guid id, [FromBody]string subjects)
+        {
+            var subjectAdded = _classroomsService.AddSubjects(id, subjects);
+
+            if (subjectAdded != null)
+            {
+                return BadRequest(subjectAdded);
             }
 
             return NoContent();

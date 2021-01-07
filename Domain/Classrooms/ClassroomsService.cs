@@ -28,5 +28,10 @@ namespace Domain.Classrooms
         {
             return _classroomsRepository.AddTeacher(id, classId);
         }
+
+        public string AddSubjects(Guid id, string subjects)
+        {
+            return _classroomsRepository.AddSubjects(id, subjects);
+        }
     }
 }
