@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using Domain.Infra;
 using Domain.Infra.Generics;
 
 namespace Domain.Teachers

@@ -6,7 +6,7 @@ namespace Domain.Teachers
 {
     public class Teacher : Person
     {
-        public virtual IList<Classroom> Classrooms { get; set; } = new List<Classroom>();
+        public virtual IList<ClassroomTeacher> Classrooms { get; set; } = new List<ClassroomTeacher>();
         
         public Teacher(string name, string cpf) : base(name, cpf)
         {}

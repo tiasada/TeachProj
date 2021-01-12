@@ -13,8 +13,10 @@ namespace Domain.Infra
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Student> Students { get; set; }
-        public DbSet<Classroom> Classrooms { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Classroom> Classrooms { get; set; }
+        public DbSet<ClassroomStudent> ClassroomStudents { get; set; }
+        public DbSet<ClassroomTeacher> ClassroomTeachers { get; set; }
         public DbSet<Grade> Grades { get; set; }
         public DbSet<StudentGrade> StudentGrades { get; set; }
         public DbSet<ClassDay> ClassDays { get; set; }

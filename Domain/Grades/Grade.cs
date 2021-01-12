@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Domain.Classrooms;
-using Domain.Entities;
+using Domain.Infra.Generics;
 
 namespace Domain.Grades
 {

@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using Domain.Entities;
+using Domain.Infra.Generics;
 using Domain.Grades;
-using Domain.Students;
-using Domain.Teachers;
 using Domain.ClassDays;
 using System.Linq;
 
@@ -12,8 +10,8 @@ namespace Domain.Classrooms
     {
         public string Name { get; set; }
         public string Subjects { get; set; }
-        public virtual IList<Student> Students { get; set; } = new List<Student>();
-        public virtual IList<Teacher> Teachers { get; set; } = new List<Teacher>();
+        public virtual IList<ClassroomStudent> Students { get; set; } = new List<ClassroomStudent>();
+        public virtual IList<ClassroomTeacher> Teachers { get; set; } = new List<ClassroomTeacher>();
         public virtual IList<Grade> Grades { get; set; } = new List<Grade>();
         public virtual IList<ClassDay> ClassDays { get; set; } = new List<ClassDay>();
 

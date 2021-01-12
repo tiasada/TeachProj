@@ -8,8 +8,8 @@ namespace Domain.Infra
     {
         public void Configure(EntityTypeBuilder<StudentGrade> builder)
         {
-            builder.Property(s => s.Id)
-                .IsRequired();
+            builder.HasKey(s => new { s.BaseGradeId, s.StudentId });
+            
             builder.Property(s => s.BaseGradeId)
                 .IsRequired();
             builder.Property(s => s.StudentId)

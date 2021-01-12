@@ -1,4 +1,3 @@
-using System;
 using Domain.Infra.Generics;
 
 namespace Domain.Students

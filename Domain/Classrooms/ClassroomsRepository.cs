@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Domain.Infra;
 using Domain.Infra.Generics;
@@ -17,9 +16,9 @@ namespace Domain.Classrooms
                 var classroom = db.Classrooms.FirstOrDefault(c => c.Id == classId);
                 if (classroom == null) { return "Classroom not found"; }
 
-                if (classroom.Students.Contains(student)) {return "Student already in classroom";}
+                if (db.ClassroomStudents.FirstOrDefault(x => x.ClassroomId == classId && x.StudentId == id) != null) {return "Student already in classroom";}
                 
-                classroom.Students.Add(student);
+                db.ClassroomStudents.Add(new ClassroomStudent(classId, id));
 
                 db.Classrooms.Attach(classroom);
                 db.Entry(classroom).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
@@ -37,9 +36,9 @@ namespace Domain.Classrooms
                 var classroom = db.Classrooms.FirstOrDefault(c => c.Id == classId);
                 if (classroom == null) { return "Classroom not found"; }
 
-                if (classroom.Teachers.Contains(teacher)) {return "Teacher already in classroom";}
+                if (db.ClassroomTeachers.FirstOrDefault(x => x.ClassroomId == classId && x.TeacherId == id) != null) {return "Teacher already in classroom";}
                 
-                classroom.Teachers.Add(teacher);
+                db.ClassroomTeachers.Add(new ClassroomTeacher(classId, id));
 
                 db.Classrooms.Attach(classroom);
                 db.Entry(classroom).State = Microsoft.EntityFrameworkCore.EntityState.Modified;

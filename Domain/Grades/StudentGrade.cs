@@ -1,10 +1,9 @@
 using System;
-using Domain.Entities;
 using Domain.Students;
 
 namespace Domain.Grades
 {
-    public class StudentGrade : Entity
+    public class StudentGrade
     {
         public Guid BaseGradeId { get; set; }
         
@@ -13,17 +12,13 @@ namespace Domain.Grades
         public virtual Grade BaseGrade { get; set; }
         public virtual Student Student { get; set; }
         
-        public double? Grade { get; set; }
+        public double Grade { get; set; }
 
-        public StudentGrade(Guid baseGrade, Guid student, double? grade)
+        public StudentGrade(Guid baseGrade, Guid student, double grade)
         {
             BaseGradeId = baseGrade;
             StudentId = student;
             Grade = grade;
-        }
-
-        public StudentGrade(Guid baseGrade, Guid student) : this(baseGrade, student, null)
-        {
         }
 
         protected StudentGrade(){}

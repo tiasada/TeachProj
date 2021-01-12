@@ -19,12 +19,6 @@ namespace Domain.ClassDays
             {
                 db.ClassDays.Add(classDay);
 
-                var classroomStudents = db.Classrooms.Where(c => c.Id == classDay.ClassroomId).SelectMany(c => c.Students);
-                foreach (var s in classroomStudents)
-                {
-                    db.StudentPresences.Add(new StudentPresence(classDay.Id, s.Id));
-                }
-
                 db.Entry(db.Classrooms.FirstOrDefault(x => x.Id == classDay.ClassroomId)).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 db.SaveChanges();
             }
@@ -39,13 +33,11 @@ namespace Domain.ClassDays
                 var classDay = db.ClassDays.FirstOrDefault(g => g.Id == id);
                 if (classDay == null) { return "Class day not found"; }
                 
-                var studentPresence = db.StudentPresences.FirstOrDefault(x => x.StudentId == studentId && x.ClassDayId == id);
-                if (studentPresence == null) { return "Student not eligible"; }
+                var studentEligible = db.ClassroomStudents.FirstOrDefault(x => x.ClassroomId == classDay.ClassroomId && x.StudentId == studentId);
+                if (studentEligible == null) { return "Student not eligible"; }
 
-                studentPresence.Present = present;
-                studentPresence.Reason = reason;
-                db.StudentPresences.Attach(studentPresence);
-                db.Entry(studentPresence).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                var studentPresence = new StudentPresence(id, studentId, present, reason);
+                db.StudentPresences.Add(studentPresence);
                 db.SaveChanges();
                 return null;
             }

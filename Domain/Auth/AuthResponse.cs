@@ -1,4 +1,3 @@
-using System;
 using Domain.Users;
 
 namespace Domain.Auth

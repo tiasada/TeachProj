@@ -8,7 +8,7 @@ namespace Domain.Students
     public class Student : Person
     {
         public string Registration { get; set; }
-        public virtual IList<Classroom> Classrooms { get; set; } = new List<Classroom>();
+        public virtual IList<ClassroomStudent> Classrooms { get; set; } = new List<ClassroomStudent>();
         public virtual IList<StudentGrade> StudentGrades { get; set; } = new List<StudentGrade>();
 
         public Student(string name, string cpf, string regist) : base(name, cpf)
