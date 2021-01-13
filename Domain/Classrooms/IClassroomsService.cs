@@ -1,6 +1,7 @@
 using System;
 using Domain.Common;
 using Domain.Students;
+using Domain.Teachers;
 
 namespace Domain.Classrooms
 {
