@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Domain.Infra.Generics;
+using Domain.Common;
 
 namespace Domain.Students
 {
@@ -12,11 +12,11 @@ namespace Domain.Students
             _studentsRepository = studentsRepository;
         }
 
-        public CreatedStudentDTO Create(string name, string cpf, string registration)
+        public CreatedEntityDTO Create(string name, string cpf, string registration)
         {
             if (_studentsRepository.Get(x => x.CPF == cpf || x.Registration == registration) != null)
             {
-                return new CreatedStudentDTO(new List<string>{"Student already exists"});
+                return new CreatedEntityDTO(new List<string>{"Student already exists"});
             }
             
             var student = new Student(name, cpf, registration);
@@ -24,11 +24,11 @@ namespace Domain.Students
 
             if (!studentVal.isValid)
             {
-                return new CreatedStudentDTO(studentVal.errors);
+                return new CreatedEntityDTO(studentVal.errors);
             }
             
             _studentsRepository.Add(student);
-            return new CreatedStudentDTO(student.Id);
+            return new CreatedEntityDTO(student.Id);
         }
     }
 }

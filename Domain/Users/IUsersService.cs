@@ -1,14 +1,9 @@
-using System;
-using System.Collections.Generic;
+using Domain.Common;
 
 namespace Domain.Users
 {
-    public interface IUsersService
+    public interface IUsersService : IService<User>
     {
-        CreatedUserDTO Create(Profile profile, string username, string password);
-        
-        User Get(Func<User, bool> predicate);
-
-        IEnumerable<User> GetAll();
+        CreatedEntityDTO Create(Profile profile, string username, string password);
     }
 }

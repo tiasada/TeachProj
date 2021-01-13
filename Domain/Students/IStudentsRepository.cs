@@ -1,4 +1,4 @@
-using Domain.Infra.Generics;
+using Domain.Common;
 
 namespace Domain.Students
 {

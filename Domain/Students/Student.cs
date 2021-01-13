@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Domain.Classrooms;
 using Domain.Grades;
-using Domain.People;
+using Domain.Common;
 
 namespace Domain.Students
 {

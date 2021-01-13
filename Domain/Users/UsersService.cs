@@ -1,5 +1,4 @@
 using Domain.Common;
-using Domain.Infra.Generics;
 using System.Collections.Generic;
 
 namespace Domain.Users
@@ -12,11 +11,11 @@ namespace Domain.Users
             _usersRepository = usersRepository;
         }
 
-        public CreatedUserDTO Create(Profile profile, string username, string password)
+        public CreatedEntityDTO Create(Profile profile, string username, string password)
         {
             if (_usersRepository.Get(x => x.Username == username) != null)
             {
-                return new CreatedUserDTO(new List<string>{"Username already in use"});
+                return new CreatedEntityDTO(new List<string>{"Username already in use"});
             }
             
             var crypt = new Crypt();
@@ -27,11 +26,11 @@ namespace Domain.Users
 
             if (!userVal.isValid)
             {   
-                return new CreatedUserDTO(userVal.errors);
+                return new CreatedEntityDTO(userVal.errors);
             }
             
             _usersRepository.Add(user);
-            return new CreatedUserDTO(user.Id);
+            return new CreatedEntityDTO(user.Id);
         }
     }
 }

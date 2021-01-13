@@ -74,7 +74,7 @@ namespace WebAPI.Controllers.Grades
         {
             var gradeRemoved = _gradesService.Remove(id);
 
-            if (gradeRemoved == null)
+            if (!gradeRemoved)
             {
                 return NotFound();
             }
@@ -87,7 +87,7 @@ namespace WebAPI.Controllers.Grades
 
         public IActionResult GetByID(Guid id)
         {
-            var grade = _gradesService.Get(x => x.Id == id);
+            var grade = _gradesService.Get(id);
 
             if (grade == null)
             {

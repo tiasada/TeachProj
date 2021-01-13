@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Infra.Generics;
+using Domain.Common;
 
 namespace Domain.Users
 {

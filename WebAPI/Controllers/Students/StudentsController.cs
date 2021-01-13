@@ -41,7 +41,7 @@ namespace WebAPI.Controllers.Students
         {
             var studentRemoved = _studentsService.Remove(id);
 
-            if (studentRemoved == null)
+            if (!studentRemoved)
             {
                 return NotFound();
             }
@@ -53,7 +53,7 @@ namespace WebAPI.Controllers.Students
         [AllowAnonymous]
         public IActionResult GetByID(Guid id)
         {
-            var student = _studentsService.Get(x => x.Id == id);
+            var student = _studentsService.Get(id);
 
             if (student == null)
             {

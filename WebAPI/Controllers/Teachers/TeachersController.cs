@@ -41,7 +41,7 @@ namespace WebAPI.Controllers.Teachers
         {
             var teacherRemoved = _teachersService.Remove(id);
 
-            if (teacherRemoved == null)
+            if (!teacherRemoved)
             {
                 return NotFound();
             }
@@ -54,7 +54,7 @@ namespace WebAPI.Controllers.Teachers
 
         public IActionResult GetByID(Guid id)
         {
-            var teacher = _teachersService.Get(x => x.Id == id);
+            var teacher = _teachersService.Get(id);
 
             if (teacher == null)
             {

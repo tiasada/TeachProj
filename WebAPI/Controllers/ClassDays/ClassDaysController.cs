@@ -55,7 +55,7 @@ namespace WebAPI.Controllers.ClassDays
         {
             var classDayRemoved = _classDaysService.Remove(id);
 
-            if (classDayRemoved == null)
+            if (!classDayRemoved)
             {
                 return NotFound();
             }
@@ -67,7 +67,7 @@ namespace WebAPI.Controllers.ClassDays
         [AllowAnonymous]
         public IActionResult GetByID(Guid id)
         {
-            var classDay = _classDaysService.Get(x => x.Id == id);
+            var classDay = _classDaysService.Get(id);
 
             if (classDay == null)
             {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Domain.Classrooms;
-using Domain.People;
+using Domain.Common;
 
 namespace Domain.Teachers
 {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Domain.Infra.Generics;
 using Domain.Grades;
 using Domain.ClassDays;
+using Domain.Common;
 using System.Linq;
 
 namespace Domain.Classrooms

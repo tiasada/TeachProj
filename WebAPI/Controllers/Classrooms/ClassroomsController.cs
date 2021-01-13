@@ -41,7 +41,7 @@ namespace WebAPI.Controllers.Classrooms
         {
             var classroomRemoved = _classroomsService.Remove(id);
 
-            if (classroomRemoved == null)
+            if (!classroomRemoved)
             {
                 return NotFound();
             }
@@ -97,7 +97,7 @@ namespace WebAPI.Controllers.Classrooms
 
         public IActionResult GetByID(Guid id)
         {
-            var classroom = _classroomsService.Get(x => x.Id == id);
+            var classroom = _classroomsService.Get(id);
 
             if (classroom == null)
             {
