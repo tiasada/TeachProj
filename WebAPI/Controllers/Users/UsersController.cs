@@ -16,7 +16,7 @@ namespace WebAPI.Controllers.Users
         }
         
         [HttpPost]
-        //[Authorize(Roles = "School")]
+        [Authorize(Roles = "School")]
         public IActionResult Post(CreateUserRequest request)
         {
             var response = _usersService.Create(request.Profile, request.Username, request.Password);

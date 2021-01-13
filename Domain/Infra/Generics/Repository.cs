@@ -35,6 +35,11 @@ namespace Domain.Infra.Generics
             }
         }
 
+        public virtual T Get(Guid id)
+        {
+            return Get(x => x.Id == id);
+        }
+
         public virtual IEnumerable<T> GetAll()
         {
             using (var db = new TeachContext())

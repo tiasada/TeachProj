@@ -2,9 +2,10 @@
 {
     public enum Profile
     {
-        School = 0,
-        Teacher = 1,
-        Parent = 2,
-        Student = 3
+        Admin = 0,
+        School = 1,
+        Teacher = 2,
+        Parent = 3,
+        Student = 4
     }
 }
