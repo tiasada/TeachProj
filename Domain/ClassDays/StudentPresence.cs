@@ -13,11 +13,14 @@ namespace Domain.ClassDays
         public bool Present { get; set; }
         public string Reason { get; set; }
 
-        public StudentPresence(Guid classDay, Guid student, bool present = false, string reason = null)
+        public StudentPresence(ClassDay classDay, Student student, bool present = false, string reason = null)
         {
-            ClassDayId = classDay;
-            StudentId = student;
+            ClassDay = classDay;
+            ClassDayId = classDay.Id;
+            Student = student;
+            StudentId = student.Id;
             Present = present;
+            Reason = reason;
         }
 
         protected StudentPresence(){}

@@ -14,10 +14,12 @@ namespace Domain.Grades
         
         public double Grade { get; set; }
 
-        public StudentGrade(Guid baseGrade, Guid student, double grade)
+        public StudentGrade(Grade baseGrade, Student student, double grade)
         {
-            BaseGradeId = baseGrade;
-            StudentId = student;
+            BaseGrade = baseGrade;
+            BaseGradeId = baseGrade.Id;
+            Student = student;
+            StudentId = student.Id;
             Grade = grade;
         }
 

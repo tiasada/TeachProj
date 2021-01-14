@@ -46,7 +46,7 @@ namespace Domain.ClassDays
             var studentEligible = _classroomsService.GetStudent(classroomId, studentId);
             if (studentEligible == null) { return "Student not eligible"; }
 
-            var studentPresence = new StudentPresence(id, studentId, present, reason);
+            var studentPresence = new StudentPresence(classDay, student, present, reason);
             _repository.SetPresence(studentPresence);
 
             return null;

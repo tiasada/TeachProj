@@ -4,7 +4,6 @@ namespace Domain.ClassDays
 {
     public class ClassDaysRepository : Repository<ClassDay>, IClassDaysRepository
     {
-        private readonly IRepository<ClassDay> _repository;
         private readonly IRelationalRepository<StudentPresence> _presenceRepository;
         public ClassDaysRepository(IRepository<ClassDay> repository, IRelationalRepository<StudentPresence> presenceRepository) : base(repository)
         {

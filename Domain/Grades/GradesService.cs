@@ -54,7 +54,7 @@ namespace Domain.Grades
             var studentEligible = _classStudentsRepository.Get(x => x.ClassroomId == grade.ClassroomId && x.StudentId == studentId);
             if (studentEligible == null) { return "Student not eligible"; }
 
-            var relation = new StudentGrade(id, studentId, value);
+            var relation = new StudentGrade(grade, student, value);
             _studentGradesRepository.Add(relation);
             
             return null;

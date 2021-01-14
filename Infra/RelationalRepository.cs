@@ -12,6 +12,10 @@ namespace Infra
             using (var db = new TeachContext())
             {
                 db.Add<T>(relation);
+                foreach (var m in db.Entry(relation).References)
+                {
+                    db.Entry(m.CurrentValue).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                }
                 db.SaveChanges();
             }
         }

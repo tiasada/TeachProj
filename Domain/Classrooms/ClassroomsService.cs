@@ -84,10 +84,10 @@ namespace Domain.Classrooms
             var classroom = _repository.Get(classId);
             if (classroom == null) { return null; }
 
-            var student = classroom.Students.FirstOrDefault(x => x.StudentId == studentId);
+            var student = _classStudentsRepository.Get(x => x.StudentId == studentId && x.ClassroomId == classId);
             if (student == null) { return null; }
 
-            return student.Student;
+            return _studentsService.Get(student.StudentId);
         }
 
         public Teacher GetTeacher(Guid classId, Guid teacherId)
