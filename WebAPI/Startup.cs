@@ -41,6 +41,18 @@ namespace TeachProj
         {
             services.AddControllers();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "any", 
+                builder =>
+                {
+                    builder
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin();
+                });
+            });
+
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
             services.AddAuthentication(x =>
             {
@@ -94,6 +106,8 @@ namespace TeachProj
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("any");
 
             app.UseAuthentication();
             app.UseAuthorization();

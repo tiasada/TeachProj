@@ -27,6 +27,12 @@ namespace Infra.Mapping
 
             builder.HasIndex(s => s.Registration)
                 .IsUnique();
+
+            builder.Property(s => s.UserId)
+                .IsRequired();
+
+            builder.HasIndex(s => s.UserId)
+                .IsUnique();
         }
     }
 }
