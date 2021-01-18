@@ -14,7 +14,10 @@ namespace Infra
                 db.Add<T>(relation);
                 foreach (var m in db.Entry(relation).References)
                 {
-                    db.Entry(m.CurrentValue).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    if (m.CurrentValue != null)
+                    {
+                        db.Entry(m.CurrentValue).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    }
                 }
                 db.SaveChanges();
             }

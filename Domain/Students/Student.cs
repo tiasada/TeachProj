@@ -41,5 +41,11 @@ namespace Domain.Students
             }
             return (errs, errs.Count == 0);
         }
+
+        public void LinkUser(User user)
+        {
+            User = user;
+            UserId = user.Id;
+        }
     }
 }
