@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Domain.Common;
 using Domain.Users;
@@ -40,6 +41,25 @@ namespace Domain.Students
             student.LinkUser(user);
             _studentsRepository.Add(student);
             return new CreatedEntityDTO(student.Id);
+        }
+
+        public override bool Remove(Guid id)
+        {
+            var student = _studentsRepository.Get(id);
+            if (student == null) { return false; }
+
+            var user = _usersService.Get(student.UserId);
+            if (user != null)
+            {
+                _usersService.Remove(user.Id);
+            }
+
+            if (_studentsRepository.Get(student.Id) != null)
+            {
+                _studentsRepository.Remove(student);
+            }
+            
+            return true;
         }
     }
 }

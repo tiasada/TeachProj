@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Domain.Common;
 using Domain.Users;
@@ -41,6 +42,25 @@ namespace Domain.Teachers
             teacher.LinkUser(user);
             _teachersRepository.Add(teacher);
             return new CreatedEntityDTO(teacher.Id);
+        }
+
+        public override bool Remove(Guid id)
+        {
+            var teacher = _teachersRepository.Get(id);
+            if (teacher == null) { return false; }
+
+            var user = _usersService.Get(teacher.UserId);
+            if (user != null)
+            {
+                _usersService.Remove(user.Id);
+            }
+
+            if (_teachersRepository.Get(teacher.Id) != null)
+            {
+                _teachersRepository.Remove(teacher);
+            }
+            
+            return true;
         }
     }
 }
