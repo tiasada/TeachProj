@@ -1,8 +1,5 @@
-using System;
 using Microsoft.AspNetCore.Mvc;
-using Domain.Users;
 using Domain.Auth;
-using System.Threading.Tasks;
 using WebAPI.Token;
 
 namespace WebAPI.Controllers.Auth

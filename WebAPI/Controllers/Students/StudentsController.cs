@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Domain.Students;
 using Domain.Users;
-using Microsoft.Extensions.Primitives;
 using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers.Students

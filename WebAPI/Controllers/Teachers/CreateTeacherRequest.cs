@@ -1,6 +1,3 @@
-using System;
-using Domain.Users;
-
 namespace WebAPI.Controllers.Teachers
 {
     public class CreateTeacherRequest
