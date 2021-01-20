@@ -65,14 +65,14 @@ namespace Domain.Classrooms
             return null;
         }
 
-        public string AddSubjects(Guid id, string subjects)
+        public string AddSubject(Guid id, string subject)
         {
             var newClass = _repository.Get(id);
             if (newClass == null) { return "Classroom not found"; }
 
-            if (String.IsNullOrEmpty(subjects)) { return "Invalid subjects"; }
+            if (String.IsNullOrEmpty(subject)) { return "Invalid subjects"; }
 
-            newClass.Subjects += subjects;
+            newClass.Subjects.Add(subject);
 
             _repository.Modify(id, newClass);
 

@@ -77,9 +77,9 @@ namespace WebAPI.Controllers.Classrooms
 
         [HttpPatch("{id}/addsubject")]
         [Authorize(Roles = "School")]
-        public IActionResult AddSubject(Guid id, [FromBody]string subjects)
+        public IActionResult AddSubject(Guid id, [FromBody]string subject)
         {
-            var subjectAdded = _classroomsService.AddSubjects(id, subjects);
+            var subjectAdded = _classroomsService.AddSubject(id, subject);
 
             if (subjectAdded != null)
             {
@@ -91,7 +91,6 @@ namespace WebAPI.Controllers.Classrooms
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-
         public IActionResult GetByID(Guid id)
         {
             var classroom = _classroomsService.Get(id);

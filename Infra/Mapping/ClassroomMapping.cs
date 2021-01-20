@@ -1,3 +1,4 @@
+using System.Linq;
 using Domain.Classrooms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -14,6 +15,10 @@ namespace Infra.Mapping
             builder.Property(s => s.Name)
                 .IsRequired()
                 .HasMaxLength(100);
+
+            builder.Ignore(s => s.Subjects);
+            builder.Property(s => s.SubjectsString)
+                .IsRequired();
         }
     }
 }

@@ -9,7 +9,16 @@ namespace Domain.Classrooms
     public class Classroom : Entity
     {
         public string Name { get; set; }
-        public string Subjects { get; set; }
+        private IList<string> _subjects { get; set; } = new List<string>();
+        public IList<string> Subjects {
+            get { return _subjects; }
+            set { _subjects = value; }
+        }
+        public string SubjectsString {
+            get { return string.Join(", ", _subjects); }
+            set { _subjects = value.Split(", ").ToList(); }
+        }
+
         public virtual IList<ClassroomStudent> Students { get; set; } = new List<ClassroomStudent>();
         public virtual IList<ClassroomTeacher> Teachers { get; set; } = new List<ClassroomTeacher>();
         public virtual IList<Grade> Grades { get; set; } = new List<Grade>();
@@ -18,11 +27,6 @@ namespace Domain.Classrooms
         public Classroom(string name)
         {
             Name = name;
-        }
-
-        public IEnumerable<string> GetSubjects()
-        {
-            return Subjects.Split(',').ToList();
         }
     }
 }

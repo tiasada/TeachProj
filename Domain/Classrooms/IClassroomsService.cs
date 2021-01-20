@@ -13,7 +13,7 @@ namespace Domain.Classrooms
 
         string AddTeacher(Guid id, Guid classId);
         
-        string AddSubjects(Guid id, string subjects);
+        string AddSubject(Guid id, string subject);
         
         Student GetStudent(Guid classId, Guid studentId);
         Teacher GetTeacher(Guid classId, Guid teacherId);
