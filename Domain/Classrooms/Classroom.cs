@@ -16,7 +16,7 @@ namespace Domain.Classrooms
         }
         public string SubjectsString {
             get { return string.Join(", ", _subjects); }
-            set { _subjects = value.Split(", ").ToList(); }
+            set { _subjects = value.Split(", ", System.StringSplitOptions.RemoveEmptyEntries).ToList(); }
         }
 
         public virtual IList<ClassroomStudent> Students { get; set; } = new List<ClassroomStudent>();
