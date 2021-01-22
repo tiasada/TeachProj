@@ -1,31 +1,24 @@
 using System.Collections.Generic;
-using Domain.Classrooms;
-using Domain.Grades;
 using Domain.Common;
 using System;
 using Domain.Users;
 
 namespace Domain.Students
 {
-    public class Student : Person
+    public class Parent : Person
     {
-        public string Registration { get; set; }
-        
         public virtual User User { get; set; }
         public Guid UserId { get; set; }
 
-        public virtual Parent Parent { get; set; } = null;
-        public Guid? ParentId { get; set; } = null;
+        public virtual Student Student { get; set; }
+        public Guid StudentId { get; set; }
         
-        public virtual IList<ClassroomStudent> Classrooms { get; set; } = new List<ClassroomStudent>();
-        public virtual IList<StudentGrade> StudentGrades { get; set; } = new List<StudentGrade>();
-
-        public Student(string name, string cpf, string regist) : base(name, cpf)
+        public Parent(string name, string cpf, Student student) : base(name, cpf)
         {
-            Registration = regist;
+            Student = student;
         }
 
-        protected Student() : base("", "") {}
+        protected Parent() : base("", "") {}
 
         public (List<string> errors, bool isValid) Validate()
         {
