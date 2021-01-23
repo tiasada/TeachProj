@@ -4,6 +4,7 @@ using Domain.Grades;
 using Domain.Common;
 using System;
 using Domain.Users;
+using Domain.Parents;
 
 namespace Domain.Students
 {

@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using Domain.Common;
 using System;
 using Domain.Users;
+using Domain.Students;
 
-namespace Domain.Students
+namespace Domain.Parents
 {
     public class Parent : Person
     {
@@ -16,6 +17,7 @@ namespace Domain.Students
         public Parent(string name, string cpf, Student student) : base(name, cpf)
         {
             Student = student;
+            StudentId = student.Id;
         }
 
         protected Parent() : base("", "") {}

@@ -17,6 +17,7 @@ using System.Text;
 using WebAPI;
 using Microsoft.IdentityModel.Tokens;
 using Domain.ClassDays;
+using Domain.Parents;
 
 namespace TeachProj
 {
@@ -73,6 +74,8 @@ namespace TeachProj
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IClassroomsRepository, ClassroomsRepository>();
             services.AddScoped<IClassroomsService, ClassroomsService>();
+            services.AddScoped<IParentsRepository, ParentsRepository>();
+            services.AddScoped<IParentsService, ParentsService>();
             services.AddScoped<IStudentsRepository, StudentsRepository>();
             services.AddScoped<IStudentsService, StudentsService>();
             services.AddScoped<IUsersRepository, UsersRepository>();

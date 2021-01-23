@@ -1,13 +1,12 @@
 using Domain.Parents;
-using Domain.Students;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infra.Mapping
 {
-    public class StudentMapping : IEntityTypeConfiguration<Student>
+    public class ParentMapping : IEntityTypeConfiguration<Parent>
     {
-        public void Configure(EntityTypeBuilder<Student> builder)
+        public void Configure(EntityTypeBuilder<Parent> builder)
         {
             builder.Property(s => s.Id)
                 .IsRequired();
@@ -23,22 +22,17 @@ namespace Infra.Mapping
             builder.HasIndex(s => s.CPF)
                 .IsUnique();
 
-            builder.Property(s => s.Registration)
-                .IsRequired();
-
-            builder.HasIndex(s => s.Registration)
-                .IsUnique();
-
             builder.Property(s => s.UserId)
                 .IsRequired();
 
             builder.HasIndex(s => s.UserId)
                 .IsUnique();
 
-            builder.HasOne(a => a.Parent)
-                .WithOne(b => b.Student)
-                .HasForeignKey<Parent>(c => c.StudentId)
-                .OnDelete(DeleteBehavior.NoAction);
+            builder.Property(s => s.StudentId)
+                .IsRequired();
+
+            builder.HasIndex(s => s.StudentId)
+                .IsUnique();
         }
     }
 }

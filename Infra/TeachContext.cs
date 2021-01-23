@@ -2,6 +2,7 @@ using System.Reflection;
 using Domain.ClassDays;
 using Domain.Classrooms;
 using Domain.Grades;
+using Domain.Parents;
 using Domain.Students;
 using Domain.Teachers;
 using Domain.Users;
@@ -13,6 +14,7 @@ namespace Infra
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Parent> Parents { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Classroom> Classrooms { get; set; }
         public DbSet<ClassroomStudent> ClassroomStudents { get; set; }
