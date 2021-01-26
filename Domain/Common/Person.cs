@@ -7,11 +7,13 @@ namespace Domain.Common
         public string Name { get; protected set; }
 
         public string CPF { get; protected set; }
+        public string PhoneNumber { get; set; }
 
-        protected Person(string name, string cpf)
+        protected Person(string name, string cpf, string phoneNumber)
         {
             Name = name;
             CPF = cpf;
+            PhoneNumber = phoneNumber;
         }
 
         protected bool ValidateName()

@@ -21,12 +21,12 @@ namespace Domain.Students
         public virtual IList<ClassroomStudent> Classrooms { get; set; } = new List<ClassroomStudent>();
         public virtual IList<StudentGrade> StudentGrades { get; set; } = new List<StudentGrade>();
 
-        public Student(string name, string cpf, string regist) : base(name, cpf)
+        public Student(string name, string cpf, string phoneNumber, string regist) : base(name, cpf, phoneNumber)
         {
             Registration = regist;
         }
 
-        protected Student() : base("", "") {}
+        protected Student() : base("", "", "") {}
 
         public (List<string> errors, bool isValid) Validate()
         {

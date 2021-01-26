@@ -14,13 +14,13 @@ namespace Domain.Parents
         public virtual Student Student { get; set; }
         public Guid StudentId { get; set; }
         
-        public Parent(string name, string cpf, Student student) : base(name, cpf)
+        public Parent(string name, string cpf, string phoneNumber, Student student) : base(name, cpf, phoneNumber)
         {
             Student = student;
             StudentId = student.Id;
         }
 
-        protected Parent() : base("", "") {}
+        protected Parent() : base("", "", "") {}
 
         public (List<string> errors, bool isValid) Validate()
         {

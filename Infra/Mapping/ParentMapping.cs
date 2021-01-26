@@ -22,6 +22,12 @@ namespace Infra.Mapping
             builder.HasIndex(s => s.CPF)
                 .IsUnique();
 
+            builder.Property(s => s.PhoneNumber)
+                .IsRequired();
+
+            builder.HasIndex(s => s.PhoneNumber)
+                .IsUnique();
+
             builder.Property(s => s.UserId)
                 .IsRequired();
 

@@ -16,14 +16,14 @@ namespace Domain.Students
             _usersService = usersService;
         }
 
-        public CreatedEntityDTO Create(string name, string cpf, string registration)
+        public CreatedEntityDTO Create(string name, string cpf, string phoneNumber, string registration)
         {
             if (_studentsRepository.Get(x => x.CPF == cpf || x.Registration == registration) != null)
             {
                 return new CreatedEntityDTO(new List<string>{"Student already exists"});
             }
             
-            var student = new Student(name, cpf, registration);
+            var student = new Student(name, cpf, phoneNumber, registration);
             
             var studentVal = student.Validate();
             if (!studentVal.isValid)

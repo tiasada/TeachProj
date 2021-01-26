@@ -19,7 +19,7 @@ namespace Domain.Parents
             _studentsService = studentsService;
         }
 
-        public CreatedEntityDTO Create(string name, string cpf, Guid studentId)
+        public CreatedEntityDTO Create(string name, string cpf, string phoneNumber, Guid studentId)
         {
             if (_parentsRepository.Get(x => x.CPF == cpf) != null)
             {
@@ -32,7 +32,7 @@ namespace Domain.Parents
                 return new CreatedEntityDTO(new List<string>{"Student not found"});
             }
             
-            var parent = new Parent(name, cpf, student);
+            var parent = new Parent(name, cpf, phoneNumber, student);
             
             var parentVal = parent.Validate();
             if (!parentVal.isValid)
