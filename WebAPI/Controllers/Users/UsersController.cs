@@ -29,12 +29,27 @@ namespace WebAPI.Controllers.Users
             return NoContent();
         }
 
-        [HttpGet("{id}")]
+        // [HttpGet("{id}")]
+        // [AllowAnonymous]
+        
+        // public IActionResult GetByID(Guid id)
+        // {
+        //     var user = _usersService.Get(x => x.Id == id);
+
+        //     if (user == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     return Ok(user);
+        // }
+
+        [HttpGet("{username}")]
         [AllowAnonymous]
         
-        public IActionResult GetByID(Guid id)
+        public IActionResult GetByUsername(string username)
         {
-            var user = _usersService.Get(x => x.Id == id);
+            var user = _usersService.Get(x => x.Username == username);
 
             if (user == null)
             {
