@@ -12,6 +12,7 @@ namespace Infra.Mapping
             var crypt = new Crypt();
             var cryptPassword = crypt.CreateMD5("admin123");
             builder.HasData(new User(0, "Admin", cryptPassword));
+            builder.HasData(new User(Profile.School, "Escola Frederico Rei", cryptPassword));
             
             builder.Property(u => u.Id)
                 .IsRequired();
