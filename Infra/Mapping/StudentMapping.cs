@@ -29,6 +29,9 @@ namespace Infra.Mapping
             builder.HasIndex(s => s.PhoneNumber)
                 .IsUnique();
 
+            builder.Property(s => s.BirthDate)
+                .IsRequired();
+
             builder.Property(s => s.Registration)
                 .IsRequired();
 

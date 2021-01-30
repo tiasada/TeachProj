@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 namespace Domain.Common
@@ -8,12 +9,14 @@ namespace Domain.Common
 
         public string CPF { get; protected set; }
         public string PhoneNumber { get; set; }
+        public DateTime BirthDate { get; set; }
 
-        protected Person(string name, string cpf, string phoneNumber)
+        protected Person(string name, string cpf, string phoneNumber, DateTime birthDate)
         {
             Name = name;
             CPF = cpf;
             PhoneNumber = phoneNumber;
+            BirthDate = birthDate.Date;
         }
 
         protected bool ValidateName()
