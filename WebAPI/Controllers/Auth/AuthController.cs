@@ -26,7 +26,7 @@ namespace WebAPI.Controllers.Auth
             }
 
             var token = TokenService.GenerateToken(response.User);
-            var profile = response.User.Profile.ToString();
+            var profile = response.User.Profile.ToString().ToLower();
 
             return Ok(new LoginResponse{Token = token, Profile = profile});
         }
