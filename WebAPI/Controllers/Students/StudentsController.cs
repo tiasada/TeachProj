@@ -22,7 +22,7 @@ namespace WebAPI.Controllers.Students
         [Authorize(Roles = "School")]
         public IActionResult Create(CreateStudentRequest request)
         {
-            var response = _studentsService.Create(request.Name, request.CPF, request.PhoneNumber, request.Registration);
+            var response = _studentsService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate, request.Registration);
 
             if (!response.IsValid)
             {

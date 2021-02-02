@@ -7,6 +7,7 @@ namespace WebAPI.Controllers.Parents
         public string Name { get; set; }
         public string CPF { get; set; }
         public string PhoneNumber { get; set; }
+        public DateTime BirthDate { get; set; }
         public Guid StudentId { get; set; }
     }
 }

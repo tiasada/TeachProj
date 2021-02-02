@@ -17,14 +17,14 @@ namespace Domain.Teachers
             _usersService = usersService;
         }
         
-        public CreatedEntityDTO Create(string name, string cpf, string phoneNumber)
+        public CreatedEntityDTO Create(string name, string cpf, string phoneNumber, DateTime birthDate)
         {
             if (_teachersRepository.Get(x => x.CPF == cpf) != null)
             {
                 return new CreatedEntityDTO(new List<string>{"Teacher already exists"});
             }
             
-            var teacher = new Teacher(name, cpf, phoneNumber);
+            var teacher = new Teacher(name, cpf, phoneNumber, birthDate);
             
             var teacherVal = teacher.Validate();
             if (!teacherVal.isValid)
