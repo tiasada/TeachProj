@@ -115,7 +115,7 @@ namespace WebAPI.Controllers.Classrooms
             {
                 var username = HttpContext.User.Claims.ElementAt(0).Value;
                 var teacher = _teachersService.Get(x => x.CPF == username);
-                return Ok(teacher.Classrooms.Select(x => x.Classroom));
+                return Ok(_classroomsService.GetByTeacher(teacher.Id));
             }
             
             return Ok(_classroomsService.GetAll());

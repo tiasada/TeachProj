@@ -14,5 +14,6 @@ namespace Domain.Common
         T Get(Func<T, bool> predicate);
 
         IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(Func<T, bool> predicate);
     }
 }

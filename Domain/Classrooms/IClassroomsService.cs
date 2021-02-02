@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Domain.Common;
 using Domain.Students;
 using Domain.Teachers;
@@ -17,5 +18,6 @@ namespace Domain.Classrooms
         
         Student GetStudent(Guid classId, Guid studentId);
         Teacher GetTeacher(Guid classId, Guid teacherId);
+        IList<Classroom> GetByTeacher(Guid id);
     }
 }

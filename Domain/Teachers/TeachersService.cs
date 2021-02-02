@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Domain.Classrooms;
 using Domain.Common;
 using Domain.Users;
 
@@ -10,8 +11,8 @@ namespace Domain.Teachers
         private readonly ITeachersRepository _teachersRepository;
         private readonly IUsersService _usersService;
 
-
-        public TeachersService(ITeachersRepository teachersRepository, IUsersService usersService) : base(teachersRepository)
+        public TeachersService(ITeachersRepository teachersRepository,
+                                IUsersService usersService) : base(teachersRepository)
         {
             _teachersRepository = teachersRepository;
             _usersService = usersService;

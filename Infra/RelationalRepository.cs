@@ -61,5 +61,13 @@ namespace Infra
                 return db.Set<T>().ToList();
             }
         }
+
+        public virtual IEnumerable<T> GetAll(Func<T, bool> predicate)
+        {
+            using (var db = new TeachContext())
+            {
+                return db.Set<T>().Where(predicate).ToList();
+            }
+        }
     }
 }

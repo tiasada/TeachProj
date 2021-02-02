@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Domain.Common;
 using Domain.Students;
@@ -95,10 +96,25 @@ namespace Domain.Classrooms
             var classroom = _repository.Get(classId);
             if (classroom == null) { return null; }
 
-            var teacher = classroom.Teachers.FirstOrDefault(x => x.TeacherId == teacherId);
+            var teacher = _classTeachersRepository.Get(x => x.TeacherId == teacherId && x.ClassroomId == classId);
             if (teacher == null) { return null; }
 
-            return teacher.Teacher;
+            return _teachersService.Get(teacher.TeacherId);
+        }
+
+        public IList<Classroom> GetByTeacher(Guid id)
+        {
+            var teacher = _teachersService.Get(id);
+            if (teacher == null) { return null; }
+
+            var relations = _classTeachersRepository.GetAll(x => x.TeacherId == teacher.Id);
+            IList<Classroom> classrooms = new List<Classroom>();
+            foreach (var item in relations)
+            {
+                classrooms.Add(_repository.Get(x => x.Id == item.ClassroomId));
+            }
+
+            return classrooms;
         }
     }
 }

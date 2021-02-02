@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Common;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infra
 {
@@ -75,7 +74,7 @@ namespace Infra
         {
             using (var db = new TeachContext())
             {
-                return db.Set<T>().ToList().Where(predicate);
+                return db.Set<T>().Where(predicate).ToList();
             }
         }
     }
