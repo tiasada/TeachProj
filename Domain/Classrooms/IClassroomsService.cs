@@ -17,6 +17,7 @@ namespace Domain.Classrooms
         string AddSubject(Guid id, string subject);
         
         Student GetStudent(Guid classId, Guid studentId);
+        IList<Student> GetStudents(Guid classId);
         Teacher GetTeacher(Guid classId, Guid teacherId);
         IList<Classroom> GetByTeacher(Guid id);
     }

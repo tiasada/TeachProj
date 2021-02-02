@@ -91,6 +91,21 @@ namespace Domain.Classrooms
             return _studentsService.Get(student.StudentId);
         }
 
+        public IList<Student> GetStudents(Guid classId)
+        {
+            var classroom = _repository.Get(classId);
+            if (classroom == null) { return null; }
+
+            var relations = _classStudentsRepository.GetAll(x => x.ClassroomId == classroom.Id);
+            IList<Student> students = new List<Student>();
+            foreach (var item in relations)
+            {
+                students.Add(_studentsService.Get(x => x.Id == item.StudentId));
+            }
+
+            return students;
+        }
+
         public Teacher GetTeacher(Guid classId, Guid teacherId)
         {
             var classroom = _repository.Get(classId);
