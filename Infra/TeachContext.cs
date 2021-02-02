@@ -24,7 +24,6 @@ namespace Infra
         public DbSet<ClassDay> ClassDays { get; set; }
         public DbSet<StudentPresence> StudentPresences { get; set; }
 
-        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
@@ -33,6 +32,7 @@ namespace Infra
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=localhost;User Id=sa;PWD=senha?BOA!;Initial Catalog=Teach");
+            this.ChangeTracker.LazyLoadingEnabled = false;
         }
     }
 }

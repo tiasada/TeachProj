@@ -15,5 +15,6 @@ namespace Domain.Common
         T Get(Guid id);
 
         IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(Func<T, bool> predicate);
     }
 }

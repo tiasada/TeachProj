@@ -38,5 +38,10 @@ namespace Domain.Common
         {
             return _repository.GetAll();
         }
+
+        public virtual IEnumerable<T> GetAll(Func<T, bool> predicate)
+        {
+            return _repository.GetAll(predicate);
+        }
     }
 }

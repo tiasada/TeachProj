@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infra
 {
@@ -67,6 +68,14 @@ namespace Infra
             using (var db = new TeachContext())
             {
                 return db.Set<T>().ToList();
+            }
+        }
+
+        public virtual IEnumerable<T> GetAll(Func<T, bool> predicate)
+        {
+            using (var db = new TeachContext())
+            {
+                return db.Set<T>().ToList().Where(predicate);
             }
         }
     }

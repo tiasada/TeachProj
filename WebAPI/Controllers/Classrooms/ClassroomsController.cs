@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Domain.Classrooms;
 using Domain.Users;
 using Microsoft.AspNetCore.Authorization;
+using Domain.Teachers;
+using System.Linq;
 
 namespace WebAPI.Controllers.Classrooms
 {
@@ -12,10 +14,12 @@ namespace WebAPI.Controllers.Classrooms
     {
         public readonly IClassroomsService _classroomsService;
         public readonly IUsersService _usersService;
-        public ClassroomsController(IUsersService usersService, IClassroomsService classroomsService)
+        public readonly ITeachersService _teachersService;
+        public ClassroomsController(IUsersService usersService, IClassroomsService classroomsService, ITeachersService teachersService)
         {
             _classroomsService = classroomsService;
             _usersService = usersService;
+            _teachersService = teachersService;
         }
         
         [HttpPost]
@@ -90,7 +94,7 @@ namespace WebAPI.Controllers.Classrooms
         }
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [Authorize (Roles = "School, Teacher")]
         public IActionResult GetByID(Guid id)
         {
             var classroom = _classroomsService.Get(id);
@@ -104,9 +108,16 @@ namespace WebAPI.Controllers.Classrooms
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize (Roles = "School,Teacher")]
         public IActionResult GetAll()
         {
+            if (HttpContext.User.IsInRole("Teacher"))
+            {
+                var username = HttpContext.User.Claims.ElementAt(0).Value;
+                var teacher = _teachersService.Get(x => x.CPF == username);
+                return Ok(teacher.Classrooms.Select(x => x.Classroom));
+            }
+            
             return Ok(_classroomsService.GetAll());
         }
     }
