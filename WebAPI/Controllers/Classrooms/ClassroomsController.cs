@@ -23,7 +23,7 @@ namespace WebAPI.Controllers.Classrooms
         }
         
         [HttpPost]
-        [Authorize(Roles = "School")]
+        [Authorize(Roles = "Admin,School")]
         public IActionResult Post(CreateClassroomRequest request)
         {
             var response = _classroomsService.Create(request.Name);
@@ -37,7 +37,7 @@ namespace WebAPI.Controllers.Classrooms
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "School")]
+        [Authorize(Roles = "Admin,School")]
         public IActionResult Remove(Guid id)
         {
             var classroomRemoved = _classroomsService.Remove(id);
@@ -51,7 +51,7 @@ namespace WebAPI.Controllers.Classrooms
         }
 
         [HttpPatch("{id}/addstudent/{studentId}")]
-        [Authorize(Roles = "School")]
+        [Authorize(Roles = "Admin,School")]
         public IActionResult AddStudent(Guid id, Guid studentId)
         {
             var studentAdded = _classroomsService.AddStudent(studentId, id);
@@ -65,7 +65,7 @@ namespace WebAPI.Controllers.Classrooms
         }
 
         [HttpPatch("{id}/addteacher/{teacherId}")]
-        [Authorize(Roles = "School")]
+        [Authorize(Roles = "Admin,School")]
 
         public IActionResult AddTeacher(Guid id, Guid teacherId)
         {
@@ -80,7 +80,7 @@ namespace WebAPI.Controllers.Classrooms
         }
 
         [HttpPatch("{id}/addsubject")]
-        [Authorize(Roles = "School")]
+        [Authorize(Roles = "Admin,School")]
         public IActionResult AddSubject(Guid id, [FromBody]string subject)
         {
             var subjectAdded = _classroomsService.AddSubject(id, subject);
@@ -94,7 +94,7 @@ namespace WebAPI.Controllers.Classrooms
         }
 
         [HttpGet("{classId}/students")]
-        [Authorize (Roles = "School,Teacher")]
+        [Authorize (Roles = "Admin,School,Teacher")]
         public IActionResult GetStudents(Guid classId)
         {
             if (HttpContext.User.IsInRole("Teacher"))
@@ -102,16 +102,24 @@ namespace WebAPI.Controllers.Classrooms
                 var username = HttpContext.User.Claims.ElementAt(0).Value;
                 var teacher = _teachersService.Get(x => x.CPF == username);
                 if (_classroomsService.GetTeacher(classId, teacher.Id) == null)
-                { return Unauthorized(); }
+                { return Unauthorized("Teacher not assigned to classroom"); }
             }
             
             return Ok(_classroomsService.GetStudents(classId));
         }
         
         [HttpGet("{id}")]
-        [Authorize (Roles = "School, Teacher")]
+        [Authorize (Roles = "Admin,School,Teacher")]
         public IActionResult GetByID(Guid id)
         {
+            if (HttpContext.User.IsInRole("Teacher"))
+            {
+                var username = HttpContext.User.Claims.ElementAt(0).Value;
+                var teacher = _teachersService.Get(x => x.CPF == username);
+                if (_classroomsService.GetTeacher(id, teacher.Id) == null)
+                { return Unauthorized("Teacher not assigned to classroom"); }
+            }
+            
             var classroom = _classroomsService.Get(id);
 
             if (classroom == null)
@@ -123,7 +131,7 @@ namespace WebAPI.Controllers.Classrooms
         }
 
         [HttpGet]
-        [Authorize (Roles = "School,Teacher")]
+        [Authorize (Roles = "Admin,School,Teacher")]
         public IActionResult GetAll()
         {
             if (HttpContext.User.IsInRole("Teacher"))
