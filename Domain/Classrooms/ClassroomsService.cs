@@ -15,14 +15,14 @@ namespace Domain.Classrooms
         protected readonly IRelationalRepository<ClassroomTeacher> _classTeachersRepository;
         protected readonly IStudentsService _studentsService;
         protected readonly ITeachersService _teachersService;
-        protected readonly IGradesService _gradesService;
+        protected readonly IGradesRepository _gradesRepository;
 
         public ClassroomsService(IClassroomsRepository classroomsRepository,
                                 IStudentsService studentsService,
                                 ITeachersService teachersService,
                                 IRelationalRepository<ClassroomStudent> classStudentsRepository,
                                 IRelationalRepository<ClassroomTeacher> classTeachersRepository,
-                                IGradesService gradesService
+                                IGradesRepository gradesRepository
                                 ) : base(classroomsRepository)
         {
             _repository = classroomsRepository;
@@ -30,7 +30,7 @@ namespace Domain.Classrooms
             _teachersService = teachersService;
             _classStudentsRepository = classStudentsRepository;
             _classTeachersRepository = classTeachersRepository;
-            _gradesService = gradesService;
+            _gradesRepository = gradesRepository;
         }
         
         public CreatedEntityDTO Create(string name)
@@ -115,7 +115,7 @@ namespace Domain.Classrooms
             var classroom = _repository.Get(classId);
             if (classroom == null) { return null; }
 
-            return _gradesService.GetAll(x => x.ClassroomId == classroom.Id).ToList();
+            return _gradesRepository.GetAll(x => x.ClassroomId == classroom.Id).ToList();
         }
 
         public Teacher GetTeacher(Guid classId, Guid teacherId)
