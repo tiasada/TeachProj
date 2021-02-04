@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Domain.Teachers;
 using Domain.Users;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace WebAPI.Controllers.Teachers
 {
@@ -66,7 +67,7 @@ namespace WebAPI.Controllers.Teachers
 
         public IActionResult GetAll()
         {
-            return Ok(_teachersService.GetAll());
+            return Ok(_teachersService.GetAll().OrderBy(x => x.Name));
         }
     }
 }

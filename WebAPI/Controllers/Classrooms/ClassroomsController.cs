@@ -5,6 +5,7 @@ using Domain.Users;
 using Microsoft.AspNetCore.Authorization;
 using Domain.Teachers;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace WebAPI.Controllers.Classrooms
 {
@@ -105,7 +106,7 @@ namespace WebAPI.Controllers.Classrooms
                 { return Unauthorized("Teacher not assigned to classroom"); }
             }
             
-            return Ok(_classroomsService.GetStudents(classId));
+            return Ok(_classroomsService.GetStudents(classId).OrderBy(x => x.Name));
         }
 
         [HttpGet("{classId}/grades")]
@@ -149,14 +150,20 @@ namespace WebAPI.Controllers.Classrooms
         [Authorize (Roles = "Admin,School,Teacher")]
         public IActionResult GetAll()
         {
+            IEnumerable<Classroom> classrooms = new List<Classroom>();
+            
             if (HttpContext.User.IsInRole("Teacher"))
             {
                 var username = HttpContext.User.Claims.ElementAt(0).Value;
                 var teacher = _teachersService.Get(x => x.CPF == username);
-                return Ok(_classroomsService.GetByTeacher(teacher.Id));
+                classrooms = _classroomsService.GetByTeacher(teacher.Id);
             }
-            
-            return Ok(_classroomsService.GetAll());
+            else
+            {
+                classrooms = _classroomsService.GetAll();
+            }
+
+            return Ok(classrooms.OrderBy(x => x.Name));
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Domain.Parents;
 using Domain.Users;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace WebAPI.Controllers.Parents
 {
@@ -64,7 +65,7 @@ namespace WebAPI.Controllers.Parents
         [AllowAnonymous]
         public IActionResult GetAll()
         {
-            return Ok(_parentsService.GetAll());
+            return Ok(_parentsService.GetAll().OrderBy(x => x.Name));
         }
     }
 }
