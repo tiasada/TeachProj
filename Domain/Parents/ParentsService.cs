@@ -27,7 +27,7 @@ namespace Domain.Parents
             }
 
             var student = _studentsService.Get(x => x.Registration == registration);
-            if (student != null)
+            if (student == null)
             {
                 return new CreatedEntityDTO(new List<string>{"Student not found"});
             }
