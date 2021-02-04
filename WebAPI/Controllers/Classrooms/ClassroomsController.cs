@@ -107,6 +107,21 @@ namespace WebAPI.Controllers.Classrooms
             
             return Ok(_classroomsService.GetStudents(classId));
         }
+
+        [HttpGet("{classId}/grades")]
+        [Authorize (Roles = "Admin,School,Teacher")]
+        public IActionResult GetGrades(Guid classId)
+        {
+            if (HttpContext.User.IsInRole("Teacher"))
+            {
+                var username = HttpContext.User.Claims.ElementAt(0).Value;
+                var teacher = _teachersService.Get(x => x.CPF == username);
+                if (_classroomsService.GetTeacher(classId, teacher.Id) == null)
+                { return Unauthorized("Teacher not assigned to classroom"); }
+            }
+            
+            return Ok(_classroomsService.GetGrades(classId));
+        }
         
         [HttpGet("{id}")]
         [Authorize (Roles = "Admin,School,Teacher")]

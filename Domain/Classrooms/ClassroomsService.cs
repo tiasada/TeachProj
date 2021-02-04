@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Common;
+using Domain.Grades;
 using Domain.Students;
 using Domain.Teachers;
 
@@ -14,12 +15,14 @@ namespace Domain.Classrooms
         protected readonly IRelationalRepository<ClassroomTeacher> _classTeachersRepository;
         protected readonly IStudentsService _studentsService;
         protected readonly ITeachersService _teachersService;
+        protected readonly IGradesService _gradesService;
 
         public ClassroomsService(IClassroomsRepository classroomsRepository,
                                 IStudentsService studentsService,
                                 ITeachersService teachersService,
                                 IRelationalRepository<ClassroomStudent> classStudentsRepository,
-                                IRelationalRepository<ClassroomTeacher> classTeachersRepository
+                                IRelationalRepository<ClassroomTeacher> classTeachersRepository,
+                                IGradesService gradesService
                                 ) : base(classroomsRepository)
         {
             _repository = classroomsRepository;
@@ -27,6 +30,7 @@ namespace Domain.Classrooms
             _teachersService = teachersService;
             _classStudentsRepository = classStudentsRepository;
             _classTeachersRepository = classTeachersRepository;
+            _gradesService = gradesService;
         }
         
         public CreatedEntityDTO Create(string name)
@@ -104,6 +108,14 @@ namespace Domain.Classrooms
             }
 
             return students;
+        }
+
+        public IList<Grade> GetGrades(Guid classId)
+        {
+            var classroom = _repository.Get(classId);
+            if (classroom == null) { return null; }
+
+            return _gradesService.GetAll(x => x.ClassroomId == classroom.Id).ToList();
         }
 
         public Teacher GetTeacher(Guid classId, Guid teacherId)
