@@ -22,7 +22,7 @@ namespace WebAPI.Controllers.Parents
         [Authorize(Roles = "School")]
         public IActionResult Create(CreateParentRequest request)
         {
-            var response = _parentsService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate, request.StudentId);
+            var response = _parentsService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate, request.Registration);
 
             if (!response.IsValid)
             {

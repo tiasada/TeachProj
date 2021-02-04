@@ -19,14 +19,14 @@ namespace Domain.Parents
             _studentsService = studentsService;
         }
 
-        public CreatedEntityDTO Create(string name, string cpf, string phoneNumber, DateTime birthDate, Guid studentId)
+        public CreatedEntityDTO Create(string name, string cpf, string phoneNumber, DateTime birthDate, string registration)
         {
             if (_parentsRepository.Get(x => x.CPF == cpf) != null)
             {
                 return new CreatedEntityDTO(new List<string>{"Parent already exists"});
             }
 
-            var student = _studentsService.Get(studentId);
+            var student = _studentsService.Get(x => x.Registration == registration);
             if (student != null)
             {
                 return new CreatedEntityDTO(new List<string>{"Student not found"});
