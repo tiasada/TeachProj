@@ -4,6 +4,7 @@ using Domain.Teachers;
 using Domain.Users;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using System.IO;
 
 namespace WebAPI.Controllers.Teachers
 {
@@ -23,7 +24,12 @@ namespace WebAPI.Controllers.Teachers
         [Authorize(Roles = "School")]
         public IActionResult Post(CreateTeacherRequest request)
         {
-            var response = _teachersService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate);
+            var ms = new MemoryStream();
+            request.Picture.CopyTo(ms);
+            var picture = ms.ToArray();
+            ms.Dispose();
+            
+            var response = _teachersService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate, picture);
 
             if (!response.IsValid)
             {
@@ -65,9 +71,17 @@ namespace WebAPI.Controllers.Teachers
         [HttpGet]
         [AllowAnonymous]
 
-        public IActionResult GetAll()
+        public IActionResult GetAll(string name)
         {
-            return Ok(_teachersService.GetAll().OrderBy(x => x.Name));
+            var teachers = _teachersService.GetAll();
+            
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                var transformedName = name.ToLower().Trim();
+                teachers = teachers.Where(x => x.Name.ToLower().Contains(transformedName));
+            }
+            
+            return Ok(teachers.OrderBy(x => x.Name));
         }
     }
 }

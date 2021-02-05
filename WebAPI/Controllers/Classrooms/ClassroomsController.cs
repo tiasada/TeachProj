@@ -148,7 +148,7 @@ namespace WebAPI.Controllers.Classrooms
 
         [HttpGet]
         [Authorize (Roles = "Admin,School,Teacher")]
-        public IActionResult GetAll()
+        public IActionResult GetAll(string name)
         {
             IEnumerable<Classroom> classrooms = new List<Classroom>();
             
@@ -161,6 +161,12 @@ namespace WebAPI.Controllers.Classrooms
             else
             {
                 classrooms = _classroomsService.GetAll();
+            }
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                var transformedName = name.ToLower().Trim();
+                classrooms = classrooms.Where(x => x.Name.ToLower().Contains(transformedName));
             }
 
             return Ok(classrooms.OrderBy(x => x.Name));

@@ -11,6 +11,8 @@ namespace Domain.Students
     public class Student : Person
     {
         public string Registration { get; set; }
+
+        public byte[] Picture { get; set; }
         
         public virtual User User { get; set; }
         public Guid UserId { get; set; }
@@ -21,8 +23,9 @@ namespace Domain.Students
         public virtual IList<ClassroomStudent> Classrooms { get; set; } = new List<ClassroomStudent>();
         public virtual IList<StudentGrade> StudentGrades { get; set; } = new List<StudentGrade>();
 
-        public Student(string name, string cpf, string phoneNumber, DateTime birthDate, string regist) : base(name, cpf, phoneNumber, birthDate)
+        public Student(string name, string cpf, string phoneNumber, DateTime birthDate, byte[] picture, string regist) : base(name, cpf, phoneNumber, birthDate)
         {
+            Picture = picture;
             Registration = regist;
         }
 

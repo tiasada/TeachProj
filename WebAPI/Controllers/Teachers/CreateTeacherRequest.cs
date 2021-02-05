@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Http;
 
 namespace WebAPI.Controllers.Teachers
 {
@@ -8,5 +9,6 @@ namespace WebAPI.Controllers.Teachers
         public string CPF { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime BirthDate { get; set; }
+        public IFormFile Picture { get; set; }
     }
 }
