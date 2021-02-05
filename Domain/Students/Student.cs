@@ -23,9 +23,8 @@ namespace Domain.Students
         public virtual IList<ClassroomStudent> Classrooms { get; set; } = new List<ClassroomStudent>();
         public virtual IList<StudentGrade> StudentGrades { get; set; } = new List<StudentGrade>();
 
-        public Student(string name, string cpf, string phoneNumber, DateTime birthDate, byte[] picture, string regist) : base(name, cpf, phoneNumber, birthDate)
+        public Student(string name, string cpf, string phoneNumber, DateTime birthDate, string regist) : base(name, cpf, phoneNumber, birthDate)
         {
-            Picture = picture;
             Registration = regist;
         }
 

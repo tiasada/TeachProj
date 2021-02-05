@@ -15,9 +15,8 @@ namespace Domain.Teachers
         
         public virtual IList<ClassroomTeacher> Classrooms { get; set; } = new List<ClassroomTeacher>();
         
-        public Teacher(string name, string cpf, string phoneNumber, DateTime birthDate, byte[] picture) : base(name, cpf, phoneNumber, birthDate)
+        public Teacher(string name, string cpf, string phoneNumber, DateTime birthDate) : base(name, cpf, phoneNumber, birthDate)
         {
-            Picture = picture;
         }
 
         protected Teacher() : base("", "", "", DateTime.MinValue) {}

@@ -24,12 +24,12 @@ namespace WebAPI.Controllers.Teachers
         [Authorize(Roles = "School")]
         public IActionResult Post(CreateTeacherRequest request)
         {
-            var ms = new MemoryStream();
-            request.Picture.CopyTo(ms);
-            var picture = ms.ToArray();
-            ms.Dispose();
+            // var ms = new MemoryStream();
+            // request.Picture.CopyTo(ms);
+            // var picture = ms.ToArray();
+            // ms.Dispose();
             
-            var response = _teachersService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate, picture);
+            var response = _teachersService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate);
 
             if (!response.IsValid)
             {

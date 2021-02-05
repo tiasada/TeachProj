@@ -25,12 +25,12 @@ namespace WebAPI.Controllers.Students
         [Authorize(Roles = "School")]
         public IActionResult Create(CreateStudentRequest request)
         {
-            var ms = new MemoryStream();
-            request.Picture.CopyTo(ms);
-            var picture = ms.ToArray();
-            ms.Dispose();
+            // var ms = new MemoryStream();
+            // request.Picture.CopyTo(ms);
+            // var picture = ms.ToArray();
+            // ms.Dispose();
 
-            var response = _studentsService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate, picture, request.Registration);
+            var response = _studentsService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate, request.Registration);
 
             if (!response.IsValid)
             {
@@ -79,7 +79,6 @@ namespace WebAPI.Controllers.Students
                 var transformedName = name.ToLower().Trim();
                 students = students.Where(x => x.Name.ToLower().Contains(transformedName));
             }
-            
             
             return Ok(students.OrderBy(x => x.Name));
         }
