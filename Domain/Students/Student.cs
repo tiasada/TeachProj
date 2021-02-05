@@ -12,7 +12,7 @@ namespace Domain.Students
     {
         public string Registration { get; set; }
 
-        public byte[] Picture { get; set; }
+        // public byte[] Picture { get; set; }
         
         public virtual User User { get; set; }
         public Guid UserId { get; set; }

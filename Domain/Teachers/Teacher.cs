@@ -8,7 +8,7 @@ namespace Domain.Teachers
 {
     public class Teacher : Person
     {
-        public byte[] Picture { get; set; }
+        // public byte[] Picture { get; set; }
 
         public virtual User User { get; set; }
         public Guid UserId { get; set; }
