@@ -17,7 +17,6 @@ namespace WebAPI.Controllers.Auth
         [HttpPost("login")]
         public IActionResult Login(LoginRequest request)
         {
-            
             var response = _authService.Login(request.Username, request.Password);
 
             if (!response.IsValid)

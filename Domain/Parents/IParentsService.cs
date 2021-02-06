@@ -5,6 +5,6 @@ namespace Domain.Parents
 {
     public interface IParentsService : IService<Parent>
     {
-        CreatedEntityDTO Create(string name, string cpf, string phoneNumber, DateTime birthDate, string registration);
+        CreatedEntityDTO Create(string name, string cpf, string phoneNumber, DateTime birthDate, string email, string registration);
     }
 }

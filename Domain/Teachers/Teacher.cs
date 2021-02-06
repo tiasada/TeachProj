@@ -15,11 +15,11 @@ namespace Domain.Teachers
         
         public virtual IList<ClassroomTeacher> Classrooms { get; set; } = new List<ClassroomTeacher>();
         
-        public Teacher(string name, string cpf, string phoneNumber, DateTime birthDate) : base(name, cpf, phoneNumber, birthDate)
+        public Teacher(string name, string cpf, string phoneNumber, DateTime birthDate, string email) : base(name, cpf, phoneNumber, birthDate, email)
         {
         }
 
-        protected Teacher() : base("", "", "", DateTime.MinValue) {}
+        protected Teacher() : base("", "", "", DateTime.MinValue, "") {}
 
         public (List<string> errors, bool isValid) Validate()
         {

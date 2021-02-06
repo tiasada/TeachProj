@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Domain.Common;
+using Domain.MailServices;
+using Domain.MailServices.Templates;
 using Domain.Students;
 using Domain.Users;
 
@@ -19,7 +21,7 @@ namespace Domain.Parents
             _studentsService = studentsService;
         }
 
-        public CreatedEntityDTO Create(string name, string cpf, string phoneNumber, DateTime birthDate, string registration)
+        public CreatedEntityDTO Create(string name, string cpf, string phoneNumber, DateTime birthDate, string email, string registration)
         {
             if (_parentsRepository.Get(x => x.CPF == cpf) != null)
             {
@@ -32,7 +34,7 @@ namespace Domain.Parents
                 return new CreatedEntityDTO(new List<string>{"Student not found"});
             }
             
-            var parent = new Parent(name, cpf, phoneNumber, birthDate, student);
+            var parent = new Parent(name, cpf, phoneNumber, birthDate, email, student);
             
             var parentVal = parent.Validate();
             if (!parentVal.isValid)
@@ -44,6 +46,12 @@ namespace Domain.Parents
             if (!userCreated.IsValid)
             {
                 return new CreatedEntityDTO(userCreated.Errors);
+            }
+
+            if (email != null)
+            {
+                var mailservice = new MailService();
+                mailservice.Send(TemplateType.ParentRegistration, parent);
             }
 
             var user = _usersService.Get(userCreated.Id);

@@ -8,6 +8,7 @@ namespace WebAPI.Controllers.Teachers
         public string CPF { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime BirthDate { get; set; }
+        public string Email { get; set; }
         // public IFormFile Picture { get; set; }
     }
 }

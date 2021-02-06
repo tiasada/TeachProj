@@ -29,7 +29,7 @@ namespace Infra.Mapping
                 .IsUnique();
 
             builder.Property(s => s.BirthDate)
-            .IsRequired();
+                .IsRequired();
 
             builder.Property(s => s.UserId)
                 .IsRequired();

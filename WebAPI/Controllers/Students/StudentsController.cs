@@ -30,7 +30,7 @@ namespace WebAPI.Controllers.Students
             // var picture = ms.ToArray();
             // ms.Dispose();
 
-            var response = _studentsService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate, request.Registration);
+            var response = _studentsService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate, request.Email, request.Registration);
 
             if (!response.IsValid)
             {

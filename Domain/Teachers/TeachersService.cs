@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Domain.Common;
+using Domain.MailServices;
+using Domain.MailServices.Templates;
 using Domain.Users;
 
 namespace Domain.Teachers
@@ -17,14 +19,14 @@ namespace Domain.Teachers
             _usersService = usersService;
         }
         
-        public CreatedEntityDTO Create(string name, string cpf, string phoneNumber, DateTime birthDate)
+        public CreatedEntityDTO Create(string name, string cpf, string phoneNumber, DateTime birthDate, string email)
         {
             if (_teachersRepository.Get(x => x.CPF == cpf) != null)
             {
                 return new CreatedEntityDTO(new List<string>{"Teacher already exists"});
             }
             
-            var teacher = new Teacher(name, cpf, phoneNumber, birthDate);
+            var teacher = new Teacher(name, cpf, phoneNumber, birthDate, email);
             
             var teacherVal = teacher.Validate();
             if (!teacherVal.isValid)
@@ -36,6 +38,12 @@ namespace Domain.Teachers
             if (!userCreated.IsValid)
             {
                 return new CreatedEntityDTO(userCreated.Errors);
+            }
+
+            if (email != null)
+            {
+                var mailservice = new MailService();
+                mailservice.Send(TemplateType.TeacherRegistration, teacher);
             }
 
             var user = _usersService.Get(userCreated.Id);

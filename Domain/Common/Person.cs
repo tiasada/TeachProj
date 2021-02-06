@@ -10,13 +10,15 @@ namespace Domain.Common
         public string CPF { get; protected set; }
         public string PhoneNumber { get; set; }
         public DateTime BirthDate { get; set; }
+        public string Email { get; protected set; }
 
-        protected Person(string name, string cpf, string phoneNumber, DateTime birthDate)
+        protected Person(string name, string cpf, string phoneNumber, DateTime birthDate, string email)
         {
             Name = name;
             CPF = cpf;
             PhoneNumber = phoneNumber;
             BirthDate = birthDate.Date;
+            Email = email;
         }
 
         protected bool ValidateName()

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Domain.Common;
+using Domain.MailServices;
+using Domain.MailServices.Templates;
 using Domain.Users;
 
 namespace Domain.Students
@@ -16,14 +18,14 @@ namespace Domain.Students
             _usersService = usersService;
         }
 
-        public CreatedEntityDTO Create(string name, string cpf, string phoneNumber, DateTime birthDate, string registration)
+        public CreatedEntityDTO Create(string name, string cpf, string phoneNumber, DateTime birthDate, string email, string registration)
         {
             if (_studentsRepository.Get(x => x.CPF == cpf || x.Registration == registration) != null)
             {
                 return new CreatedEntityDTO(new List<string>{"Student already exists"});
             }
             
-            var student = new Student(name, cpf, phoneNumber, birthDate, registration);
+            var student = new Student(name, cpf, phoneNumber, birthDate, email, registration);
             
             var studentVal = student.Validate();
             if (!studentVal.isValid)
@@ -35,6 +37,12 @@ namespace Domain.Students
             if (!userCreated.IsValid)
             {
                 return new CreatedEntityDTO(userCreated.Errors);
+            }
+
+            if (email != null)
+            {
+                var mailservice = new MailService();
+                mailservice.Send(TemplateType.StudentRegistration, student);
             }
 
             var user = _usersService.Get(userCreated.Id);

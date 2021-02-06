@@ -29,7 +29,7 @@ namespace WebAPI.Controllers.Teachers
             // var picture = ms.ToArray();
             // ms.Dispose();
             
-            var response = _teachersService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate);
+            var response = _teachersService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate, request.Email);
 
             if (!response.IsValid)
             {
