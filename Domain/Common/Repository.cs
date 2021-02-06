@@ -22,19 +22,14 @@ namespace Domain.Common
             _repository.Remove(entity);
         }
 
-        public virtual void Modify(Guid id, T newEntity)
+        public virtual void Modify(T entity)
         {
-            _repository.Modify(id, newEntity);
+            _repository.Modify(entity);
         }
 
         public virtual T Get(Func<T, bool> predicate)
         {
             return _repository.Get(predicate);
-        }
-
-        public virtual T Get(Guid id)
-        {
-            return _repository.Get(id);
         }
 
         public virtual IEnumerable<T> GetAll()

@@ -3,16 +3,15 @@ using System.Collections.Generic;
 
 namespace Domain.Common
 {
-    public interface IRepository<T> where T : Entity
+    public interface IRepository<T> where T : class
     {
         void Add(T entity);
 
         void Remove(T entity);
 
-        void Modify(Guid id, T newEntity);
+        void Modify(T entity);
 
         T Get(Func<T, bool> predicate);
-        T Get(Guid id);
 
         IEnumerable<T> GetAll();
         IEnumerable<T> GetAll(Func<T, bool> predicate);

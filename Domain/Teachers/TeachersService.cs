@@ -46,7 +46,7 @@ namespace Domain.Teachers
 
         public override bool Remove(Guid id)
         {
-            var teacher = _teachersRepository.Get(id);
+            var teacher = _teachersRepository.Get(x => x.Id == id);
             if (teacher == null) { return false; }
 
             var user = _usersService.Get(teacher.UserId);
@@ -55,7 +55,7 @@ namespace Domain.Teachers
                 _usersService.Remove(user.Id);
             }
 
-            if (_teachersRepository.Get(teacher.Id) != null)
+            if (_teachersRepository.Get(x => x.Id == teacher.Id) != null)
             {
                 _teachersRepository.Remove(teacher);
             }

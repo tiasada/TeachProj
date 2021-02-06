@@ -11,8 +11,8 @@ namespace Domain.Classrooms
     public class ClassroomsService : Service<Classroom>, IClassroomsService
     {
         protected readonly IClassroomsRepository _repository;
-        protected readonly IRelationalRepository<ClassroomStudent> _classStudentsRepository;
-        protected readonly IRelationalRepository<ClassroomTeacher> _classTeachersRepository;
+        protected readonly IRepository<ClassroomStudent> _classStudentsRepository;
+        protected readonly IRepository<ClassroomTeacher> _classTeachersRepository;
         protected readonly IStudentsService _studentsService;
         protected readonly ITeachersService _teachersService;
         protected readonly IGradesRepository _gradesRepository;
@@ -20,8 +20,8 @@ namespace Domain.Classrooms
         public ClassroomsService(IClassroomsRepository classroomsRepository,
                                 IStudentsService studentsService,
                                 ITeachersService teachersService,
-                                IRelationalRepository<ClassroomStudent> classStudentsRepository,
-                                IRelationalRepository<ClassroomTeacher> classTeachersRepository,
+                                IRepository<ClassroomStudent> classStudentsRepository,
+                                IRepository<ClassroomTeacher> classTeachersRepository,
                                 IGradesRepository gradesRepository
                                 ) : base(classroomsRepository)
         {
@@ -44,7 +44,7 @@ namespace Domain.Classrooms
         {
             var student = _studentsService.Get(id);
             if (student == null) { return "Student not found"; }
-            var classroom = _repository.Get(classId);
+            var classroom = _repository.Get(x => x.Id == classId);
             if (classroom == null) { return "Classroom not found"; }
 
             if (this.GetStudent(classId, id) != null) { return "Student already in class"; }
@@ -59,7 +59,7 @@ namespace Domain.Classrooms
         {
             var teacher = _teachersService.Get(id);
             if (teacher == null) { return "Teacher not found"; }
-            var classroom = _repository.Get(classId);
+            var classroom = _repository.Get(x => x.Id == classId);
             if (classroom == null) { return "Classroom not found"; }
 
             if (this.GetTeacher(classId, id) != null) { return "Teacher already in class"; }
@@ -72,21 +72,21 @@ namespace Domain.Classrooms
 
         public string AddSubject(Guid id, string subject)
         {
-            var newClass = _repository.Get(id);
-            if (newClass == null) { return "Classroom not found"; }
+            var classroom = _repository.Get(x => x.Id == id);
+            if (classroom == null) { return "Classroom not found"; }
 
             if (String.IsNullOrEmpty(subject)) { return "Invalid subjects"; }
 
-            newClass.Subjects.Add(subject);
+            classroom.Subjects.Add(subject);
 
-            _repository.Modify(id, newClass);
+            _repository.Modify(classroom);
 
             return null;
         }
 
         public Student GetStudent(Guid classId, Guid studentId)
         {
-            var classroom = _repository.Get(classId);
+            var classroom = _repository.Get(x => x.Id == classId);
             if (classroom == null) { return null; }
 
             var student = _classStudentsRepository.Get(x => x.StudentId == studentId && x.ClassroomId == classId);
@@ -97,7 +97,7 @@ namespace Domain.Classrooms
 
         public IList<Student> GetStudents(Guid classId)
         {
-            var classroom = _repository.Get(classId);
+            var classroom = _repository.Get(x => x.Id == classId);
             if (classroom == null) { return null; }
 
             var relations = _classStudentsRepository.GetAll(x => x.ClassroomId == classroom.Id);
@@ -112,7 +112,7 @@ namespace Domain.Classrooms
 
         public IList<Grade> GetGrades(Guid classId)
         {
-            var classroom = _repository.Get(classId);
+            var classroom = _repository.Get(x => x.Id == classId);
             if (classroom == null) { return null; }
 
             return _gradesRepository.GetAll(x => x.ClassroomId == classroom.Id).ToList();
@@ -120,7 +120,7 @@ namespace Domain.Classrooms
 
         public Teacher GetTeacher(Guid classId, Guid teacherId)
         {
-            var classroom = _repository.Get(classId);
+            var classroom = _repository.Get(x => x.Id == classId);
             if (classroom == null) { return null; }
 
             var teacher = _classTeachersRepository.Get(x => x.TeacherId == teacherId && x.ClassroomId == classId);

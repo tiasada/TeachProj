@@ -54,7 +54,7 @@ namespace Domain.Parents
 
         public override bool Remove(Guid id)
         {
-            var parent = _parentsRepository.Get(id);
+            var parent = _parentsRepository.Get(x => x.Id == id);
             if (parent == null) { return false; }
 
             var user = _usersService.Get(parent.UserId);
@@ -63,7 +63,7 @@ namespace Domain.Parents
                 _usersService.Remove(user.Id);
             }
 
-            if (_parentsRepository.Get(parent.Id) != null)
+            if (_parentsRepository.Get(x => x.Id == parent.Id) != null)
             {
                 _parentsRepository.Remove(parent);
             }

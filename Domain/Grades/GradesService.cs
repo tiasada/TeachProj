@@ -10,14 +10,14 @@ namespace Domain.Grades
         protected readonly IGradesRepository _repository;
         protected readonly IClassroomsService _classroomsService;
         protected readonly IStudentsService _studentsService;
-        protected readonly IRelationalRepository<StudentGrade> _studentGradesRepository;
-        protected readonly IRelationalRepository<ClassroomStudent> _classStudentsRepository;
+        protected readonly IRepository<StudentGrade> _studentGradesRepository;
+        protected readonly IRepository<ClassroomStudent> _classStudentsRepository;
 
         public GradesService(IGradesRepository gradesRepository,
                             IClassroomsService classroomsService,
                             IStudentsService studentsService,
-                            IRelationalRepository<StudentGrade> studentGradesRepository,
-                            IRelationalRepository<ClassroomStudent> classStudentsRepository
+                            IRepository<StudentGrade> studentGradesRepository,
+                            IRepository<ClassroomStudent> classStudentsRepository
                             ) : base(gradesRepository)
         {
             _repository = gradesRepository;
@@ -47,7 +47,7 @@ namespace Domain.Grades
             var student = _studentsService.Get(studentId);
             if (student == null) { return "Student not found"; }
             
-            var grade = _repository.Get(id);
+            var grade = _repository.Get(x => x.Id == id);
             if (grade == null) { return "Grade not found"; }
             if (grade.IsClosed) { return "Grade closed"; }
             
@@ -62,14 +62,14 @@ namespace Domain.Grades
 
         public string CloseGrade(Guid id)
         {
-            var newGrade = _repository.Get(id);
-            if (newGrade == null) { return "Grade not found"; }
-            if (newGrade.IsClosed) { return "Grade already closed"; }
+            var grade = _repository.Get(x => x.Id == id);
+            if (grade == null) { return "Grade not found"; }
+            if (grade.IsClosed) { return "Grade already closed"; }
             
-            newGrade.IsClosed = true;
-            newGrade.DateClosed = DateTime.Now.Date;
+            grade.IsClosed = true;
+            grade.DateClosed = DateTime.Now.Date;
 
-            _repository.Modify(id, newGrade);
+            _repository.Modify(grade);
             
             return null;
         }

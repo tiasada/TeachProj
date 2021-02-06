@@ -39,10 +39,10 @@ namespace Domain.ClassDays
         {
             var student = _studentsService.Get(studentId);
             if (student == null) { return "Student not found"; }
-            var classDay = _repository.Get(id);
+            var classDay = _repository.Get(x => x.Id == id);
             if (classDay == null) { return "Class day not found"; }
             
-            var classroomId = _repository.Get(id).ClassroomId;
+            var classroomId = _repository.Get(x => x.Id == id).ClassroomId;
             var studentEligible = _classroomsService.GetStudent(classroomId, studentId);
             if (studentEligible == null) { return "Student not eligible"; }
 

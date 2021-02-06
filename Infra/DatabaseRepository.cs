@@ -5,7 +5,7 @@ using Domain.Common;
 
 namespace Infra
 {
-    public class DatabaseRepository<T> : IRepository<T> where T : Entity
+    public class DatabaseRepository<T> : IRepository<T> where T : class
     {
         public virtual void Add(T entity)
         {
@@ -32,19 +32,11 @@ namespace Infra
             }
         }
 
-        public virtual void Modify(Guid id, T newEntity)
+        public virtual void Modify(T entity)
         {
             using (var db = new TeachContext())
             {
-                var oldEntity = db.Set<T>().FirstOrDefault(x => x.Id == id);
-                newEntity.Id = oldEntity.Id;
-                
-                db.Set<T>().Remove(oldEntity);
-                db.Add<T>(newEntity);
-                
-                db.Set<T>().Attach(newEntity);
-                db.Entry(newEntity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                
+                db.Set<T>().Update(entity);
                 db.SaveChanges();
             }
         }
@@ -55,11 +47,6 @@ namespace Infra
             {
                 return db.Set<T>().FirstOrDefault(predicate);
             }
-        }
-
-        public virtual T Get(Guid id)
-        {
-            return this.Get(x => x.Id == id);
         }
 
         public virtual IEnumerable<T> GetAll()

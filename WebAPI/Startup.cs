@@ -67,7 +67,6 @@ namespace TeachProj
             });
 
             services.AddScoped(typeof (IRepository<>), typeof (DatabaseRepository<>));
-            services.AddScoped(typeof (IRelationalRepository<>), typeof (RelationalRepository<>));
             services.AddScoped(typeof (IService<>), typeof (Service<>));
             services.AddScoped<ITeachersRepository, TeachersRepository>();
             services.AddScoped<ITeachersService, TeachersService>();

@@ -14,7 +14,7 @@ namespace Domain.Common
 
         public virtual bool Remove(Guid id)
         {
-            var entity = _repository.Get(id);
+            var entity = _repository.Get(x => x.Id == id);
             
             if (entity == null)
             { return false; }
@@ -31,7 +31,7 @@ namespace Domain.Common
 
         public virtual T Get(Guid id)
         {
-            return _repository.Get(id);
+            return _repository.Get(x => x.Id == id);
         }
 
         public virtual IEnumerable<T> GetAll()
