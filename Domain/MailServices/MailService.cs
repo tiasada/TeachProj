@@ -11,11 +11,11 @@ namespace Domain.MailServices
     {
         public void Send(TemplateType templateType, Person receiver)
         {
-            var template = new TemplateEmail(templateType, receiver);
+            var template = new TemplateEmail(templateType);
             
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse(template.Sender));
-            email.To.Add(MailboxAddress.Parse(template.Receiver));
+            email.From.Add(MailboxAddress.Parse("teach.noreply@gmail.com"));
+            email.To.Add(MailboxAddress.Parse(receiver.Email));
             email.Subject = template.Subject;
             email.Body = new TextPart(TextFormat.Html) { Text = template.Body };
 
