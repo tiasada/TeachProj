@@ -51,9 +51,9 @@ namespace WebAPI.Controllers.Classrooms
             return NoContent();
         }
 
-        [HttpPatch("{id}/addstudent/{studentId}")]
+        [HttpPost("{id}/students")]
         [Authorize(Roles = "Admin,School")]
-        public IActionResult AddStudent(Guid id, Guid studentId)
+        public IActionResult AddStudent(Guid id, [FromBody]Guid studentId)
         {
             var studentAdded = _classroomsService.AddStudent(studentId, id);
 
@@ -65,10 +65,10 @@ namespace WebAPI.Controllers.Classrooms
             return NoContent();
         }
 
-        [HttpPatch("{id}/addteacher/{teacherId}")]
+        [HttpPost("{id}/teachers")]
         [Authorize(Roles = "Admin,School")]
 
-        public IActionResult AddTeacher(Guid id, Guid teacherId)
+        public IActionResult AddTeacher(Guid id, [FromBody]Guid teacherId)
         {
             var studentAdded = _classroomsService.AddTeacher(teacherId, id);
 
@@ -80,7 +80,7 @@ namespace WebAPI.Controllers.Classrooms
             return NoContent();
         }
 
-        [HttpPatch("{id}/addsubject")]
+        [HttpPost("{id}/subjects")]
         [Authorize(Roles = "Admin,School")]
         public IActionResult AddSubject(Guid id, [FromBody]string subject)
         {
