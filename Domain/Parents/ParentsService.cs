@@ -28,6 +28,11 @@ namespace Domain.Parents
                 return new CreatedEntityDTO(new List<string>{"Parent already exists"});
             }
 
+            if (_parentsRepository.Get(x => x.Email == email) != null)
+            {
+                return new CreatedEntityDTO(new List<string>{"Email already in use"});
+            }
+
             var student = _studentsService.Get(x => x.Registration == registration);
             if (student == null)
             {
@@ -48,7 +53,7 @@ namespace Domain.Parents
                 return new CreatedEntityDTO(userCreated.Errors);
             }
 
-            if (email != null)
+            if (!String.IsNullOrWhiteSpace(email))
             {
                 var mailservice = new MailService();
                 mailservice.Send(TemplateType.ParentRegistration, parent);

@@ -15,14 +15,25 @@ namespace Domain.MailServices
             
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse("teach.noreply@gmail.com"));
-            email.To.Add(MailboxAddress.Parse(receiver.Email));
+            if (!MailboxAddress.TryParse(receiver.Email, out var receiverAddress))
+            {
+                return;
+            }
+            email.To.Add(receiverAddress);
             email.Subject = template.Subject;
             email.Body = new TextPart(TextFormat.Html) { Text = template.Body };
 
             using var smtp = new SmtpClient();
             smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
             smtp.Authenticate("teach.noreply", "teachproj123");
-            smtp.Send(email);
+            try
+            {
+                smtp.Send(email);
+            }
+            catch
+            {
+                
+            }
             smtp.Disconnect(true);
         }
     }

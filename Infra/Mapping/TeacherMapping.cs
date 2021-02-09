@@ -31,6 +31,9 @@ namespace Infra.Mapping
             builder.Property(s => s.BirthDate)
                 .IsRequired();
 
+            builder.HasIndex(s => s.Email)
+                .IsUnique();
+
             builder.Property(s => s.UserId)
                 .IsRequired();
 

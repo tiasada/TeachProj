@@ -25,6 +25,11 @@ namespace Domain.Teachers
             {
                 return new CreatedEntityDTO(new List<string>{"Teacher already exists"});
             }
+
+            if (_teachersRepository.Get(x => x.Email == email) != null)
+            {
+                return new CreatedEntityDTO(new List<string>{"Email already in use"});
+            }
             
             var teacher = new Teacher(name, cpf, phoneNumber, birthDate, email);
             
@@ -40,7 +45,7 @@ namespace Domain.Teachers
                 return new CreatedEntityDTO(userCreated.Errors);
             }
 
-            if (email != null)
+            if (!String.IsNullOrWhiteSpace(email))
             {
                 var mailservice = new MailService();
                 mailservice.Send(TemplateType.TeacherRegistration, teacher);

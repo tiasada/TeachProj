@@ -25,6 +25,11 @@ namespace Domain.Students
                 return new CreatedEntityDTO(new List<string>{"Student already exists"});
             }
             
+            if (_studentsRepository.Get(x => x.Email == email) != null)
+            {
+                return new CreatedEntityDTO(new List<string>{"Email already in use"});
+            }
+
             var student = new Student(name, cpf, phoneNumber, birthDate, email, registration);
             
             var studentVal = student.Validate();
@@ -39,7 +44,7 @@ namespace Domain.Students
                 return new CreatedEntityDTO(userCreated.Errors);
             }
 
-            if (email != null)
+            if (!String.IsNullOrWhiteSpace(email))
             {
                 var mailservice = new MailService();
                 mailservice.Send(TemplateType.StudentRegistration, student);
