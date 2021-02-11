@@ -70,11 +70,11 @@ namespace WebAPI.Controllers.Classrooms
 
         public IActionResult AddTeacher(Guid classId, AddToClassroomRequest request)
         {
-            var studentAdded = _classroomsService.AddTeacher(request.Id, classId);
+            var teacherAdded = _classroomsService.AddTeacher(request.Id, classId);
 
-            if (studentAdded != null)
+            if (teacherAdded != null)
             {
-                return BadRequest(studentAdded);
+                return BadRequest(teacherAdded);
             }
 
             return NoContent();
