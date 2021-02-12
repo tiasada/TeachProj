@@ -51,11 +51,11 @@ namespace WebAPI.Controllers.Classrooms
             return NoContent();
         }
 
-        [HttpPost("{id}/students")]
+        [HttpPost("{classId}/students")]
         [Authorize(Roles = "Admin,School")]
-        public IActionResult AddStudent(Guid id, [FromBody]Guid studentId)
+        public IActionResult AddStudent(Guid classId, AddToClassroomRequest request)
         {
-            var studentAdded = _classroomsService.AddStudent(studentId, id);
+            var studentAdded = _classroomsService.AddStudent(request.Id, classId);
 
             if (studentAdded != null)
             {
@@ -65,16 +65,16 @@ namespace WebAPI.Controllers.Classrooms
             return NoContent();
         }
 
-        [HttpPost("{id}/teachers")]
+        [HttpPost("{classId}/teachers")]
         [Authorize(Roles = "Admin,School")]
 
-        public IActionResult AddTeacher(Guid id, [FromBody]Guid teacherId)
+        public IActionResult AddTeacher(Guid classId, AddToClassroomRequest request)
         {
-            var studentAdded = _classroomsService.AddTeacher(teacherId, id);
+            var teacherAdded = _classroomsService.AddTeacher(request.Id, classId);
 
-            if (studentAdded != null)
+            if (teacherAdded != null)
             {
-                return BadRequest(studentAdded);
+                return BadRequest(teacherAdded);
             }
 
             return NoContent();
