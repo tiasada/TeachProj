@@ -6,9 +6,11 @@ namespace Domain.Users
     public class UsersService : Service<User>, IUsersService
     {
         private readonly IUsersRepository _usersRepository;
-        public UsersService(IUsersRepository usersRepository) : base(usersRepository)
+        private readonly ICrypt _crypt;
+        public UsersService(IUsersRepository usersRepository, ICrypt crypt) : base(usersRepository)
         {
             _usersRepository = usersRepository;
+            _crypt = crypt;
         }
 
         public CreatedEntityDTO Create(Profile profile, string username, string password)
@@ -18,8 +20,7 @@ namespace Domain.Users
                 return new CreatedEntityDTO(new List<string>{"Username already in use"});
             }
             
-            var crypt = new Crypt();
-            var cryptPassword = crypt.CreateMD5(password);
+            var cryptPassword = _crypt.CreateMD5(password);
 
             var user = new User(profile, username, cryptPassword);
             var userVal = user.Validate();

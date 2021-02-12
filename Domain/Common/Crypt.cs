@@ -2,7 +2,7 @@ using System.Text;
 
 namespace Domain.Common
 {
-    public class Crypt
+    public class Crypt : ICrypt
     {
         public string CreateMD5(string input)
         {

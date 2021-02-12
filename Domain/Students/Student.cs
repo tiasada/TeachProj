@@ -5,6 +5,7 @@ using Domain.Common;
 using System;
 using Domain.Users;
 using Domain.Parents;
+using System.Text.RegularExpressions;
 
 namespace Domain.Students
 {
@@ -42,7 +43,23 @@ namespace Domain.Students
             {
                 errs.Add("Invalid CPF");
             }
+            if (Email != null)
+            {
+                if (!ValidateEmail())
+                {
+                    errs.Add("Invalid Email");
+                }
+            }
             return (errs, errs.Count == 0);
+        }
+
+        private bool ValidateEmail()
+        {
+            return Regex.IsMatch(
+                Email,
+                @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
+                RegexOptions.IgnoreCase
+            );
         }
 
         public void LinkUser(User user)

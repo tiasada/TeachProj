@@ -68,6 +68,7 @@ namespace TeachProj
 
             services.AddScoped(typeof (IRepository<>), typeof (DatabaseRepository<>));
             services.AddScoped(typeof (IService<>), typeof (Service<>));
+            services.AddScoped<ICrypt, Crypt>();
             services.AddScoped<ITeachersRepository, TeachersRepository>();
             services.AddScoped<ITeachersService, TeachersService>();
             services.AddScoped<IAuthService, AuthService>();

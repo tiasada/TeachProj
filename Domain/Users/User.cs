@@ -24,11 +24,42 @@ namespace Domain.Users
         {
             var errs = new List<string>(); 
             
+            if (!ValidateUsername())
+            {
+                errs.Add("Invalid username");
+            }
+            
+            if (!ValidatePassword())
+            {
+                errs.Add("Invalid password");
+            }
+            
             if (!ValidateProfile())
             {
                 errs.Add("Invalid profile");
             }
+
             return (errs, errs.Count == 0);
+        }
+        
+        private bool ValidateUsername()
+        {
+            if (String.IsNullOrWhiteSpace(Username))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ValidatePassword()
+        {
+            if (String.IsNullOrWhiteSpace(Password))
+            {
+                return false;
+            }
+
+            return true;
         }
         
         private bool ValidateProfile()
