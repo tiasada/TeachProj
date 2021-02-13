@@ -2,6 +2,7 @@ using Xunit;
 using Moq;
 using Domain.Users;
 using Domain.Common;
+using System;
 
 namespace Tests.Domain.Users
 {
@@ -47,6 +48,17 @@ namespace Tests.Domain.Users
                 x.Username == "Escola" &&
                 x.Password == cryptedPass
             )), Times.Once());
+        }
+
+        [Fact]
+        public void should_not_create_when_username_in_use()
+        {
+            var username = "Escola";
+            _usersRepository.Setup(x => x.Get(It.IsAny<Func<User,bool>>())).Returns(new User(Profile.School, username, "password"));
+            
+            var resp = _usersService.Create(Profile.School, username, "senha123");
+
+            Assert.False(resp.IsValid);
         }
     }
 }
