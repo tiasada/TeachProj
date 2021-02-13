@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Domain.Common
 {
@@ -112,6 +113,15 @@ namespace Domain.Common
             }
 
             return false;
+        }
+
+        protected bool ValidateEmail()
+        {
+            return Regex.IsMatch(
+                Email,
+                @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
+                RegexOptions.IgnoreCase
+            );
         }
     }
 }

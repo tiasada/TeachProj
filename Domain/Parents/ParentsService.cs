@@ -38,6 +38,11 @@ namespace Domain.Parents
             {
                 return new CreatedEntityDTO(new List<string>{"Student not found"});
             }
+
+            if (student.ParentId != null)
+            {
+                return new CreatedEntityDTO(new List<string>{"Student already has parent"});
+            }
             
             var parent = new Parent(name, cpf, phoneNumber, birthDate, email, student);
             
@@ -47,7 +52,7 @@ namespace Domain.Parents
                 return new CreatedEntityDTO(parentVal.errors);
             }
             
-            var userCreated = _usersService.Create(Profile.Parent, cpf, cpf);
+            var userCreated = _usersService.Create(Profile.Parent, cpf, birthDate.ToString("ddMMyyyy"));
             if (!userCreated.IsValid)
             {
                 return new CreatedEntityDTO(userCreated.Errors);

@@ -3,7 +3,6 @@ using Domain.Common;
 using System;
 using Domain.Users;
 using Domain.Students;
-using System.Text.RegularExpressions;
 
 namespace Domain.Parents
 {
@@ -43,15 +42,6 @@ namespace Domain.Parents
                 }
             }
             return (errs, errs.Count == 0);
-        }
-
-        private bool ValidateEmail()
-        {
-            return Regex.IsMatch(
-                Email,
-                @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
-                RegexOptions.IgnoreCase
-            );
         }
 
         public void LinkUser(User user)

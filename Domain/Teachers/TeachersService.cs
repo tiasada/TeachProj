@@ -39,7 +39,7 @@ namespace Domain.Teachers
                 return new CreatedEntityDTO(teacherVal.errors);
             }
 
-            var userCreated = _usersService.Create(Profile.Teacher, cpf, cpf);
+            var userCreated = _usersService.Create(Profile.Teacher, cpf, birthDate.ToString("ddMMyyyy"));
             if (!userCreated.IsValid)
             {
                 return new CreatedEntityDTO(userCreated.Errors);

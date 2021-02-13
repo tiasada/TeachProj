@@ -5,19 +5,16 @@ using Domain.Common;
 using System;
 using Domain.Users;
 using Domain.Parents;
-using System.Text.RegularExpressions;
 
 namespace Domain.Students
 {
     public class Student : Person
     {
         public string Registration { get; set; }
-
-        // public byte[] Picture { get; set; }
         
         public virtual User User { get; set; }
         public Guid UserId { get; set; }
-
+        
         public virtual Parent Parent { get; set; } = null;
         public Guid? ParentId { get; set; } = null;
         
@@ -51,15 +48,6 @@ namespace Domain.Students
                 }
             }
             return (errs, errs.Count == 0);
-        }
-
-        private bool ValidateEmail()
-        {
-            return Regex.IsMatch(
-                Email,
-                @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
-                RegexOptions.IgnoreCase
-            );
         }
 
         public void LinkUser(User user)

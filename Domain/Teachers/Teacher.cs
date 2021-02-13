@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Domain.Classrooms;
 using Domain.Common;
 using Domain.Users;
@@ -9,8 +8,6 @@ namespace Domain.Teachers
 {
     public class Teacher : Person
     {
-        // public byte[] Picture { get; set; }
-
         public virtual User User { get; set; }
         public Guid UserId { get; set; }
         
@@ -42,15 +39,6 @@ namespace Domain.Teachers
                 }
             }
             return (errs, errs.Count == 0);
-        }
-
-        private bool ValidateEmail()
-        {
-            return Regex.IsMatch(
-                Email,
-                @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
-                RegexOptions.IgnoreCase
-            );
         }
 
         public void LinkUser(User user)

@@ -9,8 +9,13 @@ namespace Domain.MailServices
 {
     public class MailService
     {
+        private bool serviceOn = false;
+        
         public void Send(TemplateType templateType, Person receiver)
         {
+            if (!serviceOn)
+            { return; }
+            
             var template = new TemplateEmail(templateType);
             
             var email = new MimeMessage();
