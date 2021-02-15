@@ -9,23 +9,23 @@ namespace Domain.Students
 {
     public class StudentsService : Service<Student>, IStudentsService
     {
-        private readonly IStudentsRepository _studentsRepository;
+        private readonly IStudentsRepository _repository;
         private readonly IUsersService _usersService;
         
-        public StudentsService(IStudentsRepository studentsRepository, IUsersService usersService) : base(studentsRepository)
+        public StudentsService(IStudentsRepository repository, IUsersService usersService) : base(repository)
         {
-            _studentsRepository = studentsRepository;
+            _repository = repository;
             _usersService = usersService;
         }
 
         public CreatedEntityDTO Create(string name, string cpf, string phoneNumber, DateTime birthDate, string email, string registration)
         {
-            if (_studentsRepository.Get(x => x.CPF == cpf || x.Registration == registration) != null)
+            if (_repository.Get(x => x.CPF == cpf || x.Registration == registration) != null)
             {
                 return new CreatedEntityDTO(new List<string>{"Student already exists"});
             }
             
-            if (_studentsRepository.Get(x => x.Email == email) != null)
+            if (_repository.Get(x => x.Email == email) != null)
             {
                 return new CreatedEntityDTO(new List<string>{"Email already in use"});
             }
@@ -52,13 +52,13 @@ namespace Domain.Students
 
             var user = _usersService.Get(userCreated.Id);
             student.LinkUser(user);
-            _studentsRepository.Add(student);
+            _repository.Add(student);
             return new CreatedEntityDTO(student.Id);
         }
 
         public override bool Remove(Guid id)
         {
-            var student = _studentsRepository.Get(x => x.Id == id);
+            var student = _repository.Get(x => x.Id == id);
             if (student == null) { return false; }
 
             var user = _usersService.Get(student.UserId);
@@ -67,9 +67,9 @@ namespace Domain.Students
                 _usersService.Remove(user.Id);
             }
 
-            if (_studentsRepository.Get(x => x.Id == student.Id) != null)
+            if (_repository.Get(x => x.Id == student.Id) != null)
             {
-                _studentsRepository.Remove(student);
+                _repository.Remove(student);
             }
             
             return true;

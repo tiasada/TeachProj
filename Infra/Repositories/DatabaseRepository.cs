@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Common;
 
-namespace Infra
+namespace Infra.Repositories
 {
     public class DatabaseRepository<T> : IRepository<T> where T : class
     {
