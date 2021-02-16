@@ -454,14 +454,14 @@
 											<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 0px; padding-bottom: 0px; font-family: Arial, sans-serif"><![endif]-->
 											<div style="color:#30b0ef;font-family:'Oswald', Arial, 'Helvetica Neue', Helvetica, sans-serif;line-height:1.2;padding-top:0px;padding-right:20px;padding-bottom:0px;padding-left:20px;">
 												<div class="txtTinyMce-wrapper" style="line-height: 1.2; font-size: 12px; font-family: 'Oswald', Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #30b0ef; mso-line-height-alt: 14px;">
-													<p style="font-size: 50px; line-height: 1.2; word-break: break-word; font-family: Oswald, Arial, 'Helvetica Neue', Helvetica, sans-serif; mso-line-height-alt: 60px; margin: 0;"><span style="font-size: 50px; color: #00ccff;"><strong><span style>Seja&nbsp;</span></strong></span></p>
+													<p style="font-size: 50px; line-height: 1.2; word-break: break-word; font-family: Oswald, Arial, 'Helvetica Neue', Helvetica, sans-serif; mso-line-height-alt: 60px; margin: 0;"><span style="font-size: 50px; color: #00ccff;"><strong><span style>Seu filho(a)&nbsp;</span></strong></span></p>
 												</div>
 											</div>
 											<!--[if mso]></td></tr></table><![endif]-->
 											<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 0px; padding-bottom: 0px; font-family: Arial, sans-serif"><![endif]-->
 											<div style="color:#e80046;font-family:'Oswald', Arial, 'Helvetica Neue', Helvetica, sans-serif;line-height:1.2;padding-top:0px;padding-right:20px;padding-bottom:0px;padding-left:20px;">
 												<div class="txtTinyMce-wrapper" style="line-height: 1.2; font-size: 12px; font-family: 'Oswald', Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #e80046; mso-line-height-alt: 14px;">
-													<p style="font-size: 14px; line-height: 1.2; word-break: break-word; font-family: Oswald, Arial, 'Helvetica Neue', Helvetica, sans-serif; mso-line-height-alt: 17px; margin: 0;"><span style="color: #00ccff;"><span style="font-size: 50px;"><strong>Teach Também!</strong></span></span></p>
+													<p style="font-size: 14px; line-height: 1.2; word-break: break-word; font-family: Oswald, Arial, 'Helvetica Neue', Helvetica, sans-serif; mso-line-height-alt: 17px; margin: 0;"><span style="color: #00ccff;"><span style="font-size: 50px;"><strong>não veio a aula!</strong></span></span></p>
 												</div>
 											</div>
 											<!--[if mso]></td></tr></table><![endif]-->
@@ -483,7 +483,7 @@
 											<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Tahoma, Verdana, sans-serif"><![endif]-->
 											<div style="color:#393d47;font-family:Lato, Tahoma, Verdana, Segoe, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
 												<div class="txtTinyMce-wrapper" style="line-height: 1.2; font-size: 12px; color: #393d47; font-family: Lato, Tahoma, Verdana, Segoe, sans-serif; mso-line-height-alt: 14px;">
-													<p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="color: #333333;">Somos um sistema para administrar instituições de ensino. E</span><span style="color: #333333;">stamos pronto para melhorar sua experiência e tornar mais facil sua vida</span></p>
+													<p style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"><span style="color: #333333;">Seu filho(a) recebeu falta na aula hoje. </span><span style="color: #333333;">Esperamos que esteja ciente.</span></p>
 												</div>
 											</div>
 											<!--[if mso]></td></tr></table><![endif]-->

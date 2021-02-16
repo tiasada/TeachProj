@@ -12,23 +12,23 @@ namespace Domain.MailServices.Templates
             switch(type)
             {
                 case TemplateType.ParentRegistration:
-                    Subject = "Cadastro Teach";
-                    Body = File.ReadAllText("../Domain/MailServices/Templates/registrationMsg.txt");
+                    Subject = "Bem-Vindo(a) ao Teach!";
+                    Body = File.ReadAllText("../Domain/MailServices/Templates/parentRegistrationMsg.txt");
                     break;
                 
                 case TemplateType.StudentRegistration:
-                    Subject = "Cadastro Teach";
-                    Body = File.ReadAllText("../Domain/MailServices/Templates/registrationMsg.txt");
+                    Subject = "Bem-Vindo(a) ao Teach!";
+                    Body = File.ReadAllText("../Domain/MailServices/Templates/studentRegistrationMsg.txt");
                     break;
                 
                 case TemplateType.TeacherRegistration:
-                    Subject = "Cadastro Teach";
-                    Body = File.ReadAllText("../Domain/MailServices/Templates/registrationMsg.txt");
+                    Subject = "Bem-Vindo(a) ao Teach!";
+                    Body = File.ReadAllText("../Domain/MailServices/Templates/teacherRegistrationMsg.txt");
                     break;
                 
                 case TemplateType.Absence:
                     Subject = "Ausência de Estudante";
-                    Body = File.ReadAllText("../Domain/MailServices/Templates/teacherRegistrationMsg.txt");
+                    Body = File.ReadAllText("../Domain/MailServices/Templates/absenceMsg.txt");
                     break;
             }
         }

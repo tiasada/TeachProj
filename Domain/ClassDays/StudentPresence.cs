@@ -1,4 +1,5 @@
 using System;
+using Domain.MailServices;
 using Domain.Students;
 
 namespace Domain.ClassDays
@@ -21,6 +22,14 @@ namespace Domain.ClassDays
             StudentId = student.Id;
             Present = present;
             Reason = reason;
+            if (student.ParentId != null)
+            { SendAbsenceEmail(student); }
+        }
+
+        private void SendAbsenceEmail(Student student)
+        {
+            var mailService = new MailService();
+            mailService.Send(MailServices.Templates.TemplateType.Absence, student.Parent);
         }
 
         protected StudentPresence(){}
