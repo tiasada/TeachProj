@@ -9,7 +9,7 @@ namespace Domain.MailServices
 {
     public class MailService
     {
-        private bool serviceOn = true;
+        private bool serviceOn = false;
         
         public void Send(TemplateType templateType, Person receiver)
         {

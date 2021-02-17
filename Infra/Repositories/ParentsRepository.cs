@@ -8,6 +8,17 @@ namespace Infra.Repositories
 {
     public class ParentsRepository : DatabaseRepository<Parent>, IParentsRepository
     {
+        public override void Add(Parent parent)
+        {
+            using (var db = new TeachContext())
+            {
+                db.Entry(parent.Student).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                db.Entry(parent.User).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                db.Parents.Add(parent);
+                db.SaveChanges();
+            }
+        }
+        
         public override Parent Get(Func<Parent, bool> predicate)
         {
             using (var db = new TeachContext())

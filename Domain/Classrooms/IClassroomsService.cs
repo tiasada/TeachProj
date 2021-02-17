@@ -20,6 +20,7 @@ namespace Domain.Classrooms
         Student GetStudent(Guid classId, Guid studentId);
         IList<Student> GetStudents(Guid classId);
         Teacher GetTeacher(Guid classId, Guid teacherId);
+        IList<Teacher> GetTeachers(Guid classId);
         IList<Grade> GetGrades(Guid classId);
         IList<Classroom> GetByTeacher(Guid id);
     }

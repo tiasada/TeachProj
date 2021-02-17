@@ -129,6 +129,21 @@ namespace Domain.Classrooms
             return _teachersService.Get(teacher.TeacherId);
         }
 
+        public IList<Teacher> GetTeachers(Guid classId)
+        {
+            var classroom = _repository.Get(x => x.Id == classId);
+            if (classroom == null) { return null; }
+
+            var relations = _classTeachersRepository.GetAll(x => x.ClassroomId == classroom.Id);
+            IList<Teacher> teachers = new List<Teacher>();
+            foreach (var item in relations)
+            {
+                teachers.Add(_teachersService.Get(x => x.Id == item.TeacherId));
+            }
+
+            return teachers;
+        }
+
         public IList<Classroom> GetByTeacher(Guid id)
         {
             var teacher = _teachersService.Get(id);

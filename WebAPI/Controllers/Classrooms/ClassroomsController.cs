@@ -109,6 +109,13 @@ namespace WebAPI.Controllers.Classrooms
             return Ok(_classroomsService.GetStudents(classId).OrderBy(x => x.Name));
         }
 
+        [HttpGet("{classId}/teachers")]
+        [Authorize (Roles = "Admin,School")]
+        public IActionResult GetTeachers(Guid classId)
+        {
+            return Ok(_classroomsService.GetTeachers(classId).OrderBy(x => x.Name));
+        }
+
         [HttpGet("{classId}/grades")]
         [Authorize (Roles = "Admin,School,Teacher")]
         public IActionResult GetGrades(Guid classId)
