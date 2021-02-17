@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Domain.ClassDays;
 using Domain.Users;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
 
 namespace WebAPI.Controllers.ClassDays
 {
@@ -32,15 +33,17 @@ namespace WebAPI.Controllers.ClassDays
             return Ok(response.Id);
         }
 
-        [HttpPatch("{id}/setpresence/{studentId}")]
+        [HttpPatch("{id}/setpresence")]
         [Authorize(Roles = "Teacher")]
-        public IActionResult SetPresence(Guid id, Guid studentId, SetPresenceRequest request)
+        public IActionResult SetPresence(Guid id, List<SetPresenceRequest> request)
         {
-            var presenceSet = _classDaysService.SetPresence(id, studentId, request.IsPresent, request.Reason);
+            foreach (var item in request){
+                var presenceSet = _classDaysService.SetPresence(id, item.StudentId, item.IsPresent, item.Reason);
 
-            if (presenceSet != null)
-            {
-                return BadRequest(presenceSet);
+                if (presenceSet != null)
+                {
+                    return BadRequest(presenceSet);
+                }
             }
 
             return NoContent();
