@@ -37,14 +37,8 @@ namespace Infra.Mapping
             builder.Property(s => s.UserId)
                 .IsRequired();
 
-            builder.HasIndex(s => s.UserId)
-                .IsUnique();
-
             builder.Property(s => s.StudentId)
                 .IsRequired();
-
-            builder.HasIndex(s => s.StudentId)
-                .IsUnique();
         }
     }
 }

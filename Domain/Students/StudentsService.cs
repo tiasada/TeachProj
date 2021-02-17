@@ -74,5 +74,10 @@ namespace Domain.Students
             
             return true;
         }
+
+        public void Modify(Student student)
+        {
+            _repository.Modify(student);
+        }
     }
 }
