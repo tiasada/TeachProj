@@ -6,6 +6,7 @@ using Domain.Grades;
 using Domain.StudentPresences;
 using Domain.Students;
 using Domain.Teachers;
+using Domain.MailServices;
 
 namespace Domain.Classrooms
 {
@@ -108,6 +109,12 @@ namespace Domain.Classrooms
             foreach(var p in presences)
             {
                 _presencesRepository.Add(p);
+                var student = _studentsService.Get(p.StudentId);
+                if (student.ParentId != null)
+                {
+                    var mailService = new MailService();
+                    mailService.Send(MailServices.Templates.TemplateType.Absence, student.Parent);
+                }
             }
 
             return null;
@@ -130,11 +137,14 @@ namespace Domain.Classrooms
             if (classroom == null) { return null; }
 
             var relations = _classStudentsRepository.GetAll(x => x.ClassroomId == classroom.Id);
-            IList<Student> students = new List<Student>();
-            foreach (var item in relations)
-            {
-                students.Add(_studentsService.Get(x => x.Id == item.StudentId));
-            }
+            // IList<Student> students = new List<Student>();
+            // foreach (var item in relations)
+            // {
+            //     students.Add(_studentsService.Get(x => x.Id == item.StudentId));
+            // }
+            
+            var students = _studentsService.GetAll(x => relations.Any(y => y.StudentId == x.Id)).ToList();
+            // students = students.Select(x => {x.Classrooms = x.Classrooms.Select(c => { c.Classroom.Students = new List<ClassroomStudent>(); return c;}).ToList(); return x;}).ToList();
 
             return students;
         }
@@ -164,11 +174,13 @@ namespace Domain.Classrooms
             if (classroom == null) { return null; }
 
             var relations = _classTeachersRepository.GetAll(x => x.ClassroomId == classroom.Id);
-            IList<Teacher> teachers = new List<Teacher>();
-            foreach (var item in relations)
-            {
-                teachers.Add(_teachersService.Get(x => x.Id == item.TeacherId));
-            }
+            // IList<Teacher> teachers = new List<Teacher>();
+            // foreach (var item in relations)
+            // {
+            //     teachers.Add(_teachersService.Get(x => x.Id == item.TeacherId));
+            // }
+
+            var teachers = _teachersService.GetAll(x => relations.Any(y => y.TeacherId == x.Id)).ToList();
 
             return teachers;
         }

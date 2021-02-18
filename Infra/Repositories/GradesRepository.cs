@@ -13,8 +13,7 @@ namespace Infra.Repositories
             using (var db = new TeachContext())
             {
                 return db.Grades
-                    .Include(x => x.Classroom)
-                    .Include(x => x.StudentGrades).ThenInclude(s => s.Student)
+                    .Include(x => x.StudentGrades)
                     .FirstOrDefault(predicate);
             }
         }
@@ -24,8 +23,7 @@ namespace Infra.Repositories
             using (var db = new TeachContext())
             {
                 return db.Grades
-                    .Include(x => x.Classroom)
-                    .Include(x => x.StudentGrades).ThenInclude(s => s.Student)
+                    .Include(x => x.StudentGrades)
                     .ToList();
             }
         }
