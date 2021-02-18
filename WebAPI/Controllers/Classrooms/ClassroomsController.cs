@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Domain.Teachers;
 using System.Linq;
 using System.Collections.Generic;
+using Domain.ClassDays;
 
 namespace WebAPI.Controllers.Classrooms
 {
@@ -15,11 +16,13 @@ namespace WebAPI.Controllers.Classrooms
     {
         public readonly IClassroomsService _classroomsService;
         public readonly IUsersService _usersService;
+        public readonly IClassDaysService _classDaysService;
         public readonly ITeachersService _teachersService;
-        public ClassroomsController(IUsersService usersService, IClassroomsService classroomsService, ITeachersService teachersService)
+        public ClassroomsController(IUsersService usersService, IClassroomsService classroomsService, IClassDaysService classDaysService, ITeachersService teachersService)
         {
             _classroomsService = classroomsService;
             _usersService = usersService;
+            _classDaysService = classDaysService;
             _teachersService = teachersService;
         }
         
@@ -89,6 +92,29 @@ namespace WebAPI.Controllers.Classrooms
             if (subjectAdded != null)
             {
                 return BadRequest(subjectAdded);
+            }
+
+            return NoContent();
+        }
+
+        [HttpPost("{id}/presences")]
+        [Authorize(Roles = "Teacher")]
+        public IActionResult SetPresences(Guid id, List<SetPresenceRequest> request)
+        {
+            var createdDay = _classDaysService.Create(DateTime.Now.Date, id, "");
+            
+            if (!createdDay.IsValid)
+            {
+                return BadRequest(createdDay.Errors);
+            }
+
+            foreach (var item in request){
+                var presenceSet = _classDaysService.SetPresence(createdDay.Id, item.StudentId, item.IsPresent, item.Reason);
+
+                if (presenceSet != null)
+                {
+                    return BadRequest(presenceSet);
+                }
             }
 
             return NoContent();

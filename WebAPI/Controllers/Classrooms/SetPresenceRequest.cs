@@ -1,6 +1,6 @@
 using System;
 
-namespace WebAPI.Controllers.ClassDays
+namespace WebAPI.Controllers.Classrooms
 {
     public class SetPresenceRequest
     {
