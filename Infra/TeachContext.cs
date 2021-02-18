@@ -1,8 +1,8 @@
 using System.Reflection;
-using Domain.ClassDays;
 using Domain.Classrooms;
 using Domain.Grades;
 using Domain.Parents;
+using Domain.StudentPresences;
 using Domain.Students;
 using Domain.Teachers;
 using Domain.Users;
@@ -21,7 +21,6 @@ namespace Infra
         public DbSet<ClassroomTeacher> ClassroomTeachers { get; set; }
         public DbSet<Grade> Grades { get; set; }
         public DbSet<StudentGrade> StudentGrades { get; set; }
-        public DbSet<ClassDay> ClassDays { get; set; }
         public DbSet<StudentPresence> StudentPresences { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

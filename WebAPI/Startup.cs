@@ -16,9 +16,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using WebAPI;
 using Microsoft.IdentityModel.Tokens;
-using Domain.ClassDays;
 using Domain.Parents;
 using Infra.Repositories;
+using Domain.StudentPresences;
 
 namespace TeachProj
 {
@@ -76,6 +76,7 @@ namespace TeachProj
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IClassroomsRepository, ClassroomsRepository>();
             services.AddScoped<IClassroomsService, ClassroomsService>();
+            services.AddScoped<IStudentPresencesRepository, StudentPresencesRepository>();
             services.AddScoped<IParentsRepository, ParentsRepository>();
             services.AddScoped<IParentsService, ParentsService>();
             services.AddScoped<IStudentsRepository, StudentsRepository>();
@@ -84,9 +85,6 @@ namespace TeachProj
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IGradesRepository, GradesRepository>();
             services.AddScoped<IGradesService, GradesService>();
-            services.AddScoped<IClassDaysRepository, ClassDaysRepository>();
-            services.AddScoped<IClassDaysService, ClassDaysService>();
-            services.AddScoped<IStudentPresencesRepository, StudentPresencesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

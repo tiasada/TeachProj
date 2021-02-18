@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Common;
 using Domain.Grades;
+using Domain.StudentPresences;
 using Domain.Students;
 using Domain.Teachers;
 
@@ -13,6 +14,7 @@ namespace Domain.Classrooms
         protected readonly IClassroomsRepository _repository;
         protected readonly IRepository<ClassroomStudent> _classStudentsRepository;
         protected readonly IRepository<ClassroomTeacher> _classTeachersRepository;
+        protected readonly IStudentPresencesRepository _presencesRepository;
         protected readonly IStudentsService _studentsService;
         protected readonly ITeachersService _teachersService;
         protected readonly IGradesRepository _gradesRepository;
@@ -22,6 +24,7 @@ namespace Domain.Classrooms
                                 ITeachersService teachersService,
                                 IRepository<ClassroomStudent> classStudentsRepository,
                                 IRepository<ClassroomTeacher> classTeachersRepository,
+                                IStudentPresencesRepository presencesRepository,
                                 IGradesRepository gradesRepository
                                 ) : base(classroomsRepository)
         {
@@ -30,6 +33,7 @@ namespace Domain.Classrooms
             _teachersService = teachersService;
             _classStudentsRepository = classStudentsRepository;
             _classTeachersRepository = classTeachersRepository;
+            _presencesRepository = presencesRepository;
             _gradesRepository = gradesRepository;
         }
         
@@ -80,6 +84,31 @@ namespace Domain.Classrooms
             classroom.Subjects.Add(subject);
 
             _repository.Modify(classroom);
+
+            return null;
+        }
+
+        public string SetPresences(Guid classId, List<StudentPresence> presences)
+        {
+            var classroom = _repository.Get(x => x.Id == classId);
+            if (classroom == null) { return "Classroom not found"; }
+
+            var foundPresence = _presencesRepository.Get(x => x.ClassroomId == classId);
+            if (foundPresence != null)
+            {
+                foreach(var p in presences)
+                {
+                    var entity = _presencesRepository.Get(x => x.StudentId == p.StudentId && x.ClassroomId == p.ClassroomId);
+                    _presencesRepository.Remove(entity);
+                }
+            }
+            
+            classroom.StudentPresences = presences;
+            
+            foreach(var p in presences)
+            {
+                _presencesRepository.Add(p);
+            }
 
             return null;
         }

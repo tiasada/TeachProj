@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Domain.Teachers;
 using System.Linq;
 using System.Collections.Generic;
-using Domain.ClassDays;
+using Domain.StudentPresences;
+using Domain.Students;
 
 namespace WebAPI.Controllers.Classrooms
 {
@@ -16,14 +17,14 @@ namespace WebAPI.Controllers.Classrooms
     {
         public readonly IClassroomsService _classroomsService;
         public readonly IUsersService _usersService;
-        public readonly IClassDaysService _classDaysService;
         public readonly ITeachersService _teachersService;
-        public ClassroomsController(IUsersService usersService, IClassroomsService classroomsService, IClassDaysService classDaysService, ITeachersService teachersService)
+        public readonly IStudentsService _studentsService;
+        public ClassroomsController(IUsersService usersService, IClassroomsService classroomsService, IStudentsService studentsService, ITeachersService teachersService)
         {
             _classroomsService = classroomsService;
             _usersService = usersService;
-            _classDaysService = classDaysService;
             _teachersService = teachersService;
+            _studentsService = studentsService;
         }
         
         [HttpPost]
@@ -101,20 +102,25 @@ namespace WebAPI.Controllers.Classrooms
         [Authorize(Roles = "Admin, School, Teacher")]
         public IActionResult SetPresences(Guid id, List<SetPresenceRequest> request)
         {
-            var createdDay = _classDaysService.Create(DateTime.Now.Date, id, "");
-            
-            if (!createdDay.IsValid)
+            var presences = new List<StudentPresence>();
+            var classroom = _classroomsService.Get(id);
+
+            foreach (var item in request)
             {
-                return BadRequest(createdDay.Errors);
-            }
-
-            foreach (var item in request){
-                var presenceSet = _classDaysService.SetPresence(createdDay.Id, item.StudentId, item.IsPresent, item.Reason);
-
-                if (presenceSet != null)
+                var student = _studentsService.Get(item.StudentId);
+                if (student == null)
                 {
-                    return BadRequest(presenceSet);
+                    return BadRequest("Student not found");
                 }
+
+                presences.Add(new StudentPresence(classroom, student, item.IsPresent, item.Reason));
+            }
+            
+            var presenceSet = _classroomsService.SetPresences(id, presences);
+
+            if (presenceSet != null)
+            {
+                return BadRequest(presenceSet);
             }
 
             return NoContent();

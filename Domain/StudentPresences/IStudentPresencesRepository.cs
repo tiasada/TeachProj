@@ -1,6 +1,6 @@
 using Domain.Common;
 
-namespace Domain.ClassDays
+namespace Domain.StudentPresences
 {
     public interface IStudentPresencesRepository : IRepository<StudentPresence>
     {

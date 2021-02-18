@@ -1,4 +1,4 @@
-using Domain.ClassDays;
+using Domain.StudentPresences;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,16 +8,12 @@ namespace Infra.Mapping
     {
         public void Configure(EntityTypeBuilder<StudentPresence> builder)
         {
-            builder.HasKey(s => new { s.ClassDayId, s.StudentId });
-
-            builder.Property(s => s.ClassDayId)
+            builder.HasKey(s => new { s.ClassroomId, s.StudentId });
+            
+            builder.Property(s => s.ClassroomId)
                 .IsRequired();
             builder.Property(s => s.StudentId)
                 .IsRequired();
-            builder.Property(s => s.Present)
-                .IsRequired();
-            builder.Property(s => s.Reason)
-                .HasMaxLength(100);
         }
     }
 }

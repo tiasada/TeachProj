@@ -13,7 +13,8 @@ namespace Infra.Repositories
             using (var db = new TeachContext())
             {
                 return db.Classrooms
-                    .Include(x => x.ClassDays)
+                    .IgnoreAutoIncludes()
+                    .Include(x => x.StudentPresences)
                     .Include(x => x.Grades)
                     .Include(x => x.Students).ThenInclude(s => s.Student)
                     .Include(x => x.Teachers).ThenInclude(t => t.Teacher)
@@ -26,7 +27,8 @@ namespace Infra.Repositories
             using (var db = new TeachContext())
             {
                 return db.Classrooms
-                    .Include(x => x.ClassDays)
+                    .IgnoreAutoIncludes()
+                    .Include(x => x.StudentPresences)
                     .Include(x => x.Grades)
                     .Include(x => x.Students).ThenInclude(s => s.Student)
                     .Include(x => x.Teachers).ThenInclude(t => t.Teacher)

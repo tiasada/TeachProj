@@ -13,6 +13,7 @@ namespace Infra.Repositories
             using (var db = new TeachContext())
             {
                 return db.Students
+                    .IgnoreAutoIncludes()
                     .Include(x => x.Parent)
                     .Include(x => x.Classrooms).ThenInclude(c => c.Classroom)
                     .FirstOrDefault(predicate);
@@ -24,6 +25,7 @@ namespace Infra.Repositories
             using (var db = new TeachContext())
             {
                 return db.Students
+                    .IgnoreAutoIncludes()
                     .Include(x => x.Parent)
                     .Include(x => x.Classrooms).ThenInclude(c => c.Classroom)
                     .ToList();
