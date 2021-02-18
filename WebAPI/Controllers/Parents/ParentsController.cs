@@ -63,9 +63,17 @@ namespace WebAPI.Controllers.Parents
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult GetAll()
+        public IActionResult GetAll(string name)
         {
-            return Ok(_parentsService.GetAll().OrderBy(x => x.Name));
+            var parents = _parentsService.GetAll();
+            
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                var transformedName = name.ToLower().Trim();
+                parents = parents.Where(x => x.Name.ToLower().Contains(transformedName));
+            }
+            
+            return Ok(parents.OrderBy(x => x.Name));
         }
     }
 }
