@@ -98,7 +98,7 @@ namespace WebAPI.Controllers.Classrooms
         }
 
         [HttpPost("{id}/presences")]
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Admin, School, Teacher")]
         public IActionResult SetPresences(Guid id, List<SetPresenceRequest> request)
         {
             var createdDay = _classDaysService.Create(DateTime.Now.Date, id, "");
