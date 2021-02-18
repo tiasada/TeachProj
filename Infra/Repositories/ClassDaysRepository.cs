@@ -15,9 +15,24 @@ namespace Infra.Repositories
             _presenceRepository = presenceRepository;
         }
 
+        public override void Add(ClassDay classDay)
+        {
+            using (var db = new TeachContext())
+            {
+                db.Entry(classDay.Classroom).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                db.ClassDays.Add(classDay);
+                db.SaveChanges();
+            }
+        }
+        
         public void SetPresence(StudentPresence studentPresence)
         {
-            _presenceRepository.Add(studentPresence);
+            using (var db = new TeachContext())
+            {
+                // db.Entry(studentPresence.ClassDay.Classroom).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _presenceRepository.Add(studentPresence);
+                db.SaveChanges();
+            }
         }
         
         public override ClassDay Get(Func<ClassDay, bool> predicate)
@@ -25,6 +40,7 @@ namespace Infra.Repositories
             using (var db = new TeachContext())
             {
                 return db.ClassDays
+                    .Include(x => x.Classroom)
                     .Include(x => x.StudentPresences).ThenInclude(s => s.Student)
                     .FirstOrDefault(predicate);
             }
