@@ -167,19 +167,18 @@ namespace WebAPI.Controllers.Classrooms
         [Authorize (Roles = "Admin,School,Teacher")]
         public IActionResult GetByID(Guid id)
         {
-            if (HttpContext.User.IsInRole("Teacher"))
-            {
-                var username = HttpContext.User.Claims.ElementAt(0).Value;
-                var teacher = _teachersService.Get(x => x.CPF == username);
-                if (_classroomsService.GetTeacher(id, teacher.Id) == null)
-                { return Unauthorized("Teacher not assigned to classroom"); }
-            }
-            
             var classroom = _classroomsService.Get(id);
 
             if (classroom == null)
             {
                 return NotFound();
+            }
+            
+            if (HttpContext.User.IsInRole("Teacher"))
+            {
+                var username = HttpContext.User.Claims.ElementAt(0).Value;
+                if (!classroom.Teachers.Any(x => x.Teacher.CPF == username))
+                { return Unauthorized("Teacher not assigned to classroom"); }
             }
 
             return Ok(classroom);

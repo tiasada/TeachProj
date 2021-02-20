@@ -159,9 +159,6 @@ namespace Domain.Classrooms
 
         public Teacher GetTeacher(Guid classId, Guid teacherId)
         {
-            var classroom = _repository.Get(x => x.Id == classId);
-            if (classroom == null) { return null; }
-
             var teacher = _classTeachersRepository.Get(x => x.TeacherId == teacherId && x.ClassroomId == classId);
             if (teacher == null) { return null; }
 
@@ -191,13 +188,13 @@ namespace Domain.Classrooms
             if (teacher == null) { return null; }
 
             var relations = _classTeachersRepository.GetAll(x => x.TeacherId == teacher.Id);
-            IList<Classroom> classrooms = new List<Classroom>();
-            foreach (var item in relations)
-            {
-                classrooms.Add(_repository.Get(x => x.Id == item.ClassroomId));
-            }
+            // IList<Classroom> classrooms = new List<Classroom>();
+            // foreach (var item in relations)
+            // {
+            //     classrooms.Add(_repository.Get(x => x.Id == item.ClassroomId));
+            // }
 
-            return classrooms;
+            return _repository.GetAll(x => relations.Any(y => y.ClassroomId == x.Id)).ToList();
         }
     }
 }
