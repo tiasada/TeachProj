@@ -15,7 +15,6 @@ namespace Infra.Repositories
                 return db.Classrooms
                     .IgnoreAutoIncludes()
                     .Include(x => x.StudentPresences)
-                    .Include(x => x.Grades)
                     .Include(x => x.Students).ThenInclude(s => s.Student)
                     .Include(x => x.Teachers).ThenInclude(t => t.Teacher)
                     .FirstOrDefault(predicate);

@@ -13,7 +13,6 @@ namespace Infra.Repositories
             using (var db = new TeachContext())
             {
                 return db.Teachers
-                    .Include(x => x.Classrooms).ThenInclude(c => c.Classroom)
                     .FirstOrDefault(predicate);
             }
         }
