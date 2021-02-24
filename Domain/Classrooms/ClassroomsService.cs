@@ -110,7 +110,7 @@ namespace Domain.Classrooms
             {
                 _presencesRepository.Add(p);
                 var student = _studentsService.Get(p.StudentId);
-                if (student.ParentId != null)
+                if (p.Present == false && student.Parent.Id != null)
                 {
                     var mailService = new MailService();
                     mailService.Send(MailServices.Templates.TemplateType.Absence, student.Parent);
