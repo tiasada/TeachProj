@@ -75,20 +75,6 @@ namespace Domain.Classrooms
             return null;
         }
 
-        public string AddSubject(Guid id, string subject)
-        {
-            var classroom = _repository.Get(x => x.Id == id);
-            if (classroom == null) { return "Classroom not found"; }
-
-            if (String.IsNullOrEmpty(subject)) { return "Invalid subjects"; }
-
-            classroom.Subjects.Add(subject);
-
-            _repository.Modify(classroom);
-
-            return null;
-        }
-
         public string SetPresences(Guid classId, List<StudentPresence> presences)
         {
             var classroom = _repository.Get(x => x.Id == classId);
@@ -137,14 +123,8 @@ namespace Domain.Classrooms
             if (classroom == null) { return null; }
 
             var relations = _classStudentsRepository.GetAll(x => x.ClassroomId == classroom.Id);
-            // IList<Student> students = new List<Student>();
-            // foreach (var item in relations)
-            // {
-            //     students.Add(_studentsService.Get(x => x.Id == item.StudentId));
-            // }
             
             var students = _studentsService.GetAll(x => relations.Any(y => y.StudentId == x.Id)).ToList();
-            // students = students.Select(x => {x.Classrooms = x.Classrooms.Select(c => { c.Classroom.Students = new List<ClassroomStudent>(); return c;}).ToList(); return x;}).ToList();
 
             return students;
         }
@@ -171,11 +151,6 @@ namespace Domain.Classrooms
             if (classroom == null) { return null; }
 
             var relations = _classTeachersRepository.GetAll(x => x.ClassroomId == classroom.Id);
-            // IList<Teacher> teachers = new List<Teacher>();
-            // foreach (var item in relations)
-            // {
-            //     teachers.Add(_teachersService.Get(x => x.Id == item.TeacherId));
-            // }
 
             var teachers = _teachersService.GetAll(x => relations.Any(y => y.TeacherId == x.Id)).ToList();
 
@@ -188,11 +163,6 @@ namespace Domain.Classrooms
             if (teacher == null) { return null; }
 
             var relations = _classTeachersRepository.GetAll(x => x.TeacherId == teacher.Id);
-            // IList<Classroom> classrooms = new List<Classroom>();
-            // foreach (var item in relations)
-            // {
-            //     classrooms.Add(_repository.Get(x => x.Id == item.ClassroomId));
-            // }
 
             return _repository.GetAll(x => relations.Any(y => y.ClassroomId == x.Id)).ToList();
         }

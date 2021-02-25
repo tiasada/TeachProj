@@ -6,9 +6,9 @@ namespace Domain.Users
 {
     public class User : Entity
     {
-        public Profile Profile { get; protected set; }
-        public string Username { get; protected set; }
-        public string Password { get; protected set; }
+        public Profile Profile { get; private set; }
+        public string Username { get; private set; }
+        public string Password { get; private set; }
 
         public User(Profile profile, string username, string password)
         {

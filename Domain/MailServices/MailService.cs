@@ -9,6 +9,7 @@ namespace Domain.MailServices
 {
     public class MailService
     {
+        //Debug tool, prevents spam during testing
         private bool serviceOn = true;
         
         public void Send(TemplateType templateType, Person receiver)

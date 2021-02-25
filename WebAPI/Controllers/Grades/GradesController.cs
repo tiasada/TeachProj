@@ -49,7 +49,7 @@ namespace WebAPI.Controllers.Grades
             return NoContent();
         }
 
-        [HttpPatch("{id}/close")]
+        [HttpPost("{id}/close")]
         [Authorize(Roles = "School,Teacher")]
         public IActionResult CloseGrade(Guid id)
         {

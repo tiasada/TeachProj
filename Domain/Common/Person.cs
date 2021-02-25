@@ -9,8 +9,8 @@ namespace Domain.Common
         public string Name { get; protected set; }
 
         public string CPF { get; protected set; }
-        public string PhoneNumber { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string PhoneNumber { get; protected set; }
+        public DateTime BirthDate { get; protected set; }
         public string Email { get; protected set; }
 
         protected Person(string name, string cpf, string phoneNumber, DateTime birthDate, string email)

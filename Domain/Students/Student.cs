@@ -10,13 +10,13 @@ namespace Domain.Students
 {
     public class Student : Person
     {
-        public string Registration { get; set; }
+        public string Registration { get; private set; }
         
-        public virtual User User { get; set; }
-        public Guid UserId { get; set; }
+        public virtual User User { get; private set; }
+        public Guid UserId { get; private set; }
         
-        public virtual Parent Parent { get; set; } = null;
-        public Guid? ParentId { get; set; } = null;
+        public virtual Parent Parent { get; private set; } = null;
+        public Guid? ParentId { get; private set; } = null;
         
         public virtual IList<ClassroomStudent> Classrooms { get; set; } = new List<ClassroomStudent>();
         public virtual IList<StudentGrade> StudentGrades { get; set; } = new List<StudentGrade>();

@@ -8,11 +8,11 @@ namespace Domain.Parents
 {
     public class Parent : Person
     {
-        public virtual User User { get; set; }
-        public Guid UserId { get; set; }
+        public virtual User User { get; private set; }
+        public Guid UserId { get; private set; }
 
-        public virtual Student Student { get; set; }
-        public Guid StudentId { get; set; }
+        public virtual Student Student { get; private set; }
+        public Guid StudentId { get; private set; }
         
         public Parent(string name, string cpf, string phoneNumber, DateTime birthDate, string email, Student student) : base(name, cpf, phoneNumber, birthDate, email)
         {

@@ -84,20 +84,6 @@ namespace WebAPI.Controllers.Classrooms
             return NoContent();
         }
 
-        [HttpPost("{id}/subjects")]
-        [Authorize(Roles = "Admin,School")]
-        public IActionResult AddSubject(Guid id, [FromBody]string subject)
-        {
-            var subjectAdded = _classroomsService.AddSubject(id, subject);
-
-            if (subjectAdded != null)
-            {
-                return BadRequest(subjectAdded);
-            }
-
-            return NoContent();
-        }
-
         [HttpPost("{id}/presences")]
         [Authorize(Roles = "Admin, School, Teacher")]
         public IActionResult SetPresences(Guid id, List<SetPresenceRequest> request)

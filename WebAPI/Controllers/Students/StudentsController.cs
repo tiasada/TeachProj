@@ -4,8 +4,6 @@ using Domain.Students;
 using Domain.Users;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
-using System.IO;
-using Microsoft.AspNetCore.Http;
 
 namespace WebAPI.Controllers.Students
 {
@@ -25,11 +23,6 @@ namespace WebAPI.Controllers.Students
         [Authorize(Roles = "School")]
         public IActionResult Create(CreateStudentRequest request)
         {
-            // var ms = new MemoryStream();
-            // request.Picture.CopyTo(ms);
-            // var picture = ms.ToArray();
-            // ms.Dispose();
-
             var response = _studentsService.Create(request.Name, request.CPF, request.PhoneNumber, request.BirthDate, request.Email, request.Registration);
 
             if (!response.IsValid)

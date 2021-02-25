@@ -7,13 +7,13 @@ namespace Domain.StudentPresences
 {
     public class StudentPresence
     {
-        public virtual Classroom Classroom { get; set; }
-        public Guid ClassroomId { get; set; }
-        public virtual Student Student { get; set; }
-        public Guid StudentId { get; set; }
+        public virtual Classroom Classroom { get; private set; }
+        public Guid ClassroomId { get; private set; }
+        public virtual Student Student { get; private set; }
+        public Guid StudentId { get; private set; }
         
-        public bool Present { get; set; }
-        public string Reason { get; set; }
+        public bool Present { get; private set; }
+        public string Reason { get; private set; }
 
         public StudentPresence(Classroom classroom, Student student, bool present = false, string reason = null)
         {

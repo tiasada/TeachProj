@@ -79,26 +79,6 @@ namespace Tests.Domain.Parents
         }
 
         [Fact]
-        public void should_not_create_parent_when_student_already_has_parent()
-        {
-            _parentsRepository.SetupSequence(x => x.Get(It.IsAny<Func<Parent,bool>>()))
-                .Returns(null as Parent)
-                .Returns(null as Parent);
-            
-            mockStudent.ParentId = Guid.NewGuid();
-            _studentsService.Setup(x => x.Get(It.IsAny<Func<Student, bool>>())).Returns(mockStudent);
-            
-            var resp = _parentsService.Create("Jonas Ramos", "61668507005", "47999992222", DateTime.Now, "jonas.ramos@yahoo.com", mockStudent.Registration);
-
-            Assert.False(resp.IsValid);
-
-            _parentsRepository.Verify(
-                x => x.Add(It.IsAny<Parent>()),
-                Times.Never()
-            );
-        }
-
-        [Fact]
         public void should_not_create_parent_when_has_validation_errors()
         {
             var resp = _parentsService.Create("", "", "", DateTime.Now, "", mockStudent.Registration);

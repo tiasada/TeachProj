@@ -1,4 +1,3 @@
-using System;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -29,24 +28,8 @@ namespace WebAPI.Controllers.Users
             return NoContent();
         }
 
-        // [HttpGet("{id}")]
-        // [AllowAnonymous]
-        
-        // public IActionResult GetByID(Guid id)
-        // {
-        //     var user = _usersService.Get(x => x.Id == id);
-
-        //     if (user == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return Ok(user);
-        // }
-
         [HttpGet("{username}")]
         [AllowAnonymous]
-        
         public IActionResult GetByUsername(string username)
         {
             var user = _usersService.Get(x => x.Username == username);
@@ -61,7 +44,6 @@ namespace WebAPI.Controllers.Users
 
         [HttpGet]
         [AllowAnonymous]
-
         public IActionResult GetAll()
         {
             return Ok(_usersService.GetAll());

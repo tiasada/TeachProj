@@ -16,8 +16,6 @@ namespace Domain.Classrooms
 
         string AddTeacher(Guid id, Guid classId);
         
-        string AddSubject(Guid id, string subject);
-
         string SetPresences(Guid classId, List<StudentPresence> presences);
         
         Student GetStudent(Guid classId, Guid studentId);
