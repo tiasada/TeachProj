@@ -80,29 +80,24 @@ namespace Domain.Classrooms
             var classroom = _repository.Get(x => x.Id == classId);
             if (classroom == null) { return "Classroom not found"; }
 
-            var foundPresence = _presencesRepository.Get(x => x.ClassroomId == classId);
-            if (foundPresence != null)
-            {
-                foreach(var p in presences)
-                {
-                    var entity = _presencesRepository.Get(x => x.StudentId == p.StudentId && x.ClassroomId == p.ClassroomId);
-                    _presencesRepository.Remove(entity);
-                }
-            }
-            
-            classroom.StudentPresences = presences;
-            
             foreach(var p in presences)
             {
+                var entity = _presencesRepository.Get(x => x.StudentId == p.StudentId && x.ClassroomId == p.ClassroomId);
+                if (entity != null)
+                {
+                    _presencesRepository.Remove(entity);
+                }
+
                 _presencesRepository.Add(p);
                 var student = _studentsService.Get(p.StudentId);
-                if (p.Present == false && student.Parent.Id != null)
+                if (p.Present == false && student.Parent != null)
                 {
                     var mailService = new MailService();
                     mailService.Send(MailServices.Templates.TemplateType.Absence, student.Parent);
                 }
             }
-
+            
+            classroom.StudentPresences = presences;
             return null;
         }
 
