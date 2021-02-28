@@ -1,6 +1,7 @@
 # **Teach - BackEnd**
 
 Este é o repositório do Back-End do nosso TCC de C# e React do Entra21 (2020);
+[Veja aqui o Front-End...](https://github.com/tiagosada/TeachFront)
 
 Teach é um sistema de gestão escolar, que planeja atender todas as necessidades de uma instituição de ensino, desde gestão interna até acesso e notificações para pais e estudantes, tudo isso de forma simples e intuitiva para qualquer idade e familiaridade com tecnologia.
 
