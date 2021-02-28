@@ -1,25 +1,28 @@
-# Teach - BackEnd
+# **Teach - BackEnd**
 
-## Contatos:
-### Gabrielle Oliveira
-Linkedin: http://linkedin.com/in/gabrielle-yasmin-de-oliveira-76549015b
+Este é o repositório do Back-End do nosso TCC de C# e React do Entra21 (2020);
 
-Whatsapp: (47)98897-5654
+Teach é um sistema de gestão escolar, que planeja atender todas as necessidades de uma instituição de ensino, desde gestão interna até acesso e notificações para pais e estudantes, tudo isso de forma simples e intuitiva para qualquer idade e familiaridade com tecnologia.
 
+---
 
-### Guilherme Kellermann
-Linkedin: https://www.linkedin.com/in/guilherme-kuehl-kellermann-a3717b1a1
+## **Desenvolvedores**:
+### _Gabrielle Oliveira_
+> [Github](https://github.com/Gabi-ziasmin)
+> 
+> [LinkedIn](http://linkedin.com/in/gabrielle-yasmin-de-oliveira-76549015b)
 
-Whatsapp: (47)99170-9154
+### _Guilherme Kellermann_
+> [Github](https://github.com/guilhermekuehl)
+> 
+> [LinkedIn](https://www.linkedin.com/in/guilherme-kuehl-kellermann-a3717b1a1)
 
+### _Iago Grah_
+> [Github](https://github.com/IagoGrah)
+> 
+> [LinkedIn](https://www.linkedin.com/in/IagoGrah)
 
-### Iago Grah
-Linkedin: https://www.linkedin.com/in/IagoGrah
-
-Whatsapp: (47)99771-3321
-
-
-### Tiago da Costa
-Linkedin: https://www.linkedin.com/in/tiagosadacosta
-
-Whatsapp: (47)98423-5586
+### _Tiago da Costa_
+> [Github](https://github.com/tiagosada)
+> 
+> [LinkedIn](https://www.linkedin.com/in/tiagosadacosta)
