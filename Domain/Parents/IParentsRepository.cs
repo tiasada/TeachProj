@@ -1,8 +1,8 @@
 using Domain.Common;
 
-namespace Domain.Students
+namespace Domain.Parents
 {
-    public interface IStudentsRepository : IRepository<Student>
+    public interface IParentsRepository : IRepository<Parent>
     {
     }
 }
